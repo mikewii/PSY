@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include <QStringList>
 
 enum EmoEnum {
@@ -129,5 +128,6 @@ const QStringList EmoLove =
     "Искренность",
     "Дружелюбие",
     "Доброта",
-    "Взаимовыручка"
+    "Взаимовыручка",
+    "Трепет"
 };

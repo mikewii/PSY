@@ -15,7 +15,6 @@ public:
 private:
     QFile       file;
 
-    void makePSY( const QString _text );
     void open( void );
     void close( void );
     void writeEmotion( const QStringList& _list, QFile& _file, int _id );

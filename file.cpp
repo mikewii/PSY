@@ -4,12 +4,10 @@
 
 CFile::CFile()
 {
-    this->open();
 }
 
 CFile::~CFile()
 {
-    this->close();
 }
 
 
@@ -27,6 +25,8 @@ void CFile::writeEmotion( const QStringList& _list, QFile& _file, int _id )
 
 void CFile::append( const QString _text, std::vector<std::pair<EmoEnum, int>> _emoVec )
 {
+    this->open();
+
     if ( !this->file.isOpen() )
         return;
 
@@ -105,6 +105,8 @@ void CFile::append( const QString _text, std::vector<std::pair<EmoEnum, int>> _e
     this->file.write(text, size);
     this->file.write(&nl, sizeof(nl));
     this->file.write(&nl, sizeof(nl));
+
+    this->close();
 }
 
 void CFile::open()
