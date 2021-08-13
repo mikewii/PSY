@@ -81,10 +81,12 @@ bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoS
 
 void CFile::open( void )
 {
-    QDir        dir;
+    QDir    dir;
+    auto    homeDir = dir.homePath();
 
 
-    this->file.setFileName(dir.relativeFilePath("journal.txt"));
+    //this->file.setFileName(dir.relativeFilePath("journal.txt"));
+    this->file.setFileName(homeDir + "/journal.txt");
     this->file.open(QFile::ReadWrite | QFile::Append);
 }
 
