@@ -27,16 +27,28 @@ void MainWindow::on_addButton_clicked()
 
     if ( !tex->toPlainText().isEmpty() )
     {
+        auto date = QDate::currentDate().toString(CFile::fmt);
+        auto time = QTime::currentTime().toString(CFile::fmt);
+
+        bool res = CFile::append(
+                    tex->toPlainText(),
+                    ui->angerCBox->currentIndex(),
+                    ui->fearCBox->currentIndex(),
+                    ui->sadnessCBox->currentIndex(),
+                    ui->joyCBox->currentIndex(),
+                    ui->loveCBox->currentIndex());
+
+        QString success =
+                date + CFile::space +
+                time + CFile::space +
+                CFile::divider + CFile::space +
+                "Запись добавлена успешно!";
 
 
-        CFile::append( tex->toPlainText(),
-                       {{
-                           { EmoEnum::anger,    ui->angerCBox->currentIndex() },
-                           { EmoEnum::fear,     ui->fearCBox->currentIndex() },
-                           { EmoEnum::sadness,  ui->sadnessCBox->currentIndex() },
-                           { EmoEnum::joy,      ui->joyCBox->currentIndex() },
-                           { EmoEnum::love,     ui->loveCBox->currentIndex() }
-                       }});
+        if ( res )
+            ui->statusbar->showMessage(success);
+        else
+            ui->statusbar->showMessage("Ошибка при добавлении записи!");
     }
 }
 

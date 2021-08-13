@@ -1,14 +1,6 @@
 #pragma once
 #include <QStringList>
 
-enum EmoEnum {
-    anger = 0,
-    fear,
-    sadness,
-    joy,
-    love
-};
-
 const QStringList EmoAnger =
 {
     "-----",
@@ -89,7 +81,7 @@ const QStringList EmoJoy =
     "Приподнятость",
     "Оживление",
     "Умиротворение",
-    "Увленение",
+    "Увлечение",
     "Интерес",
     "Забота",
     "Ожидание",

@@ -1,115 +1,85 @@
 #include "file.h"
-#include <QTime>
 #include <QDir>
 
 CFile::CFile()
-{
-}
+{}
 
 CFile::~CFile()
-{
-}
+{}
 
-
-void CFile::writeEmotion( const QStringList& _list, QFile& _file, int _id )
-{
-    const char  space   = ' ';
-
-
-    auto    selection  = _list.at(_id);
-    auto    text       = selection.toUtf8();
-    auto    size       = text.size();
-    _file.write(text, size);
-    _file.write(&space, sizeof(space));
-}
-
-void CFile::append( const QString _text, std::vector<std::pair<EmoEnum, int>> _emoVec )
+/* date time | emotion
+ * text
+ *
+ */
+bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoSadness, int _emoJoy, int _emoLove )
 {
     this->open();
 
     if ( !this->file.isOpen() )
-        return;
+        return false;
 
 
-    QTime       time    = QTime::currentTime();
-    QDate       date    = QDate::currentDate();
-    auto        fmt     = Qt::DateFormat::SystemLocaleDate;
-    const char  space   = ' ';
-    const char  divider = '|';
-    const char  nl      = '\n';
-
-    /* date time | emotion
-     * text
-     *
-     */
+    QString fulltext;
+    auto    time    = QTime::currentTime();
+    auto    date    = QDate::currentDate();
+    auto    fmt     = Qt::DateFormat::SystemLocaleDate;
 
 
-    // date
-    auto    dateText = date.toString(fmt).toUtf8();
-    auto    dateSize = dateText.size();
-    this->file.write(dateText, dateSize);
-    this->file.write(&space, sizeof(space));
-
-
-    // time
-    auto    timeText = time.toString(fmt).toUtf8();
-    auto    timeSize = timeText.size();
-    this->file.write(timeText, timeSize);
-    this->file.write(&space, sizeof(space));
-    this->file.write(&divider, sizeof(divider));
-    this->file.write(&space, sizeof(space));
+    // date time
+    fulltext += date.toString(fmt);
+    fulltext += space;
+    fulltext += time.toString(fmt);
+    fulltext += space;
+    fulltext += divider;
 
 
     // emotion
-    for ( auto& emo : _emoVec )
+    if ( _emoAnger != 0 )
     {
-        if ( emo.second != 0 )
-        {
-            switch(emo.first)
-            {
-            case EmoEnum::anger:
-            {
-                this->writeEmotion(EmoAnger, this->file, emo.second);
-                break;
-            }
-            case EmoEnum::fear:
-            {
-                this->writeEmotion(EmoFear, this->file, emo.second);
-                break;
-            }
-            case EmoEnum::sadness:
-            {
-                this->writeEmotion(EmoSadness, this->file, emo.second);
-                break;
-            }
-            case EmoEnum::joy:
-            {
-                this->writeEmotion(EmoJoy, this->file, emo.second);
-                break;
-            }
-            case EmoEnum::love:
-            {
-                this->writeEmotion(EmoLove, this->file, emo.second);
-                break;
-            }
-            default:break;
-            };
-        }
+        fulltext += space;
+        fulltext += EmoAnger.at(_emoAnger);
     }
-    this->file.write(&nl, sizeof(nl));
+    if ( _emoFear != 0 )
+    {
+        fulltext += space;
+        fulltext += EmoFear.at(_emoFear);
+    }
+    if ( _emoSadness != 0 )
+    {
+        fulltext += space;
+        fulltext += EmoSadness.at(_emoSadness);
+    }
+    if ( _emoJoy != 0 )
+    {
+        fulltext += space;
+        fulltext += EmoJoy.at(_emoJoy);
+    }
+    if ( _emoLove != 0 )
+    {
+        fulltext += space;
+        fulltext += EmoLove.at(_emoLove);
+    }
+
+    fulltext += nl;
 
 
     // text
-    auto    text = _text.toUtf8();
+    fulltext += _text;
+    fulltext += nl;
+    fulltext += nl;
+
+
+    // write
+    auto    text = fulltext.toUtf8();
     auto    size = text.size();
     this->file.write(text, size);
-    this->file.write(&nl, sizeof(nl));
-    this->file.write(&nl, sizeof(nl));
 
     this->close();
+
+    return true;
 }
 
-void CFile::open()
+void CFile::open( void )
 {
     QDir        dir;
 
@@ -118,7 +88,7 @@ void CFile::open()
     this->file.open(QFile::ReadWrite | QFile::Append);
 }
 
-void CFile::close()
+void CFile::close( void )
 {
     if ( this->file.isOpen() )
         this->file.close();
