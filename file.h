@@ -4,6 +4,10 @@
 #include <QTime>
 #include "Emotion.hpp"
 
+/* date time | emotion
+ * text
+ *
+ */
 
 class CFile
 {
@@ -15,14 +19,13 @@ public:
 
 
     CFile();
-    ~CFile();
 
     bool append( const QString& _text, int _emoAnger, int _emoFear, int _emoSadness, int _emoJoy, int _emoLove );
 
 private:
     QFile       file;
 
-    void open( void );
+    bool open( void );
     void close( void );
 
 };

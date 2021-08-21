@@ -10,12 +10,15 @@ CONFIG += c++11
 
 SOURCES += \
     file.cpp \
+    japanese.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Emotion.hpp \
+    Kana.hpp \
     file.h \
+    japanese.hpp \
     mainwindow.h
 
 FORMS += \

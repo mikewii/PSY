@@ -2,20 +2,13 @@
 #include <QDir>
 
 CFile::CFile()
-{}
+{
+    this->file.setFileName(QDir::homePath() + QDir::separator() + "journal.txt");
+}
 
-CFile::~CFile()
-{}
-
-/* date time | emotion
- * text
- *
- */
 bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoSadness, int _emoJoy, int _emoLove )
 {
-    this->open();
-
-    if ( !this->file.isOpen() )
+    if ( !this->open() )
         return false;
 
 
@@ -64,6 +57,7 @@ bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoS
 
 
     // text
+    fulltext += ":> ";
     fulltext += _text;
     fulltext += nl;
     fulltext += nl;
@@ -79,15 +73,9 @@ bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoS
     return true;
 }
 
-void CFile::open( void )
+bool CFile::open( void )
 {
-    QDir    dir;
-    auto    homeDir = dir.homePath();
-
-
-    //this->file.setFileName(dir.relativeFilePath("journal.txt"));
-    this->file.setFileName(homeDir + "/journal.txt");
-    this->file.open(QFile::ReadWrite | QFile::Append);
+    return this->file.open(QFile::Append);
 }
 
 void CFile::close( void )
