@@ -19,7 +19,7 @@ public:
     void updateHTMLFontSize( void );
 
 private slots:
-    void notify( QString _text );
+    void notify( QString _text, int _timeoutSec = 10 );
     void on_addButton_clicked();
 
     void on_generateJPN_clicked();

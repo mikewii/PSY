@@ -24,7 +24,7 @@ public:
 
 
 signals:
-    void notifySettings( QString _text);
+    void notifySettings( QString _text, int _timeoutSec = 10 );
 
 
 private slots:
@@ -36,7 +36,6 @@ private:
     Ui::Settings    *ui;
     QFile           file;
     QString         __magic       = "PSY0";
-    QString         __timestamp   = __TIMESTAMP__;
     Japanese::Flags __flags;
 
     void applySettings( void );

@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->settingsUi = new Settings(this);
 
 
-    connect(this->settingsUi, SIGNAL(notifySettings(QString)), this, SLOT(notify(QString)));
+    connect(this->settingsUi, SIGNAL(notifySettings(QString, int)), this, SLOT(notify(QString, int)));
 }
 
 MainWindow::~MainWindow()
@@ -40,9 +40,9 @@ void MainWindow::updateHTMLFontSize()
     this->ui->comparedText->setHtml(html);
 }
 
-void MainWindow::notify( QString _text )
+void MainWindow::notify( QString _text, int _timeoutSec )
 {
-    this->ui->statusbar->showMessage(_text, 1000 * 10);
+    this->ui->statusbar->showMessage(_text, 1000 * _timeoutSec);
 }
 
 

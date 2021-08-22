@@ -54,7 +54,7 @@ void Settings::saveSettings()
         Japanese::Flags flags = Settings::getSettingsJPN();
 
 
-        header += this->__magic + this->__timestamp;
+        header += this->__magic + __timestamp;
 
         data.reserve(sizeof(u32) + sizeof(Japanese::Flags));
 
@@ -91,15 +91,15 @@ bool Settings::loadSettings()
 
         // timestamp
         this->file.seek(this->__magic.size());
-        auto timestamp = this->file.read(this->__timestamp.size());
-        if ( this->__timestamp.compare(timestamp, Qt::CaseSensitive) != 0 )
+        auto timestamp = this->file.read(__timestamp.size());
+        if ( __timestamp.compare(timestamp, Qt::CaseSensitive) != 0 )
         {
             this->file.close();
             return false;
         }
 
         // reading flags
-        this->file.seek(this->__magic.size() + this->__timestamp.size() + sizeof(u32));
+        this->file.seek(this->__magic.size() + __timestamp.size() + sizeof(u32));
         this->file.read(this->__flags.raw_byte, sizeof(Japanese::Flags));
 
         this->file.close();

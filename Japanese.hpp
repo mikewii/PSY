@@ -6,9 +6,13 @@ typedef uint32_t u32;
 typedef uint64_t u64;
 typedef uint8_t  u8;
 
+// https://gcc.gnu.org/onlinedocs/cpp/Common-Predefined-Macros.html#Common-Predefined-Macros
+static const QString __timestamp = __TIMESTAMP__;
+
 class Japanese
 {
 public:
+
     union Flags {
         using size = u64;
 
