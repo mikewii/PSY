@@ -9,7 +9,7 @@
  *
  */
 
-class CFile
+class Journal
 {
 public:
     static const auto   fmt     = Qt::DateFormat::SystemLocaleDate;
@@ -17,10 +17,18 @@ public:
     static const char   divider = '|';
     static const char   nl      = '\n';
 
+    struct Emotion {
+        int Anger;
+        int Fear;
+        int Sadness;
+        int Joy;
+        int Love;
+    };
 
-    CFile();
 
-    bool append( const QString& _text, int _emoAnger, int _emoFear, int _emoSadness, int _emoJoy, int _emoLove );
+    Journal();
+
+    bool append( const QString& _text, const Emotion _emotion );
 
 private:
     QFile       file;

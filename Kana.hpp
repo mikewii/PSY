@@ -1,24 +1,22 @@
 #pragma once
-#include <QChar>
 #include <QStringList>
-#include <array>
 #include <vector>
 
 
 enum Phonetics {
-    C           = 1 << 0,      // consonant   согласная
-    V           = 1 << 1,      // vowel       гласная
+    C           = 1 << 0,   // consonant   согласная
+    V           = 1 << 1,   // vowel       гласная
     SmallTSU    = 1 << 2,
     N           = 1 << 3,
 
-    CV = C | V       // consonant + vowel
+    CV = C | V              // consonant + vowel
 };
 
 enum SymbolEnum {
     Hiragana = 0,
-    Katakana = 1,
-    PhoneticsENG = 2,
-    PhoneticsRUS = 3
+    Katakana,
+    PhoneticsENG,
+    PhoneticsRUS
 };
 
 struct Symbol {
@@ -28,7 +26,7 @@ struct Symbol {
 
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}
 static Symbol   LongConsonant   = {Phonetics::SmallTSU, {"っ", "ッ", "", ""}};
-static Symbol   NN              = {Phonetics::N, {"ん", "ン", "n", "н"}};
+static Symbol   NN              = {Phonetics::N, {"ん", "ン", "nn", "нн"}};
 
 static QString  shi_eng = "shi";    // si
 static QString  shi_rus = "ши";     // си

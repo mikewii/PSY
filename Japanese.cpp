@@ -1,4 +1,4 @@
-#include "japanese.hpp"
+#include "Japanese.hpp"
 #include <random>
 #include <time.h>
 
@@ -55,11 +55,10 @@ u32 Japanese::removeTriplets( QString& _text )
     return pos.size();
 }
 
-void Japanese::generate( Flags _flags, u32 _maxSymbols )
+void Japanese::generate( const Flags _flags )
 {
     std::vector<Symbol>     symWord;
     std::vector<Symbol>     symList;
-    QStringList             strList;
     u32                     wordLengthMax;
 
 // triplets leftovers
@@ -70,9 +69,9 @@ void Japanese::generate( Flags _flags, u32 _maxSymbols )
     this->__strings.clear();
     this->makeSymVec(symList, _flags);
 
-    if ( _flags.maxSymbolsRandom )
-        wordLengthMax = this->getRandom(1, _maxSymbols);
-    else wordLengthMax = _maxSymbols;
+    if ( _flags.wordLengthRandom )
+        wordLengthMax = this->getRandom(1, _flags.wordLengthLimit);
+    else wordLengthMax = _flags.wordLength;
 
 
     u32     wordLengthCurrent   = 0;
@@ -128,21 +127,21 @@ void Japanese::generate( Flags _flags, u32 _maxSymbols )
 
 QString Japanese::check( const QString& _in, SymbolEnum _selected ) const
 {
-    static const QString green  = "<span style=' color:#00cc00;'>";
-    static const QString red    = "<span style=' color:#cc0000;'>";
-    static const QString end    = "</span>";
+    static const QString    green  = "<span style='color:#00cc00;'>";
+    static const QString    red    = "<span style='color:#cc0000;'>";
+    static const QString    close  = "</span>";
+
 
     QString         out;
     const QString&  str = this->getString(_selected);
-
 
     for ( int i = 0; i < _in.size(); i++ )
     {
         if ( _in.at(i) != str.at(i) )
         {
-            out += red + _in.at(i) + end;
+            out += red + _in.at(i) + close;
         }
-        else out += green + _in.at(i) + end;
+        else out += green + _in.at(i) + close;
     }
 
     return out;
@@ -179,11 +178,11 @@ u32 Japanese::getRandom( u32 _min, u32 _max )
     return (uniform(rng));
 }
 
-void Japanese::makeSymVec( std::vector<Symbol>& _symVec, Flags& _flags )
+void Japanese::makeSymVec( std::vector<Symbol>& _symVec, const Flags& _flags )
 {
     this->addColumn(_symVec, Column1);
 
-    if ( _flags.longConsonants )    this->addSymbol(_symVec, LongConsonant );
+    if ( _flags.longConsonant )    this->addSymbol(_symVec, LongConsonant );
     if ( _flags.nn )                this->addSymbol(_symVec, NN );
     if ( _flags.col2_k ) this->addColumn(_symVec, Column2_K );
     if ( _flags.col2_g ) this->addColumn(_symVec, Column2_G );

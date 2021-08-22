@@ -1,12 +1,12 @@
-#include "file.h"
+#include "Journal.hpp"
 #include <QDir>
 
-CFile::CFile()
+Journal::Journal()
 {
     this->file.setFileName(QDir::homePath() + QDir::separator() + "journal.txt");
 }
 
-bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoSadness, int _emoJoy, int _emoLove )
+bool Journal::append( const QString& _text, const Emotion _emotion )
 {
     if ( !this->open() )
         return false;
@@ -27,30 +27,30 @@ bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoS
 
 
     // emotion
-    if ( _emoAnger != 0 )
+    if ( _emotion.Anger != 0 )
     {
         fulltext += space;
-        fulltext += EmoAnger.at(_emoAnger);
+        fulltext += EmoAnger.at(_emotion.Anger);
     }
-    if ( _emoFear != 0 )
+    if ( _emotion.Fear != 0 )
     {
         fulltext += space;
-        fulltext += EmoFear.at(_emoFear);
+        fulltext += EmoFear.at(_emotion.Fear);
     }
-    if ( _emoSadness != 0 )
+    if ( _emotion.Sadness != 0 )
     {
         fulltext += space;
-        fulltext += EmoSadness.at(_emoSadness);
+        fulltext += EmoSadness.at(_emotion.Sadness);
     }
-    if ( _emoJoy != 0 )
+    if ( _emotion.Joy != 0 )
     {
         fulltext += space;
-        fulltext += EmoJoy.at(_emoJoy);
+        fulltext += EmoJoy.at(_emotion.Joy);
     }
-    if ( _emoLove != 0 )
+    if ( _emotion.Love != 0 )
     {
         fulltext += space;
-        fulltext += EmoLove.at(_emoLove);
+        fulltext += EmoLove.at(_emotion.Love);
     }
 
     fulltext += nl;
@@ -73,12 +73,12 @@ bool CFile::append( const QString& _text, int _emoAnger, int _emoFear, int _emoS
     return true;
 }
 
-bool CFile::open( void )
+bool Journal::open( void )
 {
     return this->file.open(QFile::Append);
 }
 
-void CFile::close( void )
+void Journal::close( void )
 {
     if ( this->file.isOpen() )
         this->file.close();
