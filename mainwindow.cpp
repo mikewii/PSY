@@ -40,9 +40,9 @@ void MainWindow::updateHTMLFontSize()
     this->ui->comparedText->setHtml(html);
 }
 
-void MainWindow::notify(QString _text)
+void MainWindow::notify( QString _text )
 {
-    this->ui->statusbar->showMessage(_text, 10);
+    this->ui->statusbar->showMessage(_text, 1000 * 10);
 }
 
 
