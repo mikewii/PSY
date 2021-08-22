@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->settingsUi = new Settings(this);
 
 
-    connect(this->settingsUi, SIGNAL(notifyOnError(QString)), this, SLOT(notify(QString)));
+    connect(this->settingsUi, SIGNAL(notifySettings(QString)), this, SLOT(notify(QString)));
 }
 
 MainWindow::~MainWindow()
