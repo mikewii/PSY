@@ -6,10 +6,11 @@
 enum Phonetics {
     C           = 1 << 0,   // consonant   согласная
     V           = 1 << 1,   // vowel       гласная
-    SmallTSU    = 1 << 2,
-    N           = 1 << 3,
+    CV          = 1 << 2,   // consonant + vowel
+    SmallTSU    = 1 << 3,
+    N           = 1 << 4,
 
-    CV = C | V              // consonant + vowel
+    NONE        = 1 << 7
 };
 
 enum SymbolEnum {
@@ -20,12 +21,14 @@ enum SymbolEnum {
 };
 
 struct Symbol {
-    const Phonetics phonetic;
-    QStringList     text;
+    Phonetics   phonetics;
+    QStringList text;
 };
+using SymVec = std::vector<Symbol>;
 
+static const QChar DoubleVowelSign = ':';
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}
-static Symbol   LongConsonant   = {Phonetics::SmallTSU, {"っ", "ッ", "", ""}};
+static Symbol   LongConsonant   = {Phonetics::SmallTSU, {"っ", "ッ", "|", "|"}};
 static Symbol   NN              = {Phonetics::N, {"ん", "ン", "nn", "нн"}};
 
 static QString  shi_eng = "shi";    // si

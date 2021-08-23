@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->settingsUi = new Settings(this);
 
 
-    connect(this->settingsUi, SIGNAL(notifySettings(QString, int)), this, SLOT(notify(QString, int)));
+    connect(this->settingsUi, SIGNAL(notifySettings(QString,int)), this, SLOT(notify(QString,int)));
 }
 
 MainWindow::~MainWindow()
@@ -113,18 +113,11 @@ void MainWindow::on_generateJPN_clicked()
 
 void MainWindow::on_checkJPN_clicked()
 {
-    const auto& first   = this->ui->generatedText->toPlainText();
-    const auto& second  = this->ui->inputJPN->text();
+    const auto& word = this->ui->inputJPN->text();
 
-    if ( first.size() != second.size() )
-    {
-        this->ui->comparedText->setText("Word size is different!");
-        this->notify("Японский: разный размер слова!");
-        return;
-    }
 
     auto selection  = this->ui->cbox_check_selection_JPN->currentIndex();
-    auto out = Japanese::check(second, SymbolEnum(selection));
+    auto out        = Japanese::check(word, SymbolEnum(selection));
 
     this->ui->comparedText->setText(out);
     this->updateHTMLFontSize();

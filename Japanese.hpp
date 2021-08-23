@@ -23,6 +23,7 @@ public:
             size wordLengthLimit : 8;
             size wordLengthRandom : 1;
             size preventTriplets : 1;
+            size multipleColumn : 1;
 
             size col2_k : 1;
             size col2_g : 1;
@@ -37,6 +38,10 @@ public:
 
             size longConsonant : 1;
             size nn : 1;
+
+            // phonetics settings
+            size useDoubleVowelSign : 1;
+            size useoi : 1;
         };
     };
 
@@ -49,18 +54,29 @@ public:
     QString getString( SymbolEnum _selected ) const;
 
 private:
-    QStringList     __strings;
-
+    Flags       __flags;
+    QStringList __strings;
+    SymVec*     __symList;
+    SymVec      __word;
 
     // random
-    void initRandomEngine( void );
-    u32  getRandom( u32 _min, u32 _max );
+    void    initRandomEngine( void );
+    u32     getRandom( u32 _min, u32 _max );
+    Symbol  getRandomSym( Phonetics _restricted = NONE );
 
 
-    void addColumn( std::vector<Symbol>& _symList, std::vector<Symbol>& _col );
-    void addSymbol( std::vector<Symbol>& _symList, Symbol& _sym );
-    void makeSymVec( std::vector<Symbol>& _symVec, const Flags& _flags );
+    void addColumn( SymVec& _symVec, SymVec& _col );
+    void addSymbol( SymVec& _symVec, Symbol& _sym );
+    void makeSymVec( SymVec& _symVec );
 
-    u32  removeTriplets( QString& _text );
+    void generateSymWord( void );
+
+    // grammar functions
+    void grammarSmallTsu( void );
+    void grammarNN( void );
+    void grammarRemoveTriplets( void );
+
+    // phonetics functions
+    QString     makePhonetics( SymbolEnum _phonetics );
 
 };

@@ -29,6 +29,7 @@ Japanese::Flags Settings::getSettingsJPN() const
     flags.wordLengthLimit       = ui->wordLengthJPN->maximum();
     flags.wordLengthRandom      = ui->randomWordLengthJPN->isChecked();
     flags.preventTriplets       = ui->check_preventTripletsJPN->isChecked();
+
     flags.col2_k                = ui->check_col2_k->isChecked();
     flags.col2_g                = ui->check_col2_g->isChecked();
     flags.col3_s                = ui->check_col3_s->isChecked();
@@ -39,8 +40,24 @@ Japanese::Flags Settings::getSettingsJPN() const
     flags.col6_h                = ui->check_col6_h->isChecked();
     flags.col6_b                = ui->check_col6_b->isChecked();
     flags.col6_p                = ui->check_col6_p->isChecked();
-    flags.longConsonant        = ui->check_longConsonant->isChecked();
+
+    flags.longConsonant         = ui->check_longConsonant->isChecked();
     flags.nn                    = ui->check_nn->isChecked();
+
+    flags.useDoubleVowelSign        = ui->check_doubleVowelsPho->isChecked();
+    flags.useoi                 = ui->check_oiPho->isChecked();
+
+    if ( flags.col2_k ||
+         flags.col2_g ||
+         flags.col3_s ||
+         flags.col3_z ||
+         flags.col4_t ||
+         flags.col4_d ||
+         flags.col5_n ||
+         flags.col6_h ||
+         flags.col6_b ||
+         flags.col6_p )
+        flags.multipleColumn = true;
 
     return flags;
 }
@@ -152,5 +169,8 @@ void Settings::applySettings()
 
     ui->check_longConsonant->setChecked(f.longConsonant);
     ui->check_nn->setChecked(f.nn);
+
+    ui->check_doubleVowelsPho->setChecked(f.useDoubleVowelSign);
+    ui->check_oiPho->setChecked(f.useoi);
 }
 

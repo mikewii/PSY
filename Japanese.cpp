@@ -5,146 +5,68 @@
 
 static std::mt19937 rng;
 
+
 Japanese::Japanese()
 {
     this->initRandomEngine();
 }
 
-u32 Japanese::removeTriplets( QString& _text )
+void Japanese::generateSymWord( void )
 {
-    std::vector<int>    pos;
-
-    // find
-    for ( int i = 0; i < _text.size(); i++ )
-    {
-        u32 hit = 0;
-        const auto& ch = _text.at(i);
+    u32 wordLengthMax;
+    u32 wordLengthCurrent = 0;
 
 
-        for ( int j = 0; j < _text.size(); j++ )
-        {
-            const auto& ch2 = _text.at(j);
-
-            if ( ch2 == ch ) ++hit;
-            if ( hit > 2 )
-            {
-                bool fine = true;
-
-                for ( auto& element : pos )
-                {
-                    if ( j == element ) fine = false;
-                }
-
-                if ( fine) pos.push_back(j);
-                --hit;
-            }
-        }
-    }
+    if ( this->__flags.wordLengthRandom )
+        wordLengthMax = this->getRandom(1, this->__flags.wordLengthLimit);
+    else wordLengthMax = this->__flags.wordLength;
 
 
-    if ( !pos.empty() )
-        std::sort(pos.begin(), pos.end(), [](int a, int b) { return a > b; });
-
-
-    //remove triplets
-    for ( auto& i : pos )
-    {
-        _text.remove(i, 1);
-    }
-
-    return pos.size();
-}
-
-void Japanese::generate( const Flags _flags )
-{
-    std::vector<Symbol>     symWord;
-    std::vector<Symbol>     symList;
-    u32                     wordLengthMax;
-
-// triplets leftovers
-//    u32         symbolsLeft = 0;
-//    int         tripletsMinSymbolsLimit = _flags.maxLength / 2;
-
-
-    this->__strings.clear();
-    this->makeSymVec(symList, _flags);
-
-    if ( _flags.wordLengthRandom )
-        wordLengthMax = this->getRandom(1, _flags.wordLengthLimit);
-    else wordLengthMax = _flags.wordLength;
-
-
-    u32     wordLengthCurrent   = 0;
-    bool    nextIsCV            = false;
     for(;;)
     {
         if ( wordLengthCurrent == wordLengthMax ) break;
 
-        u32     rand        = this->getRandom(0, symList.size() - 1);
-        Symbol& selected    = symList.at(rand);
+        this->__word.push_back(this->getRandomSym());
 
-
-        if ( nextIsCV ) // smallTsu follows with consonant
-        {
-            if ( selected.phonetic != Phonetics::CV ) continue;
-            else nextIsCV = false;
-        }
-
-        if ( selected.phonetic == LongConsonant.phonetic  ) // smallTsu cant be at begining or end of word
-        {
-            if ( wordLengthMax > 2 )
-            {
-                if ( wordLengthCurrent == 0 ) continue;
-                if ( wordLengthCurrent + 1 == wordLengthMax ) continue;
-
-                nextIsCV = true;
-            }
-        }
-
-        if ( selected.phonetic == NN.phonetic ) // N only at end of word
-        {
-            if ( wordLengthCurrent + 1 != wordLengthMax ) continue;
-            if ( wordLengthMax == 1 ) continue;
-        }
-
-
-        symWord.push_back(selected);
         ++wordLengthCurrent;
     }
+}
 
-
+void Japanese::generate( const Flags _flags )
+{
     QString hiragana, katakana, phonetics_eng, phonetics_rus;
-    for ( auto& sym : symWord )
+    auto&   symList = *(this->__symList = new SymVec);
+
+
+    this->__flags = _flags;
+
+    this->__word.clear();
+    this->__strings.clear();
+    this->makeSymVec(symList);
+    this->__symList = &symList;
+
+
+    /* generator */ this->generateSymWord();
+    /* generator */
+    /* generator */ this->grammarNN();
+    /* generator */ this->grammarSmallTsu();
+    /* generator */ this->grammarRemoveTriplets();
+
+    delete this->__symList;
+
+    for ( auto& sym : this->__word )
     {
         hiragana += sym.text.at(Hiragana);
         katakana += sym.text.at(Katakana);
-
     }
+
+    phonetics_eng = this->makePhonetics(PhoneticsENG);
+    phonetics_rus = this->makePhonetics(PhoneticsRUS);
 
     this->__strings.push_back(hiragana);
     this->__strings.push_back(katakana);
-}
-
-QString Japanese::check( const QString& _in, SymbolEnum _selected ) const
-{
-    static const QString    green  = "<span style='color:#00cc00;'>";
-    static const QString    red    = "<span style='color:#cc0000;'>";
-    static const QString    close  = "</span>";
-
-
-    QString         out;
-    const QString&  str = this->getString(_selected);
-
-    for ( int i = 0; i < _in.size(); i++ )
-    {
-        if ( _in.at(i) != str.at(i) )
-        {
-            out += red + _in.at(i) + close;
-        }
-        else out += green + _in.at(i) + close;
-    }
-
-    return out;
+    this->__strings.push_back(phonetics_eng);
+    this->__strings.push_back(phonetics_rus);
 }
 
 QString Japanese::getString( SymbolEnum _selected ) const
@@ -153,15 +75,15 @@ QString Japanese::getString( SymbolEnum _selected ) const
     else return this->__strings.at(_selected);
 }
 
-void Japanese::addColumn( std::vector<Symbol>& _symList, std::vector<Symbol>& _col )
+void Japanese::addColumn( SymVec& _symVec, std::vector<Symbol>& _col )
 {
     for ( auto& sym : _col )
-        _symList.push_back(sym);
+        _symVec.push_back(sym);
 }
 
-void Japanese::addSymbol( std::vector<Symbol>& _symList, Symbol& _sym )
+void Japanese::addSymbol( SymVec& _symVec, Symbol& _sym )
 {
-    _symList.push_back(_sym);
+    _symVec.push_back(_sym);
 }
 
 void Japanese::initRandomEngine()
@@ -178,20 +100,40 @@ u32 Japanese::getRandom( u32 _min, u32 _max )
     return (uniform(rng));
 }
 
-void Japanese::makeSymVec( std::vector<Symbol>& _symVec, const Flags& _flags )
+Symbol Japanese::getRandomSym( Phonetics _restricted )
 {
+    if ( _restricted != Phonetics::NONE )
+    {
+        for(;;)
+        {
+            auto rand   = this->getRandom(0, this->__symList->size() - 1);
+            auto sym    = this->__symList->at(rand);
+
+            if ( _restricted & sym.phonetics ) return sym;
+        }
+    }
+
+    auto rand = this->getRandom(0, this->__symList->size() - 1);
+    return this->__symList->at(rand);
+}
+
+void Japanese::makeSymVec( SymVec& _symVec )
+{
+    auto& flags = this->__flags;
+
+
     this->addColumn(_symVec, Column1);
 
-    if ( _flags.longConsonant )    this->addSymbol(_symVec, LongConsonant );
-    if ( _flags.nn )                this->addSymbol(_symVec, NN );
-    if ( _flags.col2_k ) this->addColumn(_symVec, Column2_K );
-    if ( _flags.col2_g ) this->addColumn(_symVec, Column2_G );
-    if ( _flags.col3_s ) this->addColumn(_symVec, Column3_S );
-    if ( _flags.col3_z ) this->addColumn(_symVec, Column3_Z );
-    if ( _flags.col4_t ) this->addColumn(_symVec, Column4_T );
-    if ( _flags.col4_d ) this->addColumn(_symVec, Column4_D );
-    if ( _flags.col5_n ) this->addColumn(_symVec, Column5_N );
-    if ( _flags.col6_h ) this->addColumn(_symVec, Column6_H );
-    if ( _flags.col6_b ) this->addColumn(_symVec, Column6_B );
-    if ( _flags.col6_p ) this->addColumn(_symVec, Column6_P );
+    if ( flags.longConsonant ) this->addSymbol(_symVec, LongConsonant );
+    if ( flags.nn )            this->addSymbol(_symVec, NN );
+    if ( flags.col2_k ) this->addColumn(_symVec, Column2_K );
+    if ( flags.col2_g ) this->addColumn(_symVec, Column2_G );
+    if ( flags.col3_s ) this->addColumn(_symVec, Column3_S );
+    if ( flags.col3_z ) this->addColumn(_symVec, Column3_Z );
+    if ( flags.col4_t ) this->addColumn(_symVec, Column4_T );
+    if ( flags.col4_d ) this->addColumn(_symVec, Column4_D );
+    if ( flags.col5_n ) this->addColumn(_symVec, Column5_N );
+    if ( flags.col6_h ) this->addColumn(_symVec, Column6_H );
+    if ( flags.col6_b ) this->addColumn(_symVec, Column6_B );
+    if ( flags.col6_p ) this->addColumn(_symVec, Column6_P );
 }

@@ -2733,6 +2733,9 @@
                    <property name="text">
                     <string>Generate</string>
                    </property>
+                   <property name="autoRepeat">
+                    <bool>true</bool>
+                   </property>
                    <property name="autoRepeatDelay">
                     <number>300</number>
                    </property>
