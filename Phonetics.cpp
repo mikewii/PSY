@@ -1,5 +1,44 @@
 #include "Japanese.hpp"
 
+u32 findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
+{
+    const std::vector<const SymVec*> columnsVec =
+    {
+        &Column1,
+        &Column2_K,
+        &Column2_G,
+        &Column3_S,
+        &Column3_Z,
+        &Column4_T,
+        &Column4_D,
+        &Column5_N,
+        &Column6_H,
+        &Column6_B,
+        &Column6_P
+    };
+
+    u32     index   = 0;
+    bool    done    = false;
+
+
+    for ( const auto& col : columnsVec )
+    {
+        for ( u32 i = 0; i < col->size(); i++ )
+        {
+            if ( _sym.text.at(_selected) == col->at(i).text.at(_selected) )
+            {
+                index   = i;
+                done    = true;
+                break;
+            }
+        }
+        if ( done ) break;
+    }
+
+    return index;
+}
+
+
 QString Japanese::makePhonetics( const SymbolEnum _selected ) const
 {
     if ( _selected == Hiragana || _selected == Katakana )
@@ -30,15 +69,18 @@ QString Japanese::makePhonetics( const SymbolEnum _selected ) const
                 if ( f.useDoubleVowelSign )
                 {
                     // if both sym vowel
-                    if ( curSym.phonetics == prevSym.phonetics )
+                    if ( curSym.phonetics == prevSym.phonetics && prevCh != DoubleVowelSign )
                     {
                         // if both sym same
                         if ( curSym.text.at(Hiragana) == prevSym.text.at(Hiragana) )
-                        {
-                            // if previous str isnt double vowel sign
-                            if ( prevCh != DoubleVowelSign )
-                                toAdd = DoubleVowelSign;
-                        }
+                            toAdd = DoubleVowelSign;
+                    }
+                    // if previous is consonant
+                    else if ( prevSym.phonetics == Phonetics::CV )
+                    {
+                        // find out both sym index
+                        if ( findIndex(curSym) == findIndex(prevSym) )
+                            toAdd = DoubleVowelSign;
                     }
                 }
                 // if using oi

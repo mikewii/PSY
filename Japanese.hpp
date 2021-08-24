@@ -79,5 +79,6 @@ private:
     // phonetics functions
     QString     makePhonetics( const SymbolEnum _selected ) const;
     bool        isGoodForOI( const Symbol& _sym ) const;
+    bool        alphabetCheck( const QString& _text, const SymbolEnum _selected ) const;
 
 };

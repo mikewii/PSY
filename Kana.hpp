@@ -41,7 +41,7 @@ static QString  tsu_rus = "цу";     // дзу
 
 
 
-static std::vector<Symbol> Column1 =
+static SymVec Column1 =
 {{
     {Phonetics::V, {"あ", "ア", "a", "а"}},
     {Phonetics::V, {"い", "イ", "i", "и"}},
@@ -50,7 +50,7 @@ static std::vector<Symbol> Column1 =
     {Phonetics::V, {"お", "オ", "o", "о"}}
 }};
 
-static std::vector<Symbol> Column2_K =
+static SymVec Column2_K =
 {{
     {Phonetics::CV, {"か", "カ", "ka", "ка"}},
     {Phonetics::CV, {"き", "キ", "ki", "ки"}},
@@ -59,7 +59,7 @@ static std::vector<Symbol> Column2_K =
     {Phonetics::CV, {"こ", "コ", "ko", "ко"}}
 }};
 
-static std::vector<Symbol> Column2_G =
+static SymVec Column2_G =
 {{
     {Phonetics::CV, {"が", "ガ", "ga", "га"}},
     {Phonetics::CV, {"ぎ", "ギ", "gi", "ги"}},
@@ -68,7 +68,7 @@ static std::vector<Symbol> Column2_G =
     {Phonetics::CV, {"ご", "ゴ", "go", "го"}}
 }};
 
-static std::vector<Symbol> Column3_S =
+static SymVec Column3_S =
 {{
     {Phonetics::CV, {"さ", "サ", "sa", "са"}},
     {Phonetics::CV, {"し", "シ", shi_eng, shi_rus}},
@@ -77,7 +77,7 @@ static std::vector<Symbol> Column3_S =
     {Phonetics::CV, {"そ", "ソ", "so", "со"}}
 }};
 
-static std::vector<Symbol> Column3_Z =
+static SymVec Column3_Z =
 {{
     {Phonetics::CV, {"ざ", "ザ", "za", "дза"}},
     {Phonetics::CV, {"じ", "ジ", "zi", "дзи"}},
@@ -86,7 +86,7 @@ static std::vector<Symbol> Column3_Z =
     {Phonetics::CV, {"ぞ", "ゾ", "zo", "дзо"}}
 }};
 
-static std::vector<Symbol> Column4_T =
+static SymVec Column4_T =
 {{
     {Phonetics::CV, {"た", "タ", "ta", "та"}},
     {Phonetics::CV, {"ち", "チ", chi_eng, chi_rus}},
@@ -95,7 +95,7 @@ static std::vector<Symbol> Column4_T =
     {Phonetics::CV, {"と", "テ", "to", "то"}}
 }};
 
-static std::vector<Symbol> Column4_D =
+static SymVec Column4_D =
 {{
     {Phonetics::CV, {"だ", "ダ", "da", "да"}},
     {Phonetics::CV, {"ぢ", "ヂ", chi_eng, chi_rus}},
@@ -104,7 +104,7 @@ static std::vector<Symbol> Column4_D =
     {Phonetics::CV, {"ど", "ド", "do", "до"}}
 }};
 
-static std::vector<Symbol> Column5_N =
+static SymVec Column5_N =
 {{
     {Phonetics::CV, {"な", "ナ", "na", "на"}},
     {Phonetics::CV, {"に", "ニ", "ni", "ни"}},
@@ -113,7 +113,7 @@ static std::vector<Symbol> Column5_N =
     {Phonetics::CV, {"の", "ノ", "no", "но"}}
 }};
 
-static std::vector<Symbol> Column6_H =
+static SymVec Column6_H =
 {{
     {Phonetics::CV, {"は", "ハ", "ha", "ха"}},
     {Phonetics::CV, {"ひ", "ヒ", "hi", "хи"}},
@@ -122,7 +122,7 @@ static std::vector<Symbol> Column6_H =
     {Phonetics::CV, {"ほ", "ホ", "ho", "хо"}}
 }};
 
-static std::vector<Symbol> Column6_B =
+static SymVec Column6_B =
 {{
     {Phonetics::CV, {"ば", "バ", "ba", "ба"}},
     {Phonetics::CV, {"び", "ビ", "bi", "би"}},
@@ -131,7 +131,7 @@ static std::vector<Symbol> Column6_B =
     {Phonetics::CV, {"ぼ", "ベ", "bo", "бо"}}
 }};
 
-static std::vector<Symbol> Column6_P =
+static SymVec Column6_P =
 {{
     {Phonetics::CV, {"ぱ", "パ", "pa", "па"}},
     {Phonetics::CV, {"ぴ", "ピ", "pi", "пи"}},
