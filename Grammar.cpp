@@ -61,7 +61,7 @@ void Japanese::grammarNN( void )
 
 void Japanese::grammarRemoveTriplets( void )
 {
-    auto inGeneratorLimit   = this->__settings.wordLength >= this->__settings.wordLengthLimit / 2 ;
+    auto inGeneratorLimit   = this->__settings.wordLength / 2 <= this->__symList->size() + 2;
     auto acceptableWordSize = this->__settings.wordLength >= 3;
     if ( !this->__settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
         return;
