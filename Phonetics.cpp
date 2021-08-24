@@ -1,62 +1,43 @@
 #include "Japanese.hpp"
 
-bool isGoodForOI( Symbol& _list )
+QString Japanese::makePhonetics( const SymbolEnum _selected ) const
 {
-    if ( _list.text.at(Hiragana) == Column2_K.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column2_G.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column3_S.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column3_Z.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column4_T.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column4_D.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column5_N.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column6_H.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column6_B.at(4).text.at(Hiragana)) return true;
-    if ( _list.text.at(Hiragana) == Column6_P.at(4).text.at(Hiragana)) return true;
-
-    return false;
-}
-
-QString Japanese::makePhonetics( SymbolEnum _phonetics )
-{
-    if ( _phonetics == Hiragana || _phonetics == Katakana )
+    if ( _selected == Hiragana || _selected == Katakana )
         return "Wrong phonetics!";
 
 
     QString         out;
     auto&           word    = this->__word;
     auto&           f       = this->__flags;
-    const QString&  sym_o   = Column1.at(4).text.at(Hiragana);
     const QString&  sym_i   = Column1.at(1).text.at(Hiragana);
 
 
     for ( u32 i = 0; i < word.size(); i++ )
     {
-        auto& currentSym = word.at(i);
+        auto& curSym = word.at(i);
 
 
-        if ( currentSym.phonetics == Phonetics::V )
+        if ( curSym.phonetics == Phonetics::V )
         {
             // if there is symbol behind
             if ( i != 0 )
             {
-                Symbol&         previousSym = word.at(i - 1);
-                const QChar&    previousCh  = out.at(i - 1);
+                const Symbol&   prevSym = word.at(i - 1);
+                const QChar&    prevCh  = out.at(i - 1);
+                auto            toAdd   = curSym.text.at(_selected);
 
                 // if using double vowel sign
                 if ( f.useDoubleVowelSign )
                 {
                     // if both sym vowel
-                    if ( currentSym.phonetics == previousSym.phonetics )
+                    if ( curSym.phonetics == prevSym.phonetics )
                     {
                         // if both sym same
-                        if ( currentSym.text.at(Hiragana) == previousSym.text.at(Hiragana) )
+                        if ( curSym.text.at(Hiragana) == prevSym.text.at(Hiragana) )
                         {
                             // if previous str isnt double vowel sign
-                            if ( previousCh != DoubleVowelSign )
-                            {
-                                out += DoubleVowelSign;
-                                continue;
-                            }
+                            if ( prevCh != DoubleVowelSign )
+                                toAdd = DoubleVowelSign;
                         }
                     }
                 }
@@ -64,39 +45,35 @@ QString Japanese::makePhonetics( SymbolEnum _phonetics )
                 if ( f.useoi )
                 {
                     // if previous sym is CV
-                    if ( previousSym.phonetics == Phonetics::CV )
+                    if ( prevSym.phonetics == Phonetics::CV )
                     {
                         // if current sym is i and previous is consonant with o
-                        if ( currentSym.text.at(Hiragana) == sym_i && isGoodForOI(previousSym) )
-                        {
-                            out += DoubleVowelSign;
-                            continue;
-                        }
+                        if ( curSym.text.at(Hiragana) == sym_i && this->isGoodForOI(prevSym) )
+                            toAdd = DoubleVowelSign;
                     }
                 }
-                out += currentSym.text.at(_phonetics);
-                continue;
+
+                out += toAdd;
             }
-            out += currentSym.text.at(_phonetics);
-            continue;
+            else out += curSym.text.at(_selected);
         }
 
-        else if ( currentSym.phonetics == Phonetics::CV )
+        else if ( curSym.phonetics == Phonetics::CV )
         {
-            out += currentSym.text.at(_phonetics);
+            out += curSym.text.at(_selected);
         }
 
-        else if ( currentSym.phonetics == Phonetics::N )
+        else if ( curSym.phonetics == Phonetics::N )
         {
-            out += currentSym.text.at(_phonetics);
+            out += curSym.text.at(_selected);
         }
 
         // if its smallTsu and not at the end of word
-        else if ( currentSym.phonetics == Phonetics::SmallTSU && i != word.size() - 1 )
+        else if ( curSym.phonetics == Phonetics::SmallTSU && i + 1 < word.size() )
         {
             QString smallTsu;
 
-            smallTsu = word.at(i + 1).text.at(_phonetics);
+            smallTsu = word.at(i + 1).text.at(_selected);
             smallTsu.truncate(smallTsu.size() - 1);
 
             out += smallTsu;

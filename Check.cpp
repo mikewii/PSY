@@ -14,113 +14,96 @@ QString pushSym( const QString& _symbol, const QString& _wordSym )
     else return makeRedHTML(_symbol);
 }
 
-
-std::pair<QString,bool> makeOI( QString _currentSym, QString _nextSym, QString _wordSym, SymbolEnum _selected )
-{
-    const QString&  sym_i   = Column1.at(1).text.at(_selected);
-    QString         out;
-    bool            skip = false;
-
-    out += pushSym(_currentSym, _wordSym);
-
-    if ( _nextSym == DoubleVowelSign || _nextSym == sym_i )
-        out += makeGreenHTML(_nextSym);
-    else out += makeRedHTML(_nextSym);
-
-    skip = true;
-
-    return {out, skip};
-}
-
-QString makeDoubleVowel( QString _currentSym, QString _nextSym )
-{
-
-}
-
-
-QString Japanese::check( const QString& _in, SymbolEnum _selected ) const
-{
+QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
+{    
     QString         out;
     const QString&  str         = this->getString(_selected);
     auto            isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
-    auto            skip        = false;
-    auto&           word        = this->__word;
-    u32             phVecIndex  = 0;
-    std::vector<std::pair<Phonetics, int>> phoneticsVec;
-
-
-    if ( _in.size() != str.size() )
-        return "Diffrent word size!";
-
-    // construct phonetics vec
-    for ( auto& sym : word )
-    {
-        auto& ph = sym.phonetics;
-
-        phoneticsVec.push_back({ph, phVecIndex});
-
-        phVecIndex += sym.text.at(_selected).size();
-    }
-    phVecIndex = 0;
+    auto&           word        = this->__word;   
 
 
     if ( isPhonetics )
     {
-        for ( int i = 0; i < _in.size();)
+        QStringList     charList;
+        u32             pos = 0;
+
+        // make list of chars from naked string
+        charList.reserve(word.size());
+        for ( const auto& ch : word )
         {
-            QString     currentSym;
-            auto&       ph      = phoneticsVec.at(phVecIndex).first;
-            auto&       wordSym = word.at(phVecIndex).text.at(_selected);
-            auto        phSize  = word.at(phVecIndex).text.at(_selected).size();
+            QString     currentCh;
+            const auto& size = ch.text.at(_selected).size();
+
+            for ( int i = 0; i < size; i++ )
+                currentCh += _in.at(pos + i);
+
+            charList.push_back(currentCh);
+            pos += size;
+        }
 
 
-            for ( int j = 0; j < phSize; j++ )
-                currentSym += _in.at(i + j);
+        for ( u32 i = 0; i < word.size(); i++ )
+        {
+            const auto& curWordSym  = word.at(i);
+            const auto& curWordCh   = word.at(i).text.at(_selected);
+            const auto& curCh       = charList.at(i);
 
-            // find out phonetics vec index
-            if ( i == phoneticsVec.at(phVecIndex).second ) ++phVecIndex;
 
-            if ( skip )
+            if ( curWordSym.phonetics == Phonetics::V )
             {
-                skip    = false;
-                if ( phVecIndex > phoneticsVec.size() - 1 ) break;
-                else i = phoneticsVec.at(phVecIndex).second;
-                continue;
-            }
-
-
-            if ( ph == Phonetics::V )
-            {
-                if ( i > 0 && phoneticsVec.at(phVecIndex - 1).first == Phonetics::V )
+                // if there is char behind
+                if ( i != 0 )
                 {
-                    QString previousSym = _in.at(i - 1);
+                    const Symbol& prevWordSym = word.at(i - 1);
 
 
-                    if ( this->__flags.useDoubleVowelSign && (currentSym == DoubleVowelSign || currentSym == previousSym) )
+                    if ( this->__flags.useDoubleVowelSign && curCh == DoubleVowelSign )
                     {
-                        // do stuff
+                        if ( prevWordSym.phonetics == Phonetics::V )
+                        {
+                            if ( curWordSym.text.at(_selected) == prevWordSym.text.at(_selected) )
+                                out += makeGreenHTML(curCh);
+                            else out += makeRedHTML(curCh);
+
+                            continue;
+                        }
                     }
+                    if ( this->__flags.useoi && curCh == DoubleVowelSign )
+                    {
+                        if ( prevWordSym.phonetics == Phonetics::CV )
+                        {
+                            if ( this->isGoodForOI(prevWordSym) )
+                                out += makeGreenHTML(curCh);
+                            else out += makeRedHTML(curCh);
+
+                            continue;
+                        }
+                    }
+
+                    out += pushSym(curCh, curWordCh);
                 }
-
-                out += pushSym(currentSym, wordSym);
+                else out += pushSym(curCh, curWordCh);
             }
-            else if ( ph == Phonetics::CV )
+            else if ( curWordSym.phonetics == Phonetics::CV )
             {
-                out += pushSym(currentSym, wordSym);
+                out += pushSym(curCh, curWordCh);
             }
-            else if ( ph == Phonetics::N )
+            else if ( curWordSym.phonetics == Phonetics::N )
             {
-                out += pushSym(currentSym, NN.text.at(_selected));
+                out += pushSym(curCh, curWordCh);
             }
-            else if ( ph == Phonetics::SmallTSU )
+            else if ( curWordSym.phonetics == Phonetics::SmallTSU )
             {
-                auto nextSym = _in.at(i + 1);
+                if ( i + 1 < word.size() )
+                {
+                    QString smallTsu;
 
-                out += pushSym(currentSym, nextSym);
+                    smallTsu = charList.at(i + 1);
+                    smallTsu.truncate(smallTsu.size() - 1);
+
+                    out += pushSym(curCh, smallTsu);
+                }
             }
-
-            if ( phVecIndex > phoneticsVec.size() - 1 ) break;
-            else i = phoneticsVec.at(phVecIndex).second;
         }
     }
     else

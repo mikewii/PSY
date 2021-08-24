@@ -137,3 +137,19 @@ void Japanese::makeSymVec( SymVec& _symVec )
     if ( flags.col6_b ) this->addColumn(_symVec, Column6_B );
     if ( flags.col6_p ) this->addColumn(_symVec, Column6_P );
 }
+
+bool Japanese::isGoodForOI( const Symbol& _sym ) const
+{
+    if ( _sym.text.at(Hiragana) == Column2_K.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column2_G.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column3_S.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column3_Z.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column4_T.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column4_D.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column5_N.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column6_H.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column6_B.at(4).text.at(Hiragana)) return true;
+    if ( _sym.text.at(Hiragana) == Column6_P.at(4).text.at(Hiragana)) return true;
+
+    return false;
+}

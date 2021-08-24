@@ -49,7 +49,7 @@ public:
 
 
     void    generate( const Flags _flags );
-    QString check( const QString& _in, SymbolEnum _selected ) const;
+    QString check( const QString& _in, const SymbolEnum _selected ) const;
 
     QString getString( SymbolEnum _selected ) const;
 
@@ -77,6 +77,7 @@ private:
     void grammarRemoveTriplets( void );
 
     // phonetics functions
-    QString     makePhonetics( SymbolEnum _phonetics );
+    QString     makePhonetics( const SymbolEnum _selected ) const;
+    bool        isGoodForOI( const Symbol& _sym ) const;
 
 };
