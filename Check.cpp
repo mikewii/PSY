@@ -1,4 +1,4 @@
-#include "Japanese.hpp"
+#include "CJapanese.hpp"
 
 
 static const QString    green  = "<span style='color:#00cc00;'>";
@@ -62,7 +62,7 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
                     const Symbol& prevWordSym = word.at(i - 1);
 
 
-                    if ( this->__flags.useDoubleVowelSign && curCh == DoubleVowelSign )
+                    if ( this->__settings.useDoubleVowelSign && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::V )
                         {
@@ -78,7 +78,7 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
                             continue;
                         }
                     }
-                    if ( this->__flags.useoi && curCh == DoubleVowelSign )
+                    if ( this->__settings.useoi && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::CV )
                         {
@@ -196,6 +196,7 @@ bool Japanese::alphabetCheck( const QString& _text, const SymbolEnum _selected) 
     };
 
     int count = 0;
+
     switch( _selected )
     {
     case Hiragana:

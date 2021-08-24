@@ -1,4 +1,4 @@
-#include "Japanese.hpp"
+#include "CJapanese.hpp"
 
 u32 findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
 {
@@ -47,7 +47,7 @@ QString Japanese::makePhonetics( const SymbolEnum _selected ) const
 
     QString         out;
     auto&           word    = this->__word;
-    auto&           f       = this->__flags;
+    auto&           f       = this->__settings;
     const QString&  sym_i   = Column1.at(1).text.at(Hiragana);
 
 

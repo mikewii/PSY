@@ -1,11 +1,11 @@
-#include "Japanese.hpp"
+#include "CJapanese.hpp"
 
 void Japanese::grammarSmallTsu( void )
 {
-    if ( !Japanese::__flags.longConsonant || !this->__flags.multipleColumn )
+    if ( !Japanese::__settings.longConsonant || !this->__settings.multipleColumn )
         return;
 
-    auto& word = this->__word;
+    auto&   word = this->__word;
 
 
     for ( u32 i = 0; i < word.size(); i++ )
@@ -19,7 +19,7 @@ void Japanese::grammarSmallTsu( void )
         // cant be last // not
         if ( sym.phonetics == LongConsonant.phonetics && i == word.size() - 1 )
         {
-            auto phonetics = this->__flags.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
+            auto phonetics = this->__settings.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
 
             word.at(i) = this->getRandomSym(phonetics);
         }
@@ -37,16 +37,16 @@ void Japanese::grammarSmallTsu( void )
 
 void Japanese::grammarNN( void )
 {
-    if ( !this->__flags.nn )
+    if ( !this->__settings.nn )
         return;
 
     Phonetics   phonetics = Phonetics::V;
     u32         last = this->__word.size() - 1;
 
 
-    if ( this->__flags.longConsonant )
+    if ( this->__settings.longConsonant )
         phonetics = static_cast<Phonetics>( phonetics | Phonetics::SmallTSU );
-    if ( this->__flags.multipleColumn )
+    if ( this->__settings.multipleColumn )
         phonetics = static_cast<Phonetics>( phonetics | Phonetics::CV );
 
 
@@ -61,18 +61,19 @@ void Japanese::grammarNN( void )
 
 void Japanese::grammarRemoveTriplets( void )
 {
-    auto inGeneratorLimit   = this->__flags.wordLength >= this->__flags.wordLengthLimit / 2 ;
-    auto acceptableWordSize = this->__flags.wordLength >= 3;
-    if ( !this->__flags.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
+    auto inGeneratorLimit   = this->__settings.wordLength >= this->__settings.wordLengthLimit / 2 ;
+    auto acceptableWordSize = this->__settings.wordLength >= 3;
+    if ( !this->__settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
         return;
 
-    Symbol s;
-    auto& word = this->__word;
+    Symbol  s;
+    auto&   word = this->__word;
 
 
     for ( u32 i = 0; i < word.size(); i++ )
     {
-        auto& sym = word.at(i);
+        auto&   sym = word.at(i);
+
 
         if ( i + 2 < word.size() )
         {

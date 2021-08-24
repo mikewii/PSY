@@ -1,4 +1,4 @@
-#include "Journal.hpp"
+#include "CJournal.hpp"
 #include <QDir>
 
 Journal::Journal()

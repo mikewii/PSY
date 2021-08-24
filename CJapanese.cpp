@@ -1,4 +1,4 @@
-#include "Japanese.hpp"
+#include "CJapanese.hpp"
 #include <random>
 #include <time.h>
 
@@ -17,9 +17,9 @@ void Japanese::generateSymWord( void )
     u32 wordLengthCurrent = 0;
 
 
-    if ( this->__flags.wordLengthRandom )
-        wordLengthMax = this->getRandom(1, this->__flags.wordLengthLimit);
-    else wordLengthMax = this->__flags.wordLength;
+    if ( this->__settings.wordLengthRandom )
+        wordLengthMax = this->getRandom(1, this->__settings.wordLengthLimit);
+    else wordLengthMax = this->__settings.wordLength;
 
 
     for(;;)
@@ -32,13 +32,13 @@ void Japanese::generateSymWord( void )
     }
 }
 
-void Japanese::generate( const Flags _flags )
+void Japanese::generate( const Settings_s _settings )
 {
     QString hiragana, katakana, phonetics_eng, phonetics_rus;
     auto&   symList = *(this->__symList = new SymVec);
 
 
-    this->__flags = _flags;
+    this->__settings = _settings;
 
     this->__word.clear();
     this->__strings.clear();
@@ -119,21 +119,21 @@ Symbol Japanese::getRandomSym( Phonetics _restricted )
 
 void Japanese::makeSymVec( SymVec& _symVec )
 {
-    auto& flags = this->__flags;
+    auto& settings = this->__settings;
 
 
     this->addColumn(_symVec, Column1);
 
-    if ( flags.longConsonant ) this->addSymbol(_symVec, LongConsonant );
-    if ( flags.nn )            this->addSymbol(_symVec, NN );
-    if ( flags.col2_k ) this->addColumn(_symVec, Column2_K );
-    if ( flags.col2_g ) this->addColumn(_symVec, Column2_G );
-    if ( flags.col3_s ) this->addColumn(_symVec, Column3_S );
-    if ( flags.col3_z ) this->addColumn(_symVec, Column3_Z );
-    if ( flags.col4_t ) this->addColumn(_symVec, Column4_T );
-    if ( flags.col4_d ) this->addColumn(_symVec, Column4_D );
-    if ( flags.col5_n ) this->addColumn(_symVec, Column5_N );
-    if ( flags.col6_h ) this->addColumn(_symVec, Column6_H );
-    if ( flags.col6_b ) this->addColumn(_symVec, Column6_B );
-    if ( flags.col6_p ) this->addColumn(_symVec, Column6_P );
+    if ( settings.longConsonant ) this->addSymbol(_symVec, LongConsonant );
+    if ( settings.nn )            this->addSymbol(_symVec, NN );
+    if ( settings.col2_k ) this->addColumn(_symVec, Column2_K );
+    if ( settings.col2_g ) this->addColumn(_symVec, Column2_G );
+    if ( settings.col3_s ) this->addColumn(_symVec, Column3_S );
+    if ( settings.col3_z ) this->addColumn(_symVec, Column3_Z );
+    if ( settings.col4_t ) this->addColumn(_symVec, Column4_T );
+    if ( settings.col4_d ) this->addColumn(_symVec, Column4_D );
+    if ( settings.col5_n ) this->addColumn(_symVec, Column5_N );
+    if ( settings.col6_h ) this->addColumn(_symVec, Column6_H );
+    if ( settings.col6_b ) this->addColumn(_symVec, Column6_B );
+    if ( settings.col6_p ) this->addColumn(_symVec, Column6_P );
 }

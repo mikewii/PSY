@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "CMainwindow.h"
+#include "ui_CMainwindow.h"
 #include "Emotion.hpp"
 
 
@@ -16,15 +16,15 @@ MainWindow::MainWindow(QWidget *parent)
     auto fontSizeCurrent = this->ui->generatedText->fontInfo().pointSize();
     this->ui->fontSizeJPN->setValue(fontSizeCurrent);
 
-    this->settingsUi = new Settings(this);
+    this->uiSettings = new SettingsWindow(this);
 
 
-    connect(this->settingsUi, SIGNAL(notifySettings(QString,int)), this, SLOT(notify(QString,int)));
+    connect(this->uiSettings, SIGNAL(notifySettings(QString,int)), this, SLOT(notify(QString,int)));
 }
 
 MainWindow::~MainWindow()
 {
-    delete this->settingsUi;
+    delete this->uiSettings;
     delete ui;
 }
 
@@ -101,7 +101,7 @@ void MainWindow::fillAllCBox()
 
 void MainWindow::on_generateJPN_clicked()
 {
-    Japanese::generate( this->settingsUi->getSettingsJPN() );
+    Japanese::generate( this->uiSettings->getSettingsJPN() );
 
     this->ui->comparedText->clear();
     this->ui->inputJPN->clear();
@@ -132,7 +132,7 @@ void MainWindow::on_cbox_displayTextJPN_currentIndexChanged(int index)
 
 void MainWindow::on_settingsBtnJPN_clicked()
 {
-    this->settingsUi->show();
+    this->uiSettings->show();
 }
 
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Settings</class>
- <widget class="QWidget" name="Settings">
+ <class>SettingsWindow</class>
+ <widget class="QWidget" name="SettingsWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>589</width>
+    <width>592</width>
     <height>415</height>
    </rect>
   </property>
@@ -952,14 +952,14 @@
          <item>
           <widget class="QCheckBox" name="check_doubleVowelsPho">
            <property name="text">
-            <string>Same V V as V:</string>
+            <string>Same V V as V :</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QCheckBox" name="check_oiPho">
            <property name="text">
-            <string>CV V of same row as CV:</string>
+            <string>CV V of same row as CV :</string>
            </property>
           </widget>
          </item>

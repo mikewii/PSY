@@ -2914,5 +2914,22 @@ p, li { white-space: pre-wrap; }
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>inputJPN</sender>
+   <signal>returnPressed()</signal>
+   <receiver>checkJPN</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>326</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

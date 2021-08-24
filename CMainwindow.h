@@ -1,8 +1,8 @@
 #pragma once
 #include <QMainWindow>
-#include "Journal.hpp"
-#include "Japanese.hpp"
-#include "settings.h"
+#include "CJournal.hpp"
+#include "CJapanese.hpp"
+#include "CSettingswindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,7 +34,7 @@ private slots:
 
 private:
     Ui::MainWindow  *ui;
-    Settings        *settingsUi;
+    SettingsWindow  *uiSettings;
 
     void fillAllCBox( void );
 };

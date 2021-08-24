@@ -33,10 +33,16 @@ static Symbol   NN              = {Phonetics::N, {"ん", "ン", "nn", "нн"}};
 
 static QString  shi_eng = "shi";    // si
 static QString  shi_rus = "ши";     // си
+
 static QString  chi_eng = "chi";    // di
 static QString  chi_rus = "чи";     // дзи
+static QString  di_eng  = "di";
+static QString  di_rus  = "ди";
+
 static QString  tsu_eng = "tsu";    // tu
 static QString  tsu_rus = "цу";     // дзу
+static QString  du_eng  = "du";
+static QString  du_rus  = "ду";
 
 
 
@@ -90,7 +96,7 @@ static SymVec Column4_T =
 {{
     {Phonetics::CV, {"た", "タ", "ta", "та"}},
     {Phonetics::CV, {"ち", "チ", chi_eng, chi_rus}},
-    {Phonetics::CV, {"つ", "ツ", tsu_eng, tsu_rus}},
+    {Phonetics::CV, {"つ", "ツ", du_eng, du_rus}},
     {Phonetics::CV, {"て", "テ", "te", "тэ"}},
     {Phonetics::CV, {"と", "テ", "to", "то"}}
 }};
@@ -98,7 +104,7 @@ static SymVec Column4_T =
 static SymVec Column4_D =
 {{
     {Phonetics::CV, {"だ", "ダ", "da", "да"}},
-    {Phonetics::CV, {"ぢ", "ヂ", chi_eng, chi_rus}},
+    {Phonetics::CV, {"ぢ", "ヂ", di_eng, di_rus}},
     {Phonetics::CV, {"づ", "ヅ", tsu_eng, tsu_rus}},
     {Phonetics::CV, {"で", "デ", "de", "дэ"}},
     {Phonetics::CV, {"ど", "ド", "do", "до"}}
