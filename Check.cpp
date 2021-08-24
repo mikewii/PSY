@@ -91,43 +91,18 @@ QString Japanese::check( const QString& _in, SymbolEnum _selected ) const
 
             if ( ph == Phonetics::V )
             {
-                // if next sym in word bounds
-                if ( i + 1 < _in.size() )
+                if ( i > 0 && phoneticsVec.at(phVecIndex - 1).first == Phonetics::V )
                 {
-                    // if next sym is vowel
-                    if ( phoneticsVec.at(phVecIndex).first == Phonetics::V )
+                    QString previousSym = _in.at(i - 1);
+
+
+                    if ( this->__flags.useDoubleVowelSign && (currentSym == DoubleVowelSign || currentSym == previousSym) )
                     {
-                        QString         nextSym = _in.at(i + 1);
-                        const QString&  sym_o   = Column1.at(4).text.at(_selected);
-
-
-                        if ( this->__flags.useoi && currentSym == sym_o && nextSym != currentSym )
-                        {
-                            auto res = makeOI(currentSym, nextSym, wordSym, _selected);
-                            out += res.first;
-
-                            if ( res.second )
-                            {
-                                skip = true;
-                                continue;
-                            }
-                        }
-                        else if ( this->__flags.useDoubleVowelSign && (nextSym == currentSym || nextSym == DoubleVowelSign) )
-                        {
-                            out += pushSym(currentSym, wordSym);
-
-                            if ( nextSym == DoubleVowelSign || nextSym == currentSym )
-                                out += makeGreenHTML(nextSym);
-                            else out += makeRedHTML(nextSym);
-
-                            skip = true;
-                            continue;
-                        }
-                        else out += pushSym(currentSym, wordSym);
+                        // do stuff
                     }
-                    else out += pushSym(currentSym, wordSym);
                 }
-                else out += pushSym(currentSym, wordSym);
+
+                out += pushSym(currentSym, wordSym);
             }
             else if ( ph == Phonetics::CV )
             {

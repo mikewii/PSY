@@ -14,12 +14,12 @@ void Japanese::grammarSmallTsu( void )
 
         // cant be first
         if ( sym.phonetics == LongConsonant.phonetics && i == 0 )
-            word.at(i) = this->getRandomSym(Phonetics(C | CV));
+            word.at(i) = this->getRandomSym(Phonetics(V | CV));
 
         // cant be last // not
         if ( sym.phonetics == LongConsonant.phonetics && i == word.size() - 1 )
         {
-            auto phonetics = this->__flags.nn ? Phonetics(C | CV | N) : Phonetics(C | CV);
+            auto phonetics = this->__flags.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
 
             word.at(i) = this->getRandomSym(phonetics);
         }
@@ -84,7 +84,7 @@ void Japanese::grammarRemoveTriplets( void )
                 {
                     for(;;)
                     {
-                        s = this->getRandomSym(Phonetics(C | CV));
+                        s = this->getRandomSym(Phonetics(V | CV));
 
                         if ( sym.text.at(Hiragana) != s.text.at(Hiragana) ) break;
                     }
