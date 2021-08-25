@@ -19,6 +19,7 @@ union Settings_s {
         size wordLengthLimit : 8;
         size wordLengthRandom : 1;
         size preventTriplets : 1;
+        size preventDiDu : 1;
         size multipleColumn : 1;
 
         size col2_k : 1;

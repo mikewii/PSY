@@ -6,1049 +6,1091 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>592</width>
-    <height>415</height>
+    <width>640</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
-   <item>
-    <widget class="QWidget" name="alphabet" native="true">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+  <widget class="QWidget" name="alphabet" native="true">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>574</width>
+     <height>189</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_12">
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>325</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_4">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_8">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="check_longConsonant">
+         <property name="text">
+          <string>っ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="check_nn">
+         <property name="text">
+          <string>ん</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Column6">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column6_P" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_19">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col6_p">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_pa">
+            <property name="text">
+             <string>ぱ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_pi">
+            <property name="text">
+             <string>ぴ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_pu">
+            <property name="text">
+             <string>ぷ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_pe">
+            <property name="text">
+             <string>ぺ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_po">
+            <property name="text">
+             <string>ぽ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="Column6_B" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_18">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col6_b">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_ba">
+            <property name="text">
+             <string>ば</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_bi">
+            <property name="text">
+             <string>び</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_bu">
+            <property name="text">
+             <string>ぶ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_be">
+            <property name="text">
+             <string>べ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_bo">
+            <property name="text">
+             <string>ぼ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="Column6_H" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col6_h">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_ha">
+            <property name="text">
+             <string>は</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_hi">
+            <property name="text">
+             <string>ひ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_hu">
+            <property name="text">
+             <string>ふ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_he">
+            <property name="text">
+             <string>へ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col6_ho">
+            <property name="text">
+             <string>ほ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Column5">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column5_N" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_16">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col5_n">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>な</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>に</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>ぬ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>ね</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>の</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Column4">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column4_D" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_15">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col4_d">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_da">
+            <property name="text">
+             <string>だ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_di_dji">
+            <property name="text">
+             <string>ぢ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_du_dzu">
+            <property name="text">
+             <string>づ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_de">
+            <property name="text">
+             <string>で</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_do">
+            <property name="text">
+             <string>ど</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="Column4_T" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col4_t">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_ta">
+            <property name="text">
+             <string>た</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_ti_chi">
+            <property name="text">
+             <string>ち</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_tu_tsu">
+            <property name="text">
+             <string>つ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_te">
+            <property name="text">
+             <string>て</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col4_to">
+            <property name="text">
+             <string>と</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Column3">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column3_Z" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col3_z">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_za">
+            <property name="text">
+             <string>ざ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_ji">
+            <property name="text">
+             <string>じ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_zu">
+            <property name="text">
+             <string>ず</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_ze">
+            <property name="text">
+             <string>ぜ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_zo">
+            <property name="text">
+             <string>ぞ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="Column3_S" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col3_s">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_sa">
+            <property name="text">
+             <string>さ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_shi">
+            <property name="text">
+             <string>し</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_su">
+            <property name="text">
+             <string>す</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_se">
+            <property name="text">
+             <string>せ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col3_so">
+            <property name="text">
+             <string>そ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="Column2">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column2_G" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>9</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col2_g">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ga">
+            <property name="text">
+             <string>が</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_gi">
+            <property name="text">
+             <string>ぎ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_gu">
+            <property name="text">
+             <string>ぐ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ge">
+            <property name="text">
+             <string>げ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_go">
+            <property name="text">
+             <string>ご</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="Column2_K" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="check_col2_k">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ka">
+            <property name="text">
+             <string>か</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ki">
+            <property name="text">
+             <string>き</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ku">
+            <property name="text">
+             <string>く</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ke">
+            <property name="text">
+             <string>け</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col2_ko">
+            <property name="text">
+             <string>こ</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="Column1" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col1_a">
+            <property name="text">
+             <string>あ</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col1_i">
+            <property name="text">
+             <string>い</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col1_u">
+            <property name="text">
+             <string>う</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col1_e">
+            <property name="text">
+             <string>え</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="col1_o">
+            <property name="text">
+             <string>お</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QFrame" name="otherSettings">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>204</y>
+     <width>601</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QFrame" name="leftSide">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>167</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>141</width>
+       <height>43</height>
+      </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_12">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Word length:</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>325</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QFrame" name="frame_4">
-        <property name="layoutDirection">
-         <enum>Qt::LeftToRight</enum>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QCheckBox" name="check_longConsonant">
-           <property name="text">
-            <string>っ</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="check_nn">
-           <property name="text">
-            <string>ん</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="Column6">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
+       <widget class="QSpinBox" name="wordLengthJPN">
+        <property name="minimum">
+         <number>1</number>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+        <property name="maximum">
+         <number>22</number>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column6_P" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_19">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col6_p">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_pa">
-              <property name="text">
-               <string>ぱ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_pi">
-              <property name="text">
-               <string>ぴ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_pu">
-              <property name="text">
-               <string>ぷ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_pe">
-              <property name="text">
-               <string>ぺ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_po">
-              <property name="text">
-               <string>ぽ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="Column6_B" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_18">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col6_b">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_ba">
-              <property name="text">
-               <string>ば</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_bi">
-              <property name="text">
-               <string>び</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_bu">
-              <property name="text">
-               <string>ぶ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_be">
-              <property name="text">
-               <string>べ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_bo">
-              <property name="text">
-               <string>ぼ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="Column6_H" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_17">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col6_h">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_ha">
-              <property name="text">
-               <string>は</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_hi">
-              <property name="text">
-               <string>ひ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_hu">
-              <property name="text">
-               <string>ふ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_he">
-              <property name="text">
-               <string>へ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col6_ho">
-              <property name="text">
-               <string>ほ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="Column5">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column5_N" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_16">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col5_n">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>な</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>に</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>ぬ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>ね</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>の</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="Column4">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column4_D" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_15">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col4_d">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_da">
-              <property name="text">
-               <string>だ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_di_dji">
-              <property name="text">
-               <string>ぢ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_du_dzu">
-              <property name="text">
-               <string>づ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_de">
-              <property name="text">
-               <string>で</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_do">
-              <property name="text">
-               <string>ど</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="Column4_T" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_14">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col4_t">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_ta">
-              <property name="text">
-               <string>た</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_ti_chi">
-              <property name="text">
-               <string>ち</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_tu_tsu">
-              <property name="text">
-               <string>つ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_te">
-              <property name="text">
-               <string>て</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col4_to">
-              <property name="text">
-               <string>と</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="Column3">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column3_Z" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_13">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col3_z">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_za">
-              <property name="text">
-               <string>ざ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_ji">
-              <property name="text">
-               <string>じ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_zu">
-              <property name="text">
-               <string>ず</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_ze">
-              <property name="text">
-               <string>ぜ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_zo">
-              <property name="text">
-               <string>ぞ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="Column3_S" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_12">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col3_s">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_sa">
-              <property name="text">
-               <string>さ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_shi">
-              <property name="text">
-               <string>し</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_su">
-              <property name="text">
-               <string>す</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_se">
-              <property name="text">
-               <string>せ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col3_so">
-              <property name="text">
-               <string>そ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="Column2">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column2_G" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_11">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>9</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col2_g">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ga">
-              <property name="text">
-               <string>が</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_gi">
-              <property name="text">
-               <string>ぎ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_gu">
-              <property name="text">
-               <string>ぐ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ge">
-              <property name="text">
-               <string>げ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_go">
-              <property name="text">
-               <string>ご</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="Column2_K" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_10">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QCheckBox" name="check_col2_k">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ka">
-              <property name="text">
-               <string>か</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ki">
-              <property name="text">
-               <string>き</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ku">
-              <property name="text">
-               <string>く</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ke">
-              <property name="text">
-               <string>け</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col2_ko">
-              <property name="text">
-               <string>こ</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frame">
-        <property name="frameShape">
-         <enum>QFrame::WinPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <property name="rightMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QWidget" name="Column1" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_9">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col1_a">
-              <property name="text">
-               <string>あ</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col1_i">
-              <property name="text">
-               <string>い</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col1_u">
-              <property name="text">
-               <string>う</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col1_e">
-              <property name="text">
-               <string>え</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="col1_o">
-              <property name="text">
-               <string>お</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
        </widget>
       </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <widget class="QFrame" name="otherSettings">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+    <widget class="QCheckBox" name="randomWordLengthJPN">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>59</y>
+       <width>147</width>
+       <height>22</height>
+      </rect>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="text">
+      <string>Random word length</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_10">
-      <item>
-       <widget class="QFrame" name="leftSide">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QWidget" name="widget" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Word length:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="wordLengthJPN">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>22</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="randomWordLengthJPN">
-           <property name="text">
-            <string>Random word length</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="check_preventTripletsJPN">
-           <property name="text">
-            <string>Prevent triplets</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>26</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="frame_3">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QWidget" name="widget_3" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout_9">
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Phonetics</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QWidget" name="widget_2" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>V = vowel</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>CV = consonant + vowel</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="check_doubleVowelsPho">
-           <property name="text">
-            <string>Same V V as V :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="check_oiPho">
-           <property name="text">
-            <string>CV V of same row as CV :</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="rightSide">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <property name="spacing">
-          <number>6</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>99</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QFrame" name="frame_2">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="settingsSave">
-              <property name="text">
-               <string>Save</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="settingsLoad">
-              <property name="text">
-               <string>Load</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
     </widget>
-   </item>
-  </layout>
+    <widget class="QCheckBox" name="check_preventTripletsJPN">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>87</y>
+       <width>114</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Prevent triplets</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="check_preventDiDuJPN">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>131</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Don't use ぢ and づ</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_3">
+    <property name="geometry">
+     <rect>
+      <x>183</x>
+      <y>10</y>
+      <width>187</width>
+      <height>182</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QWidget" name="widget_3" native="true">
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Phonetics</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="widget_2" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>V = vowel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>CV = consonant + vowel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="check_doubleVowelsPho">
+       <property name="text">
+        <string>Same V V as V :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="check_oiPho">
+       <property name="text">
+        <string>CV V of same row as CV :</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QFrame" name="rightSide">
+    <property name="geometry">
+     <rect>
+      <x>376</x>
+      <y>10</y>
+      <width>188</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>99</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QFrame" name="frame_2">
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="settingsSave">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="settingsLoad">
+          <property name="text">
+           <string>Load</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>

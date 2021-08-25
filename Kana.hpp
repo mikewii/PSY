@@ -2,13 +2,14 @@
 #include <QStringList>
 #include <vector>
 
-
 enum Phonetics {
-    C           = 1 << 0,   // consonant   согласная
-    V           = 1 << 1,   // vowel       гласная
-    CV          = 1 << 2,   // consonant + vowel
-    SmallTSU    = 1 << 3,
-    N           = 1 << 4,
+    C           = 1 << 0,   // consonant            согласная
+    V           = 1 << 1,   // vowel                гласная
+    VV          = 1 << 2,   // diphthongs           йотированные гласные
+    CV          = 1 << 3,
+    CVV         = 1 << 4,   // soft consonants      мягкие согласные
+    SmallTSU    = 1 << 5,
+    N           = 1 << 6,
 
     NONE        = 1 << 7
 };
@@ -43,8 +44,6 @@ static QString  tsu_eng = "tsu";    // tu
 static QString  tsu_rus = "цу";     // дзу
 static QString  du_eng  = "du";
 static QString  du_rus  = "ду";
-
-
 
 
 static SymVec Column1 =
@@ -96,7 +95,7 @@ static SymVec Column4_T =
 {{
     {Phonetics::CV, {"た", "タ", "ta", "та"}},
     {Phonetics::CV, {"ち", "チ", chi_eng, chi_rus}},
-    {Phonetics::CV, {"つ", "ツ", du_eng, du_rus}},
+    {Phonetics::CV, {"つ", "ツ", tsu_eng, tsu_rus}},
     {Phonetics::CV, {"て", "テ", "te", "тэ"}},
     {Phonetics::CV, {"と", "テ", "to", "то"}}
 }};
@@ -105,7 +104,7 @@ static SymVec Column4_D =
 {{
     {Phonetics::CV, {"だ", "ダ", "da", "да"}},
     {Phonetics::CV, {"ぢ", "ヂ", di_eng, di_rus}},
-    {Phonetics::CV, {"づ", "ヅ", tsu_eng, tsu_rus}},
+    {Phonetics::CV, {"づ", "ヅ", du_eng, du_rus}},
     {Phonetics::CV, {"で", "デ", "de", "дэ"}},
     {Phonetics::CV, {"ど", "ド", "do", "до"}}
 }};
@@ -144,4 +143,20 @@ static SymVec Column6_P =
     {Phonetics::CV, {"ぷ", "プ", "pu", "пу"}},
     {Phonetics::CV, {"ぺ", "ポ", "pe", "пэ"}},
     {Phonetics::CV, {"ぽ", "ペ", "po", "по"}}
+}};
+
+static SymVec Column7_M =
+{{
+     {Phonetics::CV, {"ま", "マ", "ma", "ма"}},
+     {Phonetics::CV, {"み", "ミ", "mi", "ми"}},
+     {Phonetics::CV, {"む", "ム", "mu", "му"}},
+     {Phonetics::CV, {"め", "メ", "me", "мэ"}},
+     {Phonetics::CV, {"も", "モ", "mo", "мо"}}
+}};
+
+static SymVec Column8_Y =
+{{
+     {Phonetics::VV, {"や", "ヤ", "ya", "я"}},
+     {Phonetics::VV, {"ゆ", "ユ", "yu", "ю"}},
+     {Phonetics::VV, {"よ", "ヨ", "yo", "ё"}}
 }};

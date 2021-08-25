@@ -26,7 +26,18 @@ void Japanese::generateSymWord( void )
     {
         if ( wordLengthCurrent == wordLengthMax ) break;
 
-        this->__word.push_back(this->getRandomSym());
+        const auto& sym = this->getRandomSym();
+
+        if ( this->__settings.preventDiDu )
+        {
+            const auto& di = Column4_D.at(1).text.at(Hiragana);
+            const auto& du = Column4_D.at(2).text.at(Hiragana);
+
+            if ( sym.text.at(Hiragana) == di || sym.text.at(Hiragana) == du )
+                continue;
+        }
+
+        this->__word.push_back(sym);
 
         ++wordLengthCurrent;
     }

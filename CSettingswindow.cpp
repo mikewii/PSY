@@ -26,27 +26,28 @@ Settings_s SettingsWindow::getSettingsJPN() const
     auto&           ui = this->ui;
 
 
-    settings.wordLength            = ui->wordLengthJPN->value();
-    settings.wordLengthLimit       = ui->wordLengthJPN->maximum();
-    settings.wordLengthRandom      = ui->randomWordLengthJPN->isChecked();
-    settings.preventTriplets       = ui->check_preventTripletsJPN->isChecked();
+    settings.wordLength             = ui->wordLengthJPN->value();
+    settings.wordLengthLimit        = ui->wordLengthJPN->maximum();
+    settings.wordLengthRandom       = ui->randomWordLengthJPN->isChecked();
+    settings.preventTriplets        = ui->check_preventTripletsJPN->isChecked();
+    settings.preventDiDu            = ui->check_preventDiDuJPN->isChecked();
 
-    settings.col2_k                = ui->check_col2_k->isChecked();
-    settings.col2_g                = ui->check_col2_g->isChecked();
-    settings.col3_s                = ui->check_col3_s->isChecked();
-    settings.col3_z                = ui->check_col3_z->isChecked();
-    settings.col4_t                = ui->check_col4_t->isChecked();
-    settings.col4_d                = ui->check_col4_d->isChecked();
-    settings.col5_n                = ui->check_col5_n->isChecked();
-    settings.col6_h                = ui->check_col6_h->isChecked();
-    settings.col6_b                = ui->check_col6_b->isChecked();
-    settings.col6_p                = ui->check_col6_p->isChecked();
+    settings.col2_k                 = ui->check_col2_k->isChecked();
+    settings.col2_g                 = ui->check_col2_g->isChecked();
+    settings.col3_s                 = ui->check_col3_s->isChecked();
+    settings.col3_z                 = ui->check_col3_z->isChecked();
+    settings.col4_t                 = ui->check_col4_t->isChecked();
+    settings.col4_d                 = ui->check_col4_d->isChecked();
+    settings.col5_n                 = ui->check_col5_n->isChecked();
+    settings.col6_h                 = ui->check_col6_h->isChecked();
+    settings.col6_b                 = ui->check_col6_b->isChecked();
+    settings.col6_p                 = ui->check_col6_p->isChecked();
 
-    settings.longConsonant         = ui->check_longConsonant->isChecked();
-    settings.nn                    = ui->check_nn->isChecked();
+    settings.longConsonant          = ui->check_longConsonant->isChecked();
+    settings.nn                     = ui->check_nn->isChecked();
 
-    settings.useDoubleVowelSign    = ui->check_doubleVowelsPho->isChecked();
-    settings.useoi                 = ui->check_oiPho->isChecked();
+    settings.useDoubleVowelSign     = ui->check_doubleVowelsPho->isChecked();
+    settings.useoi                  = ui->check_oiPho->isChecked();
 
     if ( settings.col2_k ||
          settings.col2_g ||
@@ -157,6 +158,7 @@ void SettingsWindow::applySettings()
     ui->wordLengthJPN->setMaximum(s.wordLengthLimit);
     ui->randomWordLengthJPN->setChecked(s.wordLengthRandom);
     ui->check_preventTripletsJPN->setChecked(s.preventTriplets);
+    ui->check_preventDiDuJPN->setChecked(s.preventDiDu);
 
     ui->check_col2_k->setChecked(s.col2_k);
     ui->check_col2_g->setChecked(s.col2_g);
