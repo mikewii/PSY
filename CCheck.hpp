@@ -1,11 +1,10 @@
 #pragma once
-#include "Kana.hpp"
+#include "CWord.hpp"
 
 
-class Word;
-class Check
+class Check : virtual public Word
 {
 public:
-    QString check( Word& _word, const QString& _in, const SymbolEnum _selected ) const;
+    QString check( const QString& _in, const SymbolEnum _selected );
     bool    alphabetCheck( const QString& _text, const SymbolEnum _selected) const;
 };

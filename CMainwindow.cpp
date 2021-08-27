@@ -126,7 +126,10 @@ void MainWindow::on_checkJPN_clicked()
 
 void MainWindow::on_cbox_displayTextJPN_currentIndexChanged(int index)
 {
-    this->ui->generatedText->setText(Japanese::getString(SymbolEnum(index)));
+    auto str = Japanese::getString(SymbolEnum(index));
+
+    if ( !str.isEmpty() )
+        this->ui->generatedText->setText(str);
 }
 
 

@@ -8,17 +8,13 @@ void Japanese::generate( const Settings_s _settings )
     QString hiragana, katakana, phonetics_eng, phonetics_rus;
 
 
-    this->__strings.clear();
-
-    Word::setSettings(_settings);
-    Word::makeSymList();
+    Word::prepare(_settings);
 
     /* generator */ Word::generateSymWord();
     /* generator */
-    /* generator */ Grammar::grammarNN(Word::getWord());
-    /* generator */ Grammar::grammarSmallTsu(Word::getWord());
-    /* generator */ Grammar::grammarRemoveTriplets(Word::getWord());
-
+    /* generator */ Grammar::grammarNN();
+    /* generator */ Grammar::grammarSmallTsu();
+    /* generator */ Grammar::grammarRemoveTriplets();
 
     for ( auto& sym : Word::getSymWord() )
     {
@@ -26,22 +22,19 @@ void Japanese::generate( const Settings_s _settings )
         katakana += sym.text.at(Katakana);
     }
 
-    phonetics_eng = PhoneticsGenerator::makePhonetics(Word::getWord(), PhoneticsENG);
-    phonetics_rus = PhoneticsGenerator::makePhonetics(Word::getWord(), PhoneticsRUS);
+    phonetics_eng = PhoneticsGenerator::makePhonetics(PhoneticsENG);
+    phonetics_rus = PhoneticsGenerator::makePhonetics(PhoneticsRUS);
 
-    this->__strings.push_back(hiragana);
-    this->__strings.push_back(katakana);
-    this->__strings.push_back(phonetics_eng);
-    this->__strings.push_back(phonetics_rus);
+    Japanese::getStringList() = QStringList{hiragana, katakana, phonetics_eng, phonetics_rus};
 }
 
-QString Japanese::check(const QString &_in, const SymbolEnum _selected)
+QString Japanese::check( const QString &_in, const SymbolEnum _selected )
 {
-    return Check::check(Word::getWord(), _in, _selected);
+    return Check::check(_in, _selected);
 }
 
-QString Japanese::getString( SymbolEnum _selected ) const
+QString Japanese::getString( const SymbolEnum _selected ) const
 {
-    if ( this->__strings.size() <= _selected ) return "getString() error!";
+    if ( this->__strings.size() <= _selected ) return "";
     else return this->__strings.at(_selected);
 }

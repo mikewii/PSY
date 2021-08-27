@@ -38,6 +38,6 @@ union Settings_s {
 
         // phonetics settings
         size useDoubleVowelSign : 1;
-        size useoi : 1;
+        size useou : 1;
     };
 };

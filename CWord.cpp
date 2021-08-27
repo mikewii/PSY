@@ -5,22 +5,20 @@ void Word::generateSymWord( void )
 {
     u32             wordLengthMax;
     u32             wordLengthCurrent = 0;
-    const auto&     settings = this->__settings;
-    auto&           word = this->__word;
 
 
-    if ( settings.wordLengthRandom )
-        wordLengthMax = Utils::getRandom(1, settings.wordLengthLimit);
-    else wordLengthMax = settings.wordLength;
+    if ( Word::settings.wordLengthRandom )
+        wordLengthMax = Utils::getRandom(1, Word::settings.wordLengthLimit);
+    else wordLengthMax = Word::settings.wordLength;
 
 
     for(;;)
     {
         if ( wordLengthCurrent == wordLengthMax ) break;
 
-        const auto& sym = this->getRandomSym();
+        const auto& sym = Word::getRandomSym();
 
-        if ( settings.preventDiDu )
+        if ( Word::settings.preventDiDu )
         {
             const auto& di = Column4_D.at(1).text.at(Hiragana);
             const auto& du = Column4_D.at(2).text.at(Hiragana);
@@ -29,76 +27,109 @@ void Word::generateSymWord( void )
                 continue;
         }
 
-        word.push_back(sym);
+        Word::symWord.push_back(sym);
 
         ++wordLengthCurrent;
     }
 }
 
 
-Symbol Word::getRandomSym( Phonetics _restricted ) const
+Symbol Word::getRandomSym( PhoVec _selected ) const
 {
-    const auto& symList = this->__symList;
-
-
-    if ( _restricted != Phonetics::NONE )
+    if ( !_selected.empty() )
     {
         for(;;)
         {
-            auto rand   = Utils::getRandom(0, symList.size() - 1);
-            auto sym    = symList.at(rand);
+            auto rand   = Utils::getRandom(0, Word::symList.size() - 1);
+            auto sym    = Word::symList.at(rand);
 
-            if ( _restricted & sym.phonetics ) return sym;
+            for ( auto& ph : _selected )
+                if ( sym.phonetics == ph ) return sym;
         }
     }
 
-    auto rand = Utils::getRandom(0, symList.size() - 1);
-    return symList.at(rand);
+    auto rand = Utils::getRandom(0, Word::symList.size() - 1);
+    return Word::symList.at(rand);
 }
+
+//SymVec Word::getSubWord( u32 _wordLengthMax ) const
+//{
+//    SymVec  out;
+//    auto    settings = this->__settings;
+//    u32     toGet;
+//    std::vector<Phonetics>  combination;
+
+
+//    uint32_t variant = Utils::getRandom(0, 2);
+
+//    if ( variant == 0 )
+//        combination = {V,V};
+//    else if ( variant == 1 )
+//        combination = {CV,V};
+//    else if ( variant == 2 )
+//        combination = {CV,VV,V};
+//    else if ( variant == 3 )
+//        combination = {V,N};
+//    else if ( variant == 4 )
+//        combination = {SmallTSU,CV};
+
+
+//    if ( _wordLengthMax > 3 )
+//    {
+//        if ( settings.useDoubleVowelSign )
+//        {
+
+//        }
+
+//    }
+//}
 
 
 void Word::makeSymList( void )
 {
-    const auto& settings    = this->__settings;
-    auto&       _symVec     = this->getSymList();
+    Word::symList.clear();
+    Word::symWord.clear();
 
-    _symVec.clear();
-    this->__word.clear();
+    Word::addColumn(Word::symList, Column1);
 
-    this->addColumn(_symVec, Column1);
-
-    if ( settings.longConsonant ) this->addSymbol(_symVec, LongConsonant );
-    if ( settings.nn )            this->addSymbol(_symVec, NN );
-    if ( settings.col2_k ) this->addColumn(_symVec, Column2_K );
-    if ( settings.col2_g ) this->addColumn(_symVec, Column2_G );
-    if ( settings.col3_s ) this->addColumn(_symVec, Column3_S );
-    if ( settings.col3_z ) this->addColumn(_symVec, Column3_Z );
-    if ( settings.col4_t ) this->addColumn(_symVec, Column4_T );
-    if ( settings.col4_d ) this->addColumn(_symVec, Column4_D );
-    if ( settings.col5_n ) this->addColumn(_symVec, Column5_N );
-    if ( settings.col6_h ) this->addColumn(_symVec, Column6_H );
-    if ( settings.col6_b ) this->addColumn(_symVec, Column6_B );
-    if ( settings.col6_p ) this->addColumn(_symVec, Column6_P );
+    if ( Word::settings.longConsonant ) Word::addSymbol(Word::symList, LongConsonant );
+    if ( Word::settings.nn )            Word::addSymbol(Word::symList, NN );
+    if ( Word::settings.col2_k ) Word::addColumn(Word::symList, Column2_K );
+    if ( Word::settings.col2_g ) Word::addColumn(Word::symList, Column2_G );
+    if ( Word::settings.col3_s ) Word::addColumn(Word::symList, Column3_S );
+    if ( Word::settings.col3_z ) Word::addColumn(Word::symList, Column3_Z );
+    if ( Word::settings.col4_t ) Word::addColumn(Word::symList, Column4_T );
+    if ( Word::settings.col4_d ) Word::addColumn(Word::symList, Column4_D );
+    if ( Word::settings.col5_n ) Word::addColumn(Word::symList, Column5_N );
+    if ( Word::settings.col6_h ) Word::addColumn(Word::symList, Column6_H );
+    if ( Word::settings.col6_b ) Word::addColumn(Word::symList, Column6_B );
+    if ( Word::settings.col6_p ) Word::addColumn(Word::symList, Column6_P );
 }
 
-void Word::addColumn( SymVec& _symVec, std::vector<Symbol>& _col )
+void Word::addColumn( SymVec& _symVec, const SymVec& _col )
 {
     for ( auto& sym : _col )
         _symVec.push_back(sym);
 }
 
-void Word::addSymbol( SymVec& _symVec, Symbol& _sym )
+void Word::addSymbol( SymVec& _symVec, const Symbol& _sym )
 {
     _symVec.push_back(_sym);
 }
 
+void Word::prepare( const Settings_s& _settings )
+{
+    Word::settings = _settings;
+    Word::makeSymList();
+}
+
 SymVec& Word::getSymList()
 {
-    return this->__symList;
+    return Word::symList;
 }
 
 
-bool Word::isGoodForOI( const Symbol& _sym ) const
+bool Word::isGoodForOU( const Symbol& _sym ) const
 {
     if ( _sym.text.at(Hiragana) == Column2_K.at(4).text.at(Hiragana)) return true;
     if ( _sym.text.at(Hiragana) == Column2_G.at(4).text.at(Hiragana)) return true;

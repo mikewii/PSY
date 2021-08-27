@@ -14,33 +14,30 @@ QString pushSym( const QString& _symbol, const QString& _wordSym )
     else return makeRedHTML(_symbol);
 }
 
-QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selected ) const
-{    
+QString Check::check( const QString& _in, const SymbolEnum _selected )
+{
+    QStringList charList;
+    u32         pos = 0;
     QString     out;
     auto        isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
-    auto&       word        = _word.getSymWord();
-    auto        settings    = _word.getSettings();
-    int         strSize     = 0;
+    int         strSize = 0;
 
 
-    for ( auto& sym : word )
+    for ( auto& sym : Word::symWord )
         strSize += sym.text.at(_selected).size();
 
 
     if ( _in.size() != strSize )
         return "Wrong word size!";
-    if ( !this->alphabetCheck(_in, _selected) )
+    if ( !Check::alphabetCheck(_in, _selected) )
         return "Text must be in language selected for check!";
 
 
     if ( isPhonetics )
     {
-        QStringList     charList;
-        u32             pos = 0;
-
         // make list of chars from naked string
-        charList.reserve(word.size());
-        for ( const auto& ch : word )
+        charList.reserve(Word::symWord.size());
+        for ( const auto& ch : Word::symWord )
         {
             QString     currentCh;
             const auto& size = ch.text.at(_selected).size();
@@ -53,10 +50,10 @@ QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selecte
         }
 
 
-        for ( u32 i = 0; i < word.size(); i++ )
+        for ( u32 i = 0; i < Word::symWord.size(); i++ )
         {
-            const auto& curWordSym  = word.at(i);
-            const auto& curWordCh   = word.at(i).text.at(_selected);
+            const auto& curWordSym  = Word::symWord.at(i);
+            const auto& curWordCh   = Word::symWord.at(i).text.at(_selected);
             const auto& curCh       = charList.at(i);
 
 
@@ -65,10 +62,10 @@ QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selecte
                 // if there is char behind
                 if ( i != 0 )
                 {
-                    const Symbol& prevWordSym = word.at(i - 1);
+                    const Symbol& prevWordSym = Word::symWord.at(i - 1);
 
 
-                    if ( settings.useDoubleVowelSign && curCh == DoubleVowelSign )
+                    if ( Word::settings.useDoubleVowelSign && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::V )
                         {
@@ -84,11 +81,11 @@ QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selecte
                             continue;
                         }
                     }
-                    if ( settings.useoi && curCh == DoubleVowelSign )
+                    if ( Word::settings.useou && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::CV )
                         {
-                            if ( _word.isGoodForOI(prevWordSym) )
+                            if ( Word::isGoodForOU(prevWordSym) )
                                 out += makeGreenHTML(curCh);
                             else out += makeRedHTML(curCh);
 
@@ -110,7 +107,7 @@ QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selecte
             }
             else if ( curWordSym.phonetics == Phonetics::SmallTSU )
             {
-                if ( i + 1 < word.size() )
+                if ( i + 1 < Word::symWord.size() )
                 {
                     QString smallTsu;
 
@@ -128,7 +125,7 @@ QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selecte
         {
             auto& sym = _in.at(i);
 
-            if ( sym != word.at(i).text.at(_selected) )
+            if ( sym != Word::symWord.at(i).text.at(_selected) )
             {
                 out += makeRedHTML(sym);
             }

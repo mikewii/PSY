@@ -1,109 +1,96 @@
 #include "CGrammar.hpp"
 #include "CWord.hpp"
 
-void Grammar::grammarSmallTsu( Word& _word )
+void Grammar::grammarSmallTsu( void )
 {
-    auto    settings    = _word.getSettings();
-    auto&   word        = _word.getSymWord();
-
-
-    if ( !settings.longConsonant || !settings.multipleColumn )
+    if ( !Word::settings.longConsonant || !Word::settings.multipleColumn )
         return;
 
 
-    for ( u32 i = 0; i < word.size(); i++ )
+    for ( u32 i = 0; i < Word::symWord.size(); i++ )
     {
-        auto& sym = word.at(i);
+        auto& sym = Word::symWord.at(i);
 
         // cant be first
         if ( sym.phonetics == LongConsonant.phonetics && i == 0 )
-            word.at(i) = _word.getRandomSym(Phonetics(V | CV));
+            Word::symWord.at(i) = Word::getRandomSym({V,CV});
 
         // cant be last // not
-        if ( sym.phonetics == LongConsonant.phonetics && i == word.size() - 1 )
+        if ( sym.phonetics == LongConsonant.phonetics && i == Word::symWord.size() - 1 )
         {
-            auto phonetics = settings.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
+            std::vector<Phonetics> phonetics = settings.nn ? std::vector<Phonetics>{V,CV,N} : std::vector<Phonetics>{V,CV};
 
-            word.at(i) = _word.getRandomSym(phonetics);
+            Word::symWord.at(i) = Word::getRandomSym(phonetics);
         }
 
         // next sym can be only CV
-        if (  sym.phonetics == LongConsonant.phonetics && i != 0 && i + 1 < word.size() )
+        if (  sym.phonetics == LongConsonant.phonetics && i != 0 && i + 1 < Word::symWord.size() )
         {
-            if ( word.at(i + 1).phonetics != Phonetics::CV )
+            if ( Word::symWord.at(i + 1).phonetics != Phonetics::CV )
             {
-                word.at(i + 1) = _word.getRandomSym(Phonetics(CV));
+                Word::symWord.at(i + 1) = Word::getRandomSym({CV});
             }
         }
     }
 }
 
-void Grammar::grammarNN( Word& _word )
+void Grammar::grammarNN( void )
 {
-    auto    settings    = _word.getSettings();
-    auto&   word        = _word.getSymWord();
-
-
-    if ( !settings.nn )
+    if ( !Word::settings.nn )
         return;
 
 
-    Phonetics   phonetics = Phonetics::V;
-    u32         last = word.size() - 1;
+    std::vector<Phonetics>  phonetics = {V};
+    u32                     last = Word::symWord.size() - 1;
 
 
     if ( settings.longConsonant )
-        phonetics = static_cast<Phonetics>( phonetics | Phonetics::SmallTSU );
+        phonetics.push_back(Phonetics::SmallTSU);
     if ( settings.multipleColumn )
-        phonetics = static_cast<Phonetics>( phonetics | Phonetics::CV );
+        phonetics.push_back(Phonetics::CV);
 
 
-    for ( u32 i = 0; i < word.size(); i ++ )
+    for ( u32 i = 0; i < Word::symWord.size(); i ++ )
     {
-        auto& sym = word.at(i);
+        auto& sym = Word::symWord.at(i);
 
         if ( sym.phonetics == NN.phonetics && i != last )
-            sym = _word.getRandomSym(phonetics);
+            sym = Word::getRandomSym(phonetics);
     }
 }
 
-void Grammar::grammarRemoveTriplets( Word& _word )
+void Grammar::grammarRemoveTriplets( void )
 {
-    auto    settings   = _word.getSettings();
-    auto&   word      = _word.getSymWord();
-    auto&   symList   = _word.getSymList();
     Symbol  s;
 
 
-    auto inGeneratorLimit   = settings.wordLength / 2 <= symList.size() + 2;
-    auto acceptableWordSize = settings.wordLength >= 3;
-    if ( !settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
+    auto inGeneratorLimit   = Word::settings.wordLength / 2 <= Word::symList.size() + 2;
+    auto acceptableWordSize = Word::settings.wordLength >= 3;
+    if ( !Word::settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
         return;
 
 
-
-
-    for ( u32 i = 0; i < word.size(); i++ )
+    for ( u32 i = 0; i < Word::symWord.size(); i++ )
     {
-        auto&   sym = word.at(i);
+        auto&   sym = Word::symWord.at(i);
 
 
-        if ( i + 2 < word.size() )
+        if ( i + 2 < Word::symWord.size() )
         {
             // if we found double
-            if ( sym.text.at(Hiragana) == word.at(i + 1).text.at(Hiragana) )
+            if ( sym.text.at(Hiragana) == Word::symWord.at(i + 1).text.at(Hiragana) )
             {
                 // if we found triplet
-                if ( sym.text.at(Hiragana) == word.at(i + 2).text.at(Hiragana) )
+                if ( sym.text.at(Hiragana) == Word::symWord.at(i + 2).text.at(Hiragana) )
                 {
                     for(;;)
                     {
-                        s = _word.getRandomSym(Phonetics(V | CV));
+                        s = Word::getRandomSym({V,CV});
 
                         if ( sym.text.at(Hiragana) != s.text.at(Hiragana) ) break;
                     }
 
-                    word.at(i + 2) = s;
+                    Word::symWord.at(i + 2) = s;
                 }
             }
         }

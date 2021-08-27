@@ -3,15 +3,13 @@
 #include <vector>
 
 enum Phonetics {
-    C           = 1 << 0,   // consonant            согласная
-    V           = 1 << 1,   // vowel                гласная
-    VV          = 1 << 2,   // diphthongs           йотированные гласные
-    CV          = 1 << 3,
-    CVV         = 1 << 4,   // soft consonants      мягкие согласные
-    SmallTSU    = 1 << 5,
-    N           = 1 << 6,
-
-    NONE        = 1 << 7
+    C = 0,      // consonant            согласная
+    V,          // vowel                гласная
+    VV,         // diphthongs           йотированные гласные
+    CV,
+    CVV,        // soft consonants      мягкие согласные
+    SmallTSU,
+    N
 };
 
 enum SymbolEnum {
@@ -26,6 +24,7 @@ struct Symbol {
     QStringList text;
 };
 using SymVec = std::vector<Symbol>;
+using PhoVec = std::vector<Phonetics>;
 
 static const QChar DoubleVowelSign = ':';
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}

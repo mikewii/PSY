@@ -40,21 +40,19 @@ uint32_t findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
 }
 
 
-QString PhoneticsGenerator::makePhonetics( Word& _word, const SymbolEnum _selected ) const
+QString PhoneticsGenerator::makePhonetics( const SymbolEnum _selected )
 {
     if ( _selected == Hiragana || _selected == Katakana )
         return "Wrong phonetics!";
 
 
     QString         out;
-    auto&           word    = _word.getSymWord();
-    auto            s       = _word.getSettings();
-    const QString&  sym_i   = Column1.at(1).text.at(Hiragana);
+    const QString&  sym_u   = Column1.at(2).text.at(Hiragana);
 
 
-    for ( u32 i = 0; i < word.size(); i++ )
+    for ( u32 i = 0; i < Word::symWord.size(); i++ )
     {
-        auto& curSym = word.at(i);
+        auto& curSym = Word::symWord.at(i);
 
 
         if ( curSym.phonetics == Phonetics::V )
@@ -62,12 +60,12 @@ QString PhoneticsGenerator::makePhonetics( Word& _word, const SymbolEnum _select
             // if there is symbol behind
             if ( i != 0 )
             {
-                const Symbol&   prevSym = word.at(i - 1);
+                const Symbol&   prevSym = Word::symWord.at(i - 1);
                 const QChar&    prevCh  = out.at(i - 1);
                 auto            toAdd   = curSym.text.at(_selected);
 
                 // if using double vowel sign
-                if ( s.useDoubleVowelSign )
+                if ( Word::settings.useDoubleVowelSign )
                 {
                     // if both sym vowel
                     if ( curSym.phonetics == prevSym.phonetics && prevCh != DoubleVowelSign )
@@ -84,14 +82,14 @@ QString PhoneticsGenerator::makePhonetics( Word& _word, const SymbolEnum _select
                             toAdd = DoubleVowelSign;
                     }
                 }
-                // if using oi
-                if ( s.useoi )
+                // if using ou
+                if ( Word::settings.useou )
                 {
                     // if previous sym is CV
                     if ( prevSym.phonetics == Phonetics::CV )
                     {
-                        // if current sym is i and previous is consonant with o
-                        if ( curSym.text.at(Hiragana) == sym_i && _word.isGoodForOI(prevSym) )
+                        // if current sym is u and previous is consonant with o
+                        if ( curSym.text.at(Hiragana) == sym_u && Word::isGoodForOU(prevSym) )
                             toAdd = DoubleVowelSign;
                     }
                 }
@@ -112,11 +110,11 @@ QString PhoneticsGenerator::makePhonetics( Word& _word, const SymbolEnum _select
         }
 
         // if its smallTsu and not at the end of word
-        else if ( curSym.phonetics == Phonetics::SmallTSU && i + 1 < word.size() )
+        else if ( curSym.phonetics == Phonetics::SmallTSU && i + 1 < Word::symWord.size() )
         {
             QString smallTsu;
 
-            smallTsu = word.at(i + 1).text.at(_selected);
+            smallTsu = Word::symWord.at(i + 1).text.at(_selected);
             smallTsu.truncate(smallTsu.size() - 1);
 
             out += smallTsu;

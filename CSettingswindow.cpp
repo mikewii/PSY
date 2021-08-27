@@ -47,7 +47,7 @@ Settings_s SettingsWindow::getSettingsJPN() const
     settings.nn                     = ui->check_nn->isChecked();
 
     settings.useDoubleVowelSign     = ui->check_doubleVowelsPho->isChecked();
-    settings.useoi                  = ui->check_oiPho->isChecked();
+    settings.useou                  = ui->check_oiPho->isChecked();
 
     if ( settings.col2_k ||
          settings.col2_g ||
@@ -175,6 +175,6 @@ void SettingsWindow::applySettings()
     ui->check_nn->setChecked(s.nn);
 
     ui->check_doubleVowelsPho->setChecked(s.useDoubleVowelSign);
-    ui->check_oiPho->setChecked(s.useoi);
+    ui->check_oiPho->setChecked(s.useou);
 }
 

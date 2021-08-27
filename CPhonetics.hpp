@@ -1,10 +1,9 @@
 #pragma once
 #include <QString>
-#include "Kana.hpp"
+#include "CWord.hpp"
 
-class Word;
-class PhoneticsGenerator
+class PhoneticsGenerator : virtual public Word
 {
 public:
-    QString makePhonetics( Word& _word, const SymbolEnum _selected ) const;
+    QString makePhonetics( const SymbolEnum _selected );
 };

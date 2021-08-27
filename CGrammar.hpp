@@ -1,10 +1,10 @@
 #pragma once
+#include "CWord.hpp"
 
-class Word;
-class Grammar
+class Grammar : virtual public Word
 {
 public:
-    void grammarSmallTsu( Word& _word );
-    void grammarNN( Word& _word );
-    void grammarRemoveTriplets( Word& _word );
+    void grammarSmallTsu( void );
+    void grammarNN( void );
+    void grammarRemoveTriplets( void );
 };
