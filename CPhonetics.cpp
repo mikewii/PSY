@@ -1,6 +1,7 @@
-#include "CJapanese.hpp"
+#include "CPhonetics.hpp"
+#include "CWord.hpp"
 
-u32 findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
+uint32_t findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
 {
     const std::vector<const SymVec*> columnsVec =
     {
@@ -17,13 +18,13 @@ u32 findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
         &Column6_P
     };
 
-    u32     index   = 0;
-    bool    done    = false;
+    uint32_t    index   = 0;
+    bool        done    = false;
 
 
     for ( const auto& col : columnsVec )
     {
-        for ( u32 i = 0; i < col->size(); i++ )
+        for ( uint32_t i = 0; i < col->size(); i++ )
         {
             if ( _sym.text.at(_selected) == col->at(i).text.at(_selected) )
             {
@@ -39,15 +40,15 @@ u32 findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
 }
 
 
-QString Japanese::makePhonetics( const SymbolEnum _selected ) const
+QString PhoneticsGenerator::makePhonetics( Word& _word, const SymbolEnum _selected ) const
 {
     if ( _selected == Hiragana || _selected == Katakana )
         return "Wrong phonetics!";
 
 
     QString         out;
-    auto&           word    = this->__word;
-    auto&           f       = this->__settings;
+    auto&           word    = _word.getSymWord();
+    auto            s       = _word.getSettings();
     const QString&  sym_i   = Column1.at(1).text.at(Hiragana);
 
 
@@ -66,7 +67,7 @@ QString Japanese::makePhonetics( const SymbolEnum _selected ) const
                 auto            toAdd   = curSym.text.at(_selected);
 
                 // if using double vowel sign
-                if ( f.useDoubleVowelSign )
+                if ( s.useDoubleVowelSign )
                 {
                     // if both sym vowel
                     if ( curSym.phonetics == prevSym.phonetics && prevCh != DoubleVowelSign )
@@ -84,13 +85,13 @@ QString Japanese::makePhonetics( const SymbolEnum _selected ) const
                     }
                 }
                 // if using oi
-                if ( f.useoi )
+                if ( s.useoi )
                 {
                     // if previous sym is CV
                     if ( prevSym.phonetics == Phonetics::CV )
                     {
                         // if current sym is i and previous is consonant with o
-                        if ( curSym.text.at(Hiragana) == sym_i && this->isGoodForOI(prevSym) )
+                        if ( curSym.text.at(Hiragana) == sym_i && _word.isGoodForOI(prevSym) )
                             toAdd = DoubleVowelSign;
                     }
                 }

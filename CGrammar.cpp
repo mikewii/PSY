@@ -1,11 +1,14 @@
-#include "CJapanese.hpp"
+#include "CGrammar.hpp"
+#include "CWord.hpp"
 
-void Japanese::grammarSmallTsu( void )
+void Grammar::grammarSmallTsu( Word& _word )
 {
-    if ( !Japanese::__settings.longConsonant || !this->__settings.multipleColumn )
-        return;
+    auto    settings    = _word.getSettings();
+    auto&   word        = _word.getSymWord();
 
-    auto&   word = this->__word;
+
+    if ( !settings.longConsonant || !settings.multipleColumn )
+        return;
 
 
     for ( u32 i = 0; i < word.size(); i++ )
@@ -14,14 +17,14 @@ void Japanese::grammarSmallTsu( void )
 
         // cant be first
         if ( sym.phonetics == LongConsonant.phonetics && i == 0 )
-            word.at(i) = this->getRandomSym(Phonetics(V | CV));
+            word.at(i) = _word.getRandomSym(Phonetics(V | CV));
 
         // cant be last // not
         if ( sym.phonetics == LongConsonant.phonetics && i == word.size() - 1 )
         {
-            auto phonetics = this->__settings.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
+            auto phonetics = settings.nn ? Phonetics(V | CV | N) : Phonetics(V | CV);
 
-            word.at(i) = this->getRandomSym(phonetics);
+            word.at(i) = _word.getRandomSym(phonetics);
         }
 
         // next sym can be only CV
@@ -29,45 +32,55 @@ void Japanese::grammarSmallTsu( void )
         {
             if ( word.at(i + 1).phonetics != Phonetics::CV )
             {
-                word.at(i + 1) = this->getRandomSym(Phonetics(CV));
+                word.at(i + 1) = _word.getRandomSym(Phonetics(CV));
             }
         }
     }
 }
 
-void Japanese::grammarNN( void )
+void Grammar::grammarNN( Word& _word )
 {
-    if ( !this->__settings.nn )
+    auto    settings    = _word.getSettings();
+    auto&   word        = _word.getSymWord();
+
+
+    if ( !settings.nn )
         return;
 
+
     Phonetics   phonetics = Phonetics::V;
-    u32         last = this->__word.size() - 1;
+    u32         last = word.size() - 1;
 
 
-    if ( this->__settings.longConsonant )
+    if ( settings.longConsonant )
         phonetics = static_cast<Phonetics>( phonetics | Phonetics::SmallTSU );
-    if ( this->__settings.multipleColumn )
+    if ( settings.multipleColumn )
         phonetics = static_cast<Phonetics>( phonetics | Phonetics::CV );
 
 
-    for ( u32 i = 0; i < this->__word.size(); i ++ )
+    for ( u32 i = 0; i < word.size(); i ++ )
     {
-        auto& sym = this->__word.at(i);
+        auto& sym = word.at(i);
 
         if ( sym.phonetics == NN.phonetics && i != last )
-            sym = this->getRandomSym(phonetics);
+            sym = _word.getRandomSym(phonetics);
     }
 }
 
-void Japanese::grammarRemoveTriplets( void )
+void Grammar::grammarRemoveTriplets( Word& _word )
 {
-    auto inGeneratorLimit   = this->__settings.wordLength / 2 <= this->__symList->size() + 2;
-    auto acceptableWordSize = this->__settings.wordLength >= 3;
-    if ( !this->__settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
+    auto    settings   = _word.getSettings();
+    auto&   word      = _word.getSymWord();
+    auto&   symList   = _word.getSymList();
+    Symbol  s;
+
+
+    auto inGeneratorLimit   = settings.wordLength / 2 <= symList.size() + 2;
+    auto acceptableWordSize = settings.wordLength >= 3;
+    if ( !settings.preventTriplets || !inGeneratorLimit || !acceptableWordSize )
         return;
 
-    Symbol  s;
-    auto&   word = this->__word;
+
 
 
     for ( u32 i = 0; i < word.size(); i++ )
@@ -85,7 +98,7 @@ void Japanese::grammarRemoveTriplets( void )
                 {
                     for(;;)
                     {
-                        s = this->getRandomSym(Phonetics(V | CV));
+                        s = _word.getRandomSym(Phonetics(V | CV));
 
                         if ( sym.text.at(Hiragana) != s.text.at(Hiragana) ) break;
                     }

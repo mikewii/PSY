@@ -1,5 +1,5 @@
-#include "CJapanese.hpp"
-
+#include "CCheck.hpp"
+#include "CWord.hpp"
 
 static const QString    green  = "<span style='color:#00cc00;'>";
 static const QString    red    = "<span style='color:#cc0000;'>";
@@ -14,14 +14,20 @@ QString pushSym( const QString& _symbol, const QString& _wordSym )
     else return makeRedHTML(_symbol);
 }
 
-QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
+QString Check::check( Word& _word, const QString& _in, const SymbolEnum _selected ) const
 {    
-    QString         out;
-    const QString&  str         = this->getString(_selected);
-    auto            isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
-    auto&           word        = this->__word;
+    QString     out;
+    auto        isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
+    auto&       word        = _word.getSymWord();
+    auto        settings    = _word.getSettings();
+    int         strSize     = 0;
 
-    if ( _in.size() != str.size() )
+
+    for ( auto& sym : word )
+        strSize += sym.text.at(_selected).size();
+
+
+    if ( _in.size() != strSize )
         return "Wrong word size!";
     if ( !this->alphabetCheck(_in, _selected) )
         return "Text must be in language selected for check!";
@@ -62,7 +68,7 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
                     const Symbol& prevWordSym = word.at(i - 1);
 
 
-                    if ( this->__settings.useDoubleVowelSign && curCh == DoubleVowelSign )
+                    if ( settings.useDoubleVowelSign && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::V )
                         {
@@ -78,11 +84,11 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
                             continue;
                         }
                     }
-                    if ( this->__settings.useoi && curCh == DoubleVowelSign )
+                    if ( settings.useoi && curCh == DoubleVowelSign )
                     {
                         if ( prevWordSym.phonetics == Phonetics::CV )
                         {
-                            if ( this->isGoodForOI(prevWordSym) )
+                            if ( _word.isGoodForOI(prevWordSym) )
                                 out += makeGreenHTML(curCh);
                             else out += makeRedHTML(curCh);
 
@@ -122,7 +128,7 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
         {
             auto& sym = _in.at(i);
 
-            if ( sym != str.at(i) )
+            if ( sym != word.at(i).text.at(_selected) )
             {
                 out += makeRedHTML(sym);
             }
@@ -134,24 +140,7 @@ QString Japanese::check( const QString& _in, const SymbolEnum _selected ) const
 }
 
 
-bool Japanese::isGoodForOI( const Symbol& _sym ) const
-{
-    if ( _sym.text.at(Hiragana) == Column2_K.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column2_G.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column3_S.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column3_Z.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column4_T.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column4_D.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column5_N.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_H.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_B.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_P.at(4).text.at(Hiragana)) return true;
-
-    return false;
-}
-
-
-bool Japanese::alphabetCheck( const QString& _text, const SymbolEnum _selected) const
+bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) const
 {
     static const std::vector<const char*> russian =
     {

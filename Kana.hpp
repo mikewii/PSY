@@ -85,7 +85,7 @@ static SymVec Column3_S =
 static SymVec Column3_Z =
 {{
     {Phonetics::CV, {"ざ", "ザ", "za", "дза"}},
-    {Phonetics::CV, {"じ", "ジ", "zi", "дзи"}},
+    {Phonetics::CV, {"じ", "ジ", "ji", "дзи"}},
     {Phonetics::CV, {"ず", "ズ", "zu", "дзу"}},
     {Phonetics::CV, {"ぜ", "ズ", "ze", "дзэ"}},
     {Phonetics::CV, {"ぞ", "ゾ", "zo", "дзо"}}
