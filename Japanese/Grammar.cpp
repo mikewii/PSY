@@ -1,9 +1,9 @@
-#include "CGrammar.hpp"
-#include "CWord.hpp"
+#include "Japanese/Grammar.hpp"
+
 
 void Grammar::grammarSmallTsu( void )
 {
-    if ( !Word::settings.longConsonant || !Word::settings.multipleColumn )
+    if ( !Word::settings.smallTsu || !Word::settings.multipleColumn )
         return;
 
 
@@ -12,11 +12,11 @@ void Grammar::grammarSmallTsu( void )
         auto& sym = Word::symWord.at(i);
 
         // cant be first
-        if ( sym.phonetics == LongConsonant.phonetics && i == 0 )
+        if ( sym.phonetics == SmallTsu.phonetics && i == 0 )
             Word::symWord.at(i) = Word::getRandomSym({V,CV});
 
         // cant be last // not
-        if ( sym.phonetics == LongConsonant.phonetics && i == Word::symWord.size() - 1 )
+        if ( sym.phonetics == SmallTsu.phonetics && i == Word::symWord.size() - 1 )
         {
             std::vector<Phonetics> phonetics = settings.nn ? std::vector<Phonetics>{V,CV,N} : std::vector<Phonetics>{V,CV};
 
@@ -24,7 +24,7 @@ void Grammar::grammarSmallTsu( void )
         }
 
         // next sym can be only CV
-        if (  sym.phonetics == LongConsonant.phonetics && i != 0 && i + 1 < Word::symWord.size() )
+        if (  sym.phonetics == SmallTsu.phonetics && i != 0 && i + 1 < Word::symWord.size() )
         {
             if ( Word::symWord.at(i + 1).phonetics != Phonetics::CV )
             {
@@ -44,7 +44,7 @@ void Grammar::grammarNN( void )
     u32                     last = Word::symWord.size() - 1;
 
 
-    if ( settings.longConsonant )
+    if ( settings.smallTsu )
         phonetics.push_back(Phonetics::SmallTSU);
     if ( settings.multipleColumn )
         phonetics.push_back(Phonetics::CV);

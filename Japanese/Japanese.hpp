@@ -1,9 +1,9 @@
 #pragma once
 #include <QString>
-#include "CWord.hpp"
-#include "CGrammar.hpp"
-#include "CPhonetics.hpp"
-#include "CCheck.hpp"
+#include "Japanese/Word.hpp"
+#include "Japanese/Grammar.hpp"
+#include "Japanese/Phonetics.hpp"
+#include "Japanese/Check.hpp"
 
 
 class Japanese : virtual public Word, public Grammar, public PhoneticsGenerator, public Check

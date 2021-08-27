@@ -1,8 +1,8 @@
 #pragma once
 #include <QMainWindow>
-#include "CJournal.hpp"
-#include "CJapanese.hpp"
-#include "CSettingswindow.h"
+#include "Journal/Journal.hpp"
+#include "Japanese/Japanese.hpp"
+#include "Settingswindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

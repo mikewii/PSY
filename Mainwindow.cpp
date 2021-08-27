@@ -1,5 +1,5 @@
-#include "CMainwindow.h"
-#include "ui_CMainwindow.h"
+#include "Mainwindow.h"
+#include "ui_Mainwindow.h"
 #include "Emotion.hpp"
 
 

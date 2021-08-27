@@ -1,6 +1,7 @@
-#include "CJournal.hpp"
+#include "Journal.hpp"
 #include <QDir>
-#include <QCalendar>
+
+
 Journal::Journal()
 {
     this->file.setFileName(QDir::homePath() + QDir::separator() + "journal.txt");

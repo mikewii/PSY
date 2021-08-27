@@ -5,9 +5,9 @@
 enum Phonetics {
     C = 0,      // consonant            согласная
     V,          // vowel                гласная
-    VV,         // diphthongs           йотированные гласные
+    D,          // diphthongs           йотированные гласные
     CV,
-    CVV,        // soft consonants      мягкие согласные
+    CVD,        // soft consonants      мягкие согласные
     SmallTSU,
     N
 };
@@ -28,8 +28,8 @@ using PhoVec = std::vector<Phonetics>;
 
 static const QChar DoubleVowelSign = ':';
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}
-static Symbol   LongConsonant   = {Phonetics::SmallTSU, {"っ", "ッ", "|", "|"}};
-static Symbol   NN              = {Phonetics::N, {"ん", "ン", "nn", "нн"}};
+static Symbol   SmallTsu    = {Phonetics::SmallTSU, {"っ", "ッ", "", ""}};
+static Symbol   NN          = {Phonetics::N, {"ん", "ン", "nn", "нн"}};
 
 static QString  shi_eng = "shi";    // si
 static QString  shi_rus = "ши";     // си
@@ -155,7 +155,86 @@ static SymVec Column7_M =
 
 static SymVec Column8_Y =
 {{
-     {Phonetics::VV, {"や", "ヤ", "ya", "я"}},
-     {Phonetics::VV, {"ゆ", "ユ", "yu", "ю"}},
-     {Phonetics::VV, {"よ", "ヨ", "yo", "ё"}}
+     {Phonetics::D, {"や", "ヤ", "ya", "я"}},
+     {Phonetics::D, {"ゆ", "ユ", "yu", "ю"}},
+     {Phonetics::D, {"よ", "ヨ", "yo", "ё"}}
+}};
+
+
+// diphtongs
+static SymVec Column2_K_D =
+{{
+     {Phonetics::CVD, {"きゃ", "キャ", "kya", "кя"}},
+     {Phonetics::CVD, {"きゅ", "キュ", "kyu", "кю"}},
+     {Phonetics::CVD, {"きょ", "キョ", "kyo", "кё"}}
+}};
+
+static SymVec Column2_G_D =
+{{
+     {Phonetics::CVD, {"ぎゃ", "ギャ", "gya", "гя"}},
+     {Phonetics::CVD, {"ぎゅ", "ギュ", "gyu", "гю"}},
+     {Phonetics::CVD, {"ぎょ", "ギョ", "gyo", "гё"}}
+}};
+
+static SymVec Column3_S_D =
+{{
+     {Phonetics::CVD, {"しゃ", "シャ", "sha", "ша"}}, // fix
+     {Phonetics::CVD, {"しゅ", "シュ", "shu", "шю"}},
+     {Phonetics::CVD, {"しょ", "ショ", "sho", "шё"}}
+}};
+
+static SymVec Column3_Z_D =
+{{
+     {Phonetics::CVD, {"じゃ", "ジャ", "ja", "джя"}},
+     {Phonetics::CVD, {"じゅ", "ジュ", "ju", "джю"}},
+     {Phonetics::CVD, {"じょ", "ジョ", "jo", "джо"}}
+}};
+
+static SymVec Column4_T_D =
+{{
+     {Phonetics::CVD, {"ちゃ", "チャ", "cha", "ча"}}, // fix
+     {Phonetics::CVD, {"ちゅ", "チュ", "chu", "чю"}},
+     {Phonetics::CVD, {"ちょ", "チョ", "cho", "чо"}}
+}};
+
+static SymVec Column4_D_D =
+{{
+     {Phonetics::CVD, {"ぢゃ", "ヂャ", "dja", "ча"}}, // fix
+     {Phonetics::CVD, {"ぢゅ", "ヂュ", "dju", "чю"}},
+     {Phonetics::CVD, {"ぢょ", "ヂョ", "djo", "чо"}}
+}};
+
+static SymVec Column5_N_D =
+{{
+     {Phonetics::CVD, {"にゃ", "ニャ", "nya", "ня"}},
+     {Phonetics::CVD, {"にゅ", "ニュ", "nyu", "ню"}},
+     {Phonetics::CVD, {"にょ", "ニョ", "nyo", "нё"}}
+}};
+
+static SymVec Column6_H_D =
+{{
+     {Phonetics::CVD, {"ひゃ", "ヒャ", "hya", "хя"}},
+     {Phonetics::CVD, {"ひゅ", "ヒュ", "hyu", "хю"}},
+     {Phonetics::CVD, {"ひょ", "ヒョ", "hyo", "хё"}}
+}};
+
+static SymVec Column6_B_D =
+{{
+     {Phonetics::CVD, {"びゃ", "ビャ", "bya", "бя"}},
+     {Phonetics::CVD, {"びゅ", "ビュ", "byu", "бю"}},
+     {Phonetics::CVD, {"びょ", "ビョ", "byo", "бё"}}
+}};
+
+static SymVec Column6_P_D =
+{{
+     {Phonetics::CVD, {"ぴゃ", "ピャ", "pya", "пя"}},
+     {Phonetics::CVD, {"ぴゅ", "ピュ", "pyu", "пю"}},
+     {Phonetics::CVD, {"ぴょ", "ピョ", "pyo", "пё"}}
+}};
+
+static SymVec Column7_M_D =
+{{
+     {Phonetics::CVD, {"みゃ", "ミャ", "mya", "мя"}},
+     {Phonetics::CVD, {"みゅ", "ミュ", "myu", "мю"}},
+     {Phonetics::CVD, {"みょ", "ミョ", "myo", "мё"}}
 }};

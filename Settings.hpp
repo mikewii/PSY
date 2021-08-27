@@ -32,8 +32,10 @@ union Settings_s {
         size col6_h : 1;
         size col6_b : 1;
         size col6_p : 1;
+        size col7_m : 1;
+        size col8_y : 1;
 
-        size longConsonant : 1;
+        size smallTsu : 1;  // sokuon
         size nn : 1;
 
         // phonetics settings

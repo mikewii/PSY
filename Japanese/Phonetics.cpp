@@ -1,5 +1,5 @@
-#include "CPhonetics.hpp"
-#include "CWord.hpp"
+#include "Japanese/Phonetics.hpp"
+
 
 uint32_t findIndex( const Symbol& _sym, const SymbolEnum _selected = Hiragana )
 {
@@ -100,6 +100,16 @@ QString PhoneticsGenerator::makePhonetics( const SymbolEnum _selected )
         }
 
         else if ( curSym.phonetics == Phonetics::CV )
+        {
+            out += curSym.text.at(_selected);
+        }
+
+        else if ( curSym.phonetics == Phonetics::D )
+        {
+            out += curSym.text.at(_selected);
+        }
+
+        else if ( curSym.phonetics == Phonetics::CVD )
         {
             out += curSym.text.at(_selected);
         }

@@ -1,5 +1,5 @@
-#include "CCheck.hpp"
-#include "CWord.hpp"
+#include "Japanese/Check.hpp"
+
 
 static const QString    green  = "<span style='color:#00cc00;'>";
 static const QString    red    = "<span style='color:#cc0000;'>";
@@ -101,6 +101,14 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
             {
                 out += pushSym(curCh, curWordCh);
             }
+            else if ( curWordSym.phonetics == Phonetics::D )
+            {
+                out += pushSym(curCh, curWordCh);
+            }
+            else if ( curWordSym.phonetics == Phonetics::CVD )
+            {
+                out += pushSym(curCh, curWordCh);
+            }
             else if ( curWordSym.phonetics == Phonetics::N )
             {
                 out += pushSym(curCh, curWordCh);
@@ -177,7 +185,7 @@ bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) con
 
     const std::vector<const Symbol*> japaneseSpecial =
     {
-        &LongConsonant,
+        &SmallTsu,
         &NN
     };
 

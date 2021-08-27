@@ -1,5 +1,5 @@
 #pragma once
-#include "CWord.hpp"
+#include "Japanese/Word.hpp"
 
 class Grammar : virtual public Word
 {

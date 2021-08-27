@@ -1,6 +1,6 @@
 #pragma once
 #include <QString>
-#include "CWord.hpp"
+#include "Japanese/Word.hpp"
 
 class PhoneticsGenerator : virtual public Word
 {

@@ -9,34 +9,35 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    CCheck.cpp \
-    CGrammar.cpp \
-    CJapanese.cpp \
-    CJournal.cpp \
-    CMainwindow.cpp \
-    CPhonetics.cpp \
-    CSettingswindow.cpp \
-    CUtils.cpp \
-    CWord.cpp \
+    Japanese/Check.cpp \
+    Japanese/Grammar.cpp \
+    Japanese/Japanese.cpp \
+    Japanese/Phonetics.cpp \
+    Japanese/Word.cpp \
+    Journal/Journal.cpp \
+    Mainwindow.cpp \
+    Settingswindow.cpp \
+    Utils.cpp \
     main.cpp
 
 HEADERS += \
-    CCheck.hpp \
-    CGrammar.hpp \
-    CJapanese.hpp \
-    CJournal.hpp \
-    CMainwindow.h \
-    CPhonetics.hpp \
-    CSettingswindow.h \
-    CUtils.h \
-    CWord.hpp \
     Emotion.hpp \
+    Japanese/Check.hpp \
+    Japanese/Grammar.hpp \
+    Japanese/Japanese.hpp \
+    Japanese/Kana.hpp \
+    Japanese/Phonetics.hpp \
+    Japanese/Word.hpp \
+    Journal/Journal.hpp \
     Kana.hpp \
-    Settings.hpp
+    Mainwindow.h \
+    Settings.hpp \
+    Settingswindow.h \
+    Utils.h
 
 FORMS += \
-    CMainwindow.ui \
-    CSettingswindow.ui
+    Mainwindow.ui \
+    Settingswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

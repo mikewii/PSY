@@ -1,7 +1,5 @@
-#include "CJapanese.hpp"
-#include <random>
-#include <time.h>
-#include "CUtils.h"
+#include "Japanese/Japanese.hpp"
+#include "Utils.h"
 
 void Japanese::generate( const Settings_s _settings )
 {
@@ -16,7 +14,7 @@ void Japanese::generate( const Settings_s _settings )
     /* generator */ Grammar::grammarSmallTsu();
     /* generator */ Grammar::grammarRemoveTriplets();
 
-    for ( auto& sym : Word::getSymWord() )
+    for ( auto& sym : Word::symWord )
     {
         hiragana += sym.text.at(Hiragana);
         katakana += sym.text.at(Katakana);

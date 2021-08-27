@@ -1,6 +1,5 @@
-#include "CSettingswindow.h"
-#include "ui_CSettingswindow.h"
-#include <QSettings>
+#include "Settingswindow.h"
+#include "ui_Settingswindow.h"
 #include <QDir>
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
@@ -42,8 +41,10 @@ Settings_s SettingsWindow::getSettingsJPN() const
     settings.col6_h                 = ui->check_col6_h->isChecked();
     settings.col6_b                 = ui->check_col6_b->isChecked();
     settings.col6_p                 = ui->check_col6_p->isChecked();
+    settings.col7_m                 = ui->check_col7_m->isChecked();
+    settings.col8_y                 = ui->check_col8_y->isChecked();
 
-    settings.longConsonant          = ui->check_longConsonant->isChecked();
+    settings.smallTsu          = ui->check_longConsonant->isChecked();
     settings.nn                     = ui->check_nn->isChecked();
 
     settings.useDoubleVowelSign     = ui->check_doubleVowelsPho->isChecked();
@@ -58,7 +59,8 @@ Settings_s SettingsWindow::getSettingsJPN() const
          settings.col5_n ||
          settings.col6_h ||
          settings.col6_b ||
-         settings.col6_p )
+         settings.col6_p ||
+         settings.col7_m)
         settings.multipleColumn = true;
 
     return settings;
@@ -170,8 +172,10 @@ void SettingsWindow::applySettings()
     ui->check_col6_h->setChecked(s.col6_h);
     ui->check_col6_b->setChecked(s.col6_b);
     ui->check_col6_p->setChecked(s.col6_p);
+    ui->check_col7_m->setChecked(s.col7_m);
+    ui->check_col8_y->setChecked(s.col8_y);
 
-    ui->check_longConsonant->setChecked(s.longConsonant);
+    ui->check_longConsonant->setChecked(s.smallTsu);
     ui->check_nn->setChecked(s.nn);
 
     ui->check_doubleVowelsPho->setChecked(s.useDoubleVowelSign);
