@@ -20,3 +20,8 @@ uint32_t Utils::getRandom( uint32_t _min, uint32_t _max )
 
     return (uniform(rng));
 }
+
+bool    Utils::getRandomBool( void )
+{
+    return Utils::getRandom(0, 1);
+}

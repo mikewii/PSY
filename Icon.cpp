@@ -76,6 +76,8 @@ void Icon::drawText( QPainter& _painter )
     const QString   mike    = "ミ\nケ";
     const QString   wii     = "ヰ\nイ";
 
+    bool    colored     = Utils::getRandomBool();
+    bool    centered    = Utils::getRandomBool();
     auto    textSize    = Icon::height / 3;
     QFont   font        = _painter.font();
     QPen    pen({0, 0, 0});
@@ -88,20 +90,48 @@ void Icon::drawText( QPainter& _painter )
     auto xPaddingFull = Icon::width / 2 - textSize;
     auto yPaddingFull = Icon::height / 2 - textSize;
 
-    QRect leftBg    (xPaddingFull / 2, yPaddingFull / 2, Icon::width / 2 - xPaddingFull, Icon::height - yPaddingFull);
-    QRect rightBg   (Icon::width / 2 + xPaddingFull / 2, yPaddingFull / 2, Icon::width / 2 - xPaddingFull, Icon::height - yPaddingFull);
+    QRect leftBg(
+                xPaddingFull / 2,
+                yPaddingFull / 2,
+                Icon::width / 2 - xPaddingFull,
+                Icon::height - yPaddingFull);
+
+    QRect rightBg(
+                Icon::width / 2 + xPaddingFull / 2,
+                yPaddingFull / 2,
+                Icon::width / 2 - xPaddingFull,
+                Icon::height - yPaddingFull);
 
 
 
     font.setPixelSize(textSize);
     _painter.setFont(font);
 
-    _painter.fillRect(leftBg, Icon::getColor(true));
-    _painter.fillRect(rightBg, Icon::getColor(true));
 
-    _painter.setPen(pen);
-    _painter.drawText(rightHalf, Qt::AlignCenter, mike);
-    _painter.drawText(leftHalf, Qt::AlignCenter, wii);
+
+    if ( centered )
+    {
+        QRect centerBg(
+                    Icon::width / 2 - textSize - ( textSize / 16 ),
+                    Icon::height / 2 - textSize - ( textSize / 8 ),
+                    textSize * 2 + ( textSize / 8 ),
+                    textSize * 2 + ( textSize / 4 ));
+
+        _painter.fillRect(centerBg, Icon::getColor(colored));
+
+        _painter.setPen(pen);
+        _painter.drawText(rightHalf, Qt::AlignVCenter | Qt::AlignLeft, mike);
+        _painter.drawText(leftHalf, Qt::AlignVCenter | Qt::AlignRight, wii);
+    }
+    else
+    {
+        _painter.fillRect(leftBg, Icon::getColor(colored));
+        _painter.fillRect(rightBg, Icon::getColor(colored));
+
+        _painter.setPen(pen);
+        _painter.drawText(rightHalf, Qt::AlignCenter, mike);
+        _painter.drawText(leftHalf, Qt::AlignCenter, wii);
+    }
 }
 
 QColor Icon::getColor( bool _grey ) const
