@@ -1,10 +1,15 @@
 #include "Utils.h"
+#include <chrono>
+#include <random>
 
-std::mt19937 Utils::rng;
+static std::mt19937 rng;
 
 void Utils::initRandom()
 {
-    rng.seed(time(NULL));
+    //auto t = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+    auto t = time(NULL);
+
+    rng.seed(t);
 }
 
 uint32_t Utils::getRandom( uint32_t _min, uint32_t _max )

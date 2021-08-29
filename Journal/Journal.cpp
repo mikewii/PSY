@@ -1,5 +1,6 @@
 #include "Journal.hpp"
 #include <QDir>
+#include <QTime>
 
 
 Journal::Journal()

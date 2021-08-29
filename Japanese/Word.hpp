@@ -25,6 +25,6 @@ public:
     SymVec      symWord;
 
 private:
-    PhoVec      getSyllable( void ) const;
+    PhoVec      getSyllablePhonetics( void ) const;
     uint32_t    wordLengthMax = 0;
 };

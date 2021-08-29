@@ -33,7 +33,7 @@ void Word::generateSymWord( void )
         }
         else
         {
-            const auto& sym = Word::getRandomSym();
+            const auto& sym = Word::getRandomSym({V,CV,D});
 
             Word::symWord.push_back(sym);
             ++wordLengthCurrent;
@@ -60,7 +60,8 @@ Symbol Word::getRandomSym( PhoVec _selected ) const
     return Word::symList.at(rand);
 }
 
-PhoVec Word::getSyllable( void ) const
+
+PhoVec Word::getSyllablePhonetics( void ) const
 {
     switch (Utils::getRandom(0, 8)) {
     case 0: return {V,V};
@@ -78,6 +79,7 @@ PhoVec Word::getSyllable( void ) const
     return {V,V};
 }
 
+
 SymVec Word::getSymSyllable( void ) const
 {
     SymVec      out;
@@ -91,16 +93,20 @@ SymVec Word::getSymSyllable( void ) const
 
     for(;;)
     {
-        combo = Word::getSyllable();
+        bool repeat = false;
+        combo = Word::getSyllablePhonetics();
+
 
         for ( auto& pho : combo )
         {
-            if ( !Word::settings.nn && pho == Phonetics::N ) continue;
-            if ( !Word::settings.smallTsu && pho == Phonetics::SmallTSU ) continue;
-            if ( !Word::settings.col8_y && pho == Phonetics::CVD ) continue;
+            if ( !Word::settings.nn && pho == Phonetics::N ) repeat = true;
+            if ( !Word::settings.smallTsu && pho == Phonetics::SmallTSU ) repeat = true;
+            if ( !Word::settings.col8_y && pho == Phonetics::D ) repeat = true;
+            if ( !Word::settings.col8_y && pho == Phonetics::CVD ) repeat = true;
         }
 
-        break;
+        if ( repeat ) continue;
+        else break;
     }
 
 
@@ -130,64 +136,80 @@ void Word::makeSymList( void )
 
     if ( Word::settings.col2_k )
     {
-        Word::addColumn(Word::symList, Column2_K );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_K_D );
+        Word::addColumn(Word::symList, Column2_K);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_K_D);
     }
     if ( Word::settings.col2_g )
     {
-        Word::addColumn(Word::symList, Column2_G );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_G_D );
+        Word::addColumn(Word::symList, Column2_G);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_G_D);
     }
     if ( Word::settings.col3_s )
     {
-        Word::addColumn(Word::symList, Column3_S );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_S_D );
+        Word::addColumn(Word::symList, Column3_S);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_S_D);
     }
     if ( Word::settings.col3_z )
     {
-        Word::addColumn(Word::symList, Column3_Z );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_Z_D );
+        Word::addColumn(Word::symList, Column3_Z);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_Z_D);
     }
     if ( Word::settings.col4_t )
     {
-        Word::addColumn(Word::symList, Column4_T );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_T_D );
+        Word::addColumn(Word::symList, Column4_T);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_T_D);
     }
     if ( Word::settings.col4_d )
     {
-        Word::addColumn(Word::symList, Column4_D );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_D_D );
+        Word::addColumn(Word::symList, Column4_D);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_D_D);
     }
     if ( Word::settings.col5_n )
     {
-        Word::addColumn(Word::symList, Column5_N );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column5_N_D );
+        Word::addColumn(Word::symList, Column5_N);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column5_N_D);
     }
     if ( Word::settings.col6_h )
     {
-        Word::addColumn(Word::symList, Column6_H );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_H_D );
+        Word::addColumn(Word::symList, Column6_H);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_H_D);
     }
     if ( Word::settings.col6_b )
     {
-        Word::addColumn(Word::symList, Column6_B );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_B_D );
+        Word::addColumn(Word::symList, Column6_B);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_B_D);
     }
     if ( Word::settings.col6_p )
     {
-        Word::addColumn(Word::symList, Column6_P );
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_P_D );
+        Word::addColumn(Word::symList, Column6_P);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_P_D);
     }
     if ( Word::settings.col7_m )
     {
-        Word::addColumn(Word::symList, Column7_M );
+        Word::addColumn(Word::symList, Column7_M);
         if ( useDiphtongs ) Word::addColumn(Word::symList, Column7_M_D );
     }
-    if ( Word::settings.col8_y ) Word::addColumn(Word::symList, Column8_Y );
+    if ( Word::settings.col8_y ) Word::addColumn(Word::symList, Column8_Y);
+    if ( Word::settings.col9_r )
+    {
+        Word::addColumn(Word::symList, Column9_R);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column9_R_D);
+    }
+    if ( Word::settings.col10_w )
+    {
+        Word::addColumn(Word::symList, Column10_W);
+        if ( useDiphtongs ) Word::addColumn(Word::symList, Column10_W_D);
+    }
 }
+
 
 void Word::addColumn( SymVec& _symVec, const SymVec& _col )
 {
+//    SymVec banned;
+
+//    if ( Word::settings.preventDiDu )
+//        banned += Column4_D_D;
+
     for ( auto& sym : _col )
     {
         if ( Word::settings.preventDiDu )

@@ -1,14 +1,18 @@
 #include "Mainwindow.h"
 #include <QApplication>
 #include "Utils.h"
+#include "Icon.hpp"
 
 int main(int argc, char *argv[])
 {
     Utils::initRandom();
 
-    QApplication a(argc, argv);
-    a.setStyle("windows");
-    MainWindow w;
-    w.show();
-    return a.exec();
+    QApplication    app(argc, argv);
+    MainWindow      win;
+
+    app.setStyle("fusion");
+    app.setWindowIcon(Icon());
+    win.show();
+
+    return app.exec();
 }

@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
+    <width>703</width>
     <height>406</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_13">
+   <layout class="QVBoxLayout" name="verticalLayout_12">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -2531,7 +2531,7 @@
        <attribute name="title">
         <string>Japanese</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
         <item>
          <widget class="QWidget" name="widget_9" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -2906,7 +2906,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>701</width>
+     <width>703</width>
      <height>21</height>
     </rect>
    </property>

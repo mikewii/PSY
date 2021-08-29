@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Icon.cpp \
     Japanese/Check.cpp \
     Japanese/Grammar.cpp \
     Japanese/Japanese.cpp \
@@ -21,13 +22,14 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    Emotion.hpp \
+    Icon.hpp \
     Japanese/Check.hpp \
     Japanese/Grammar.hpp \
     Japanese/Japanese.hpp \
     Japanese/Kana.hpp \
     Japanese/Phonetics.hpp \
     Japanese/Word.hpp \
+    Journal/Emotion.hpp \
     Journal/Journal.hpp \
     Kana.hpp \
     Mainwindow.h \

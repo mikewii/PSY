@@ -22,18 +22,20 @@ union Settings_s {
         size preventDiDu : 1;
         size multipleColumn : 1;
 
-        size col2_k : 1;
-        size col2_g : 1;
-        size col3_s : 1;
-        size col3_z : 1;
-        size col4_t : 1;
-        size col4_d : 1;
-        size col5_n : 1;
-        size col6_h : 1;
-        size col6_b : 1;
-        size col6_p : 1;
-        size col7_m : 1;
-        size col8_y : 1;
+        size col2_k     : 1;
+        size col2_g     : 1;
+        size col3_s     : 1;
+        size col3_z     : 1;
+        size col4_t     : 1;
+        size col4_d     : 1;
+        size col5_n     : 1;
+        size col6_h     : 1;
+        size col6_b     : 1;
+        size col6_p     : 1;
+        size col7_m     : 1;
+        size col8_y     : 1;
+        size col9_r     : 1;
+        size col10_w    : 1;
 
         size smallTsu : 1;  // sokuon
         size nn : 1;

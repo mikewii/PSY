@@ -160,8 +160,28 @@ static SymVec Column8_Y =
      {Phonetics::D, {"よ", "ヨ", "yo", "ё"}}
 }};
 
+static SymVec Column9_R =
+{{
+     {Phonetics::CV, {"ら", "ラ", "ra", "ра"}},
+     {Phonetics::CV, {"り", "リ", "ri", "ри"}},
+     {Phonetics::CV, {"る", "ル", "ru", "ру"}},
+     {Phonetics::CV, {"れ", "レ", "re", "рэ"}},
+     {Phonetics::CV, {"ろ", "ロ", "ro", "ро"}}
+}};
 
-// diphtongs
+static SymVec Column10_W =
+{{
+     {Phonetics::CV, {"わ", "ワ", "wa", "ва"}},
+     {Phonetics::CV, {"ゐ", "ヰ", "wi", "ви"}}, // obsolete
+     {Phonetics::CV, {"ゑ", "ヱ", "we", "вэ"}}, // obsolete
+     {Phonetics::CV, {"を", "ヲ", "wo", "во"}}
+}};
+
+
+
+
+
+////////// diphtongs //////////
 static SymVec Column2_K_D =
 {{
      {Phonetics::CVD, {"きゃ", "キャ", "kya", "кя"}},
@@ -237,4 +257,18 @@ static SymVec Column7_M_D =
      {Phonetics::CVD, {"みゃ", "ミャ", "mya", "мя"}},
      {Phonetics::CVD, {"みゅ", "ミュ", "myu", "мю"}},
      {Phonetics::CVD, {"みょ", "ミョ", "myo", "мё"}}
+}};
+
+static SymVec Column9_R_D =
+{{
+     {Phonetics::CVD, {"りゃ", "リャ", "rya", "ря"}},
+     {Phonetics::CVD, {"りゅ", "リュ", "ryu", "рю"}},
+     {Phonetics::CVD, {"りょ", "リョ", "ryo", "рё"}}
+}};
+
+static SymVec Column10_W_D = // is it even exist?
+{{
+     {Phonetics::CV, {"ゐゃ", "ヰャ", "wya", "вя"}},
+     {Phonetics::CV, {"ゐゅ", "ヰュ", "wyu", "вю"}},
+     {Phonetics::CV, {"ゐょ", "ヰョ", "wyo", "вё"}}
 }};

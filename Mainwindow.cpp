@@ -1,7 +1,9 @@
 #include "Mainwindow.h"
 #include "ui_Mainwindow.h"
-#include "Emotion.hpp"
+#include "Journal/Emotion.hpp"
+#include <QTime>
 
+#include "Icon.hpp"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->ui->fontSizeJPN->setValue(fontSizeCurrent);
 
     this->uiSettings = new SettingsWindow(this);
-
 
     connect(this->uiSettings, SIGNAL(notifySettings(QString,int)), this, SLOT(notify(QString,int)));
 }

@@ -43,6 +43,8 @@ Settings_s SettingsWindow::getSettingsJPN() const
     settings.col6_p                 = ui->check_col6_p->isChecked();
     settings.col7_m                 = ui->check_col7_m->isChecked();
     settings.col8_y                 = ui->check_col8_y->isChecked();
+    settings.col9_r                 = ui->check_col9_r->isChecked();
+    settings.col10_w                = ui->check_col10_w->isChecked();
 
     settings.smallTsu          = ui->check_longConsonant->isChecked();
     settings.nn                     = ui->check_nn->isChecked();
@@ -60,7 +62,9 @@ Settings_s SettingsWindow::getSettingsJPN() const
          settings.col6_h ||
          settings.col6_b ||
          settings.col6_p ||
-         settings.col7_m)
+         settings.col7_m ||
+         settings.col9_r ||
+         settings.col10_w)
         settings.multipleColumn = true;
 
     return settings;
@@ -174,6 +178,8 @@ void SettingsWindow::applySettings()
     ui->check_col6_p->setChecked(s.col6_p);
     ui->check_col7_m->setChecked(s.col7_m);
     ui->check_col8_y->setChecked(s.col8_y);
+    ui->check_col9_r->setChecked(s.col9_r);
+    ui->check_col10_w->setChecked(s.col10_w);
 
     ui->check_longConsonant->setChecked(s.smallTsu);
     ui->check_nn->setChecked(s.nn);

@@ -1,8 +1,7 @@
 #pragma once
 #include <QFile>
 #include <QString>
-#include <QTime>
-#include "Emotion.hpp"
+#include "Journal/Emotion.hpp"
 
 /* date time | emotion
  * text
