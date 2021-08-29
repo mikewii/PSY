@@ -1,7 +1,7 @@
 #pragma once
 #include <QStringList>
 
-const QStringList EmoAnger =
+static const QStringList EmoAnger =
 {
     "-----",
     "Бешенство",
@@ -22,7 +22,7 @@ const QStringList EmoAnger =
     "Отвращение"
 };
 
-const QStringList EmoFear =
+static const QStringList EmoFear =
 {
     "-----",
     "Ужас",
@@ -49,7 +49,7 @@ const QStringList EmoFear =
     "Ошеломленность"
 };
 
-const QStringList EmoSadness =
+static const QStringList EmoSadness =
 {
     "-----",
     "Горечь",
@@ -72,7 +72,7 @@ const QStringList EmoSadness =
     "Загнаность"
 };
 
-const QStringList EmoJoy =
+static const QStringList EmoJoy =
 {
     "-----",
     "Счастье",
@@ -96,7 +96,7 @@ const QStringList EmoJoy =
     "Изумление"
 };
 
-const QStringList EmoLove =
+static const QStringList EmoLove =
 {
     "-----",
     "Нежность",

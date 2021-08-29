@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     MainWindow      win;
 
     app.setStyle("fusion");
-    app.setWindowIcon(Icon());
+    app.setWindowIcon(Icon(true));
     win.show();
 
     return app.exec();

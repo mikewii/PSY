@@ -26,7 +26,7 @@ void Iconwindow::on_btn_generate_clicked()
     auto width  = this->ui->spin_width->value();
     auto height = this->ui->spin_height->value();
 
-    this->ui->pic->setPixmap(Icon(width, height).pixmap(width, height));
+    this->ui->pic->setPixmap(Icon(width, height, this->ui->check_text->isChecked()).pixmap(width, height));
 }
 
 
