@@ -79,6 +79,33 @@ PhoVec Word::getSyllablePhonetics( void ) const
     return {V,V};
 }
 
+bool Word::isBanned( const Symbol& _sym ) const
+{
+    // di du flag
+    const Symbol& di    = Column4_D.at(1);
+    const Symbol& du    = Column4_D.at(2);
+    const SymVec& di_d  = Column4_D_D;
+
+    const Symbol aa[] = {di,du};
+
+
+
+
+    //constexpr SymVec bannedDiDu = {};
+
+    if ( Word::settings.preventDiDu )
+    {
+        if ( _sym.text.at(Hiragana) == di.text.at(Hiragana) ) return true;
+        if ( _sym.text.at(Hiragana) == du.text.at(Hiragana) ) return true;
+
+        for ( auto& sym : di_d )
+            if ( _sym.text.at(Hiragana) == sym.text.at(Hiragana) ) return true;
+    }
+
+
+    return false;
+}
+
 
 SymVec Word::getSymSyllable( void ) const
 {
@@ -212,17 +239,7 @@ void Word::addColumn( SymVec& _symVec, const SymVec& _col )
 
     for ( auto& sym : _col )
     {
-        if ( Word::settings.preventDiDu )
-        {
-            const auto& di = Column4_D.at(1).text.at(Hiragana);
-            const auto& du = Column4_D.at(2).text.at(Hiragana);
-            const auto& ch = sym.text.at(Hiragana);
-
-            if ( ch == di || ch == du ) continue;
-
-            for ( const auto& s : Column4_D_D )
-                if ( ch == s.text.at(Hiragana) ) continue;
-        }
+        if ( isBanned(sym) ) continue;
 
         _symVec.push_back(sym);
     }

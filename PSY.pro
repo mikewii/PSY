@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     Icon.cpp \
+    Iconwindow.cpp \
     Japanese/Check.cpp \
     Japanese/Grammar.cpp \
     Japanese/Japanese.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     Icon.hpp \
+    Iconwindow.h \
     Japanese/Check.hpp \
     Japanese/Grammar.hpp \
     Japanese/Japanese.hpp \
@@ -38,6 +40,7 @@ HEADERS += \
     Utils.h
 
 FORMS += \
+    Iconwindow.ui \
     Mainwindow.ui \
     Settingswindow.ui
 

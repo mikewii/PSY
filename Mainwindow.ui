@@ -17,7 +17,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_12">
+   <layout class="QHBoxLayout" name="horizontalLayout_6">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -2910,8 +2910,20 @@ p, li { white-space: pre-wrap; }
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuIcon">
+    <property name="title">
+     <string>Icon</string>
+    </property>
+    <addaction name="actionShow"/>
+   </widget>
+   <addaction name="menuIcon"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionShow">
+   <property name="text">
+    <string>Show</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>

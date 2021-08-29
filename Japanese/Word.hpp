@@ -27,4 +27,6 @@ public:
 private:
     PhoVec      getSyllablePhonetics( void ) const;
     uint32_t    wordLengthMax = 0;
+
+    bool        isBanned( const Symbol& _sym ) const;
 };

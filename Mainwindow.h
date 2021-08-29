@@ -32,6 +32,8 @@ private slots:
 
     void on_fontSizeJPN_valueChanged(int arg1);
 
+    void on_actionShow_triggered();
+
 private:
     Ui::MainWindow  *ui;
     SettingsWindow  *uiSettings;

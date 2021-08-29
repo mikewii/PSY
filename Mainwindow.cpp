@@ -2,8 +2,9 @@
 #include "ui_Mainwindow.h"
 #include "Journal/Emotion.hpp"
 #include <QTime>
-
 #include "Icon.hpp"
+#include "Iconwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -148,5 +149,15 @@ void MainWindow::on_fontSizeJPN_valueChanged(int arg1)
     this->ui->generatedText->setText(currentGeneratedText);
 
     this->updateHTMLFontSize();
+}
+
+
+void MainWindow::on_actionShow_triggered()
+{
+    Iconwindow* i = new Iconwindow(this);
+
+    i->exec();
+
+    delete i;
 }
 

@@ -4,48 +4,74 @@
 
 Icon::Icon()
 {
-    this->generate();
+    Icon::generate();
+}
+
+Icon::Icon( int _w, int _h ) : width(_w), height(_h)
+{
+    Icon::generate();
 }
 
 void Icon::generate()
 {
+    Icon::generateLines();
+    Icon::drawLines();
+}
+
+void Icon::generateLines()
+{
+    auto    filled  = 0;
+    auto    limit   = Icon::height - 1;
+
+
+    for(;filled < limit;)
+    {
+        auto height = Utils::getRandom(1, limit - filled);
+        auto hSplit = Utils::getRandom(1, limit);
+        auto col1   = Icon::getColor();
+        auto col2   = Icon::getColor();
+
+
+        QRect line1(0, filled, hSplit, height + 1);
+        QRect line2(hSplit, filled, Icon::width - hSplit, height + 1);
+
+        filled += height;
+
+        Icon::lines.push_back({line1, line2, col1, col2});
+    }
+}
+
+void Icon::drawLines( void )
+{
     QPixmap     pix(this->width, this->height);
     QPainter    painter;
-    QPen        pen;
 
 
     painter.begin(&pix);
 
-    for ( int y = 0; y < pix.height(); y++ )
+    for ( auto& line : Icon::lines )
     {
-        QLine   line1, line2;
-        int     col1    = Utils::getRandom(70, 200); // grey
-        int     col2    = Utils::getRandom(70, 200);
-        int     split   = Utils::getRandom(1, pix.width() - 2);
+        auto& rect1 = std::get<0>(line);
+        auto& rect2 = std::get<1>(line);
+        auto& col1  = std::get<2>(line);
+        auto& col2  = std::get<3>(line);
 
 
-        line1 = {0, y, split, y};
-        line2 = {split, y, pix.width() - 1, y};
-
-        pen.setColor({col1,col1,col1});
-        painter.setPen(pen);
-        painter.drawLine(line1);
-
-        pen.setColor({col2,col2,col2});
-        painter.setPen(pen);
-        painter.drawLine(line2);
+        painter.fillRect(rect1, col1);
+        painter.fillRect(rect2, col2);
     }
-
-    QFont font = painter.font();
-    font.setPixelSize(this->height);
-    painter.setFont(font);
-
-    pen.setColor({0,0,0});
-    painter.setPen(pen);
-    painter.drawText(QRect(0, 0, this->width, this->height), Qt::AlignCenter, "M");
 
     painter.end();
 
 
-    QIcon::addPixmap(pix);
+    Icon::addPixmap(pix);
+}
+
+QColor Icon::getColor( void ) const
+{
+    int r = Utils::getRandom(30, 200);
+    int g = Utils::getRandom(70, 200);
+    int b = Utils::getRandom(70, 200);
+
+    return {r,g,b};
 }
