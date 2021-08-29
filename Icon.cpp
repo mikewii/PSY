@@ -89,7 +89,7 @@ void Icon::drawText( QPainter& _painter )
     auto yPaddingFull = Icon::height / 2 - textSize;
 
     QRect leftBg    (xPaddingFull / 2, yPaddingFull / 2, Icon::width / 2 - xPaddingFull, Icon::height - yPaddingFull);
-    QRect rightBg   (Icon::height / 2 + xPaddingFull / 2, yPaddingFull / 2, Icon::width / 2 - xPaddingFull, Icon::height - yPaddingFull);
+    QRect rightBg   (Icon::width / 2 + xPaddingFull / 2, yPaddingFull / 2, Icon::width / 2 - xPaddingFull, Icon::height - yPaddingFull);
 
 
 
