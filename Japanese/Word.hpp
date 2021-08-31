@@ -8,7 +8,7 @@ class Word
 public:
     void    prepare( const Settings_s& _settings );
 
-    Symbol      getRandomSym( PhoVec _selected = {} ) const;
+    Symbol      getRandomSym( const PhoVec _selected = {} ) const;
     SymVec      getSymSyllable( void ) const;
 
     void    generateSymWord( void );

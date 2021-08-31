@@ -1,6 +1,7 @@
 #include "Icon.hpp"
-#include <QPainter>
 #include "Utils.h"
+#include <QPainter>
+
 
 Icon::Icon( bool _text ) : useText(_text)
 {
@@ -14,6 +15,8 @@ Icon::Icon( int _w, int _h, bool _text ) : width(_w), height(_h), useText(_text)
 
 void Icon::generate()
 {
+    Icon::rotated = Utils::getRandomBool();
+
     Icon::generateLines();
     Icon::drawLines();
 }
@@ -22,15 +25,18 @@ void Icon::generateLines()
 {
     auto    filled  = 0;
     auto    limit   = Icon::height - 1;
+    auto    heightLimit = Icon::rotated ? 4 : 2;
+    auto    widthLimit  = Icon::rotated ? Icon::width / 4 : limit;
 
 
     for(;filled < limit;)
     {
-        auto height = Utils::getRandom(1, limit - filled);
-        auto hSplit = Utils::getRandom(1, limit);
-        auto col1   = Icon::getColor();
-        auto col2   = Icon::getColor();
+        int     height = Utils::getRandom(1, limit - filled);
+        int     hSplit = Utils::getRandom(1, widthLimit);
+        auto    col1   = Icon::getColor();
+        auto    col2   = Icon::getColor();
 
+        if ( height > Icon::height / heightLimit ) continue;
 
         QRect line1(0, filled, hSplit, height + 1);
         QRect line2(hSplit, filled, Icon::width - hSplit, height + 1);
@@ -43,24 +49,26 @@ void Icon::generateLines()
 
 void Icon::drawLines( void )
 {
-    QPixmap         pix(this->width, this->height);
-    QPainter        painter;
-
+    QPixmap     pix(this->width, this->height);
+    QPainter    painter;
 
 
     painter.begin(&pix);
 
-    for ( auto& line : Icon::lines )
+    pix.fill(Icon::getColor());
+
+    if ( Icon::rotated )
     {
-        auto& rect1 = std::get<0>(line);
-        auto& rect2 = std::get<1>(line);
-        auto& col1  = std::get<2>(line);
-        auto& col2  = std::get<3>(line);
+        for ( auto i = 0; i < 4; i++ )
+        {
+            Icon::drawLinesDo(painter);
 
-
-        painter.fillRect(rect1, col1);
-        painter.fillRect(rect2, col2);
+            painter.translate(Icon::width, 0);
+            painter.rotate(90.f);
+        }
     }
+    else Icon::drawLinesDo(painter);
+
 
     if ( Icon::useText )
         Icon::drawText(painter);
@@ -71,10 +79,28 @@ void Icon::drawLines( void )
     Icon::addPixmap(pix);
 }
 
+void Icon::drawLinesDo(QPainter &_painter)
+{
+    for ( auto& line : Icon::lines )
+    {
+        auto& rect1 = std::get<0>(line);
+        auto& rect2 = std::get<1>(line);
+        auto& col1  = std::get<2>(line);
+        auto& col2  = std::get<3>(line);
+
+
+        _painter.fillRect(rect1, col1);
+
+        if ( !Icon::rotated )
+            _painter.fillRect(rect2, col2);
+    }
+}
+
 void Icon::drawText( QPainter& _painter )
 {
-    const QString   mike    = "ミ\nケ";
-    const QString   wii     = "ヰ\nイ";
+    static const QString   mike    = "ミ\nケ";
+    static const QString   wii     = "ヰ\nイ";
+
 
     bool    colored     = Utils::getRandomBool();
     bool    centered    = Utils::getRandomBool();
@@ -103,10 +129,8 @@ void Icon::drawText( QPainter& _painter )
                 Icon::height - yPaddingFull);
 
 
-
     font.setPixelSize(textSize);
     _painter.setFont(font);
-
 
 
     if ( centered )

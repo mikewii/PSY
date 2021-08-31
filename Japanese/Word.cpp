@@ -42,7 +42,7 @@ void Word::generateSymWord( void )
 }
 
 
-Symbol Word::getRandomSym( PhoVec _selected ) const
+Symbol Word::getRandomSym( const PhoVec _selected ) const
 {
     if ( !_selected.empty() )
     {
@@ -51,7 +51,7 @@ Symbol Word::getRandomSym( PhoVec _selected ) const
             auto rand   = Utils::getRandom(0, Word::symList.size() - 1);
             auto sym    = Word::symList.at(rand);
 
-            for ( auto& ph : _selected )
+            for ( const auto& ph : _selected )
                 if ( sym.phonetics == ph ) return sym;
         }
     }
@@ -63,20 +63,21 @@ Symbol Word::getRandomSym( PhoVec _selected ) const
 
 PhoVec Word::getSyllablePhonetics( void ) const
 {
-    switch (Utils::getRandom(0, 8)) {
-    case 0: return {V,V};
-    case 1: return {CV,V};
-    case 2: return {V,D};
-    case 3: return {CV,D};
-    case 4: return {CVD};
-    case 5: return {CVD,V};
-    case 6: return {V,N};
-    case 7: return {CV,N};
-    case 8: return {SmallTSU,CV};
-    default:break;
-    }
+    static const std::vector<PhoVec> pho =
+    {
+        {V,V},
+        {CV,V},
+        {V,D},
+        {CV,D},
+        {CVD},
+        {CVD,V},
+        {V,N},
+        {CV,N},
+        {SmallTSU,CV}
+    };
 
-    return {V,V};
+    auto selected = Utils::getRandom(0, pho.size() - 1);
+    return pho.at(selected);
 }
 
 bool Word::isBanned( const Symbol& _sym ) const
@@ -258,18 +259,7 @@ void Word::prepare( const Settings_s& _settings )
 
 bool Word::isGoodForOU( const Symbol& _sym ) const
 {
-    if ( _sym.text.at(Hiragana) == Column2_K.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column2_G.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column3_S.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column3_Z.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column4_T.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column4_D.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column5_N.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_H.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_B.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column6_P.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column7_M.at(4).text.at(Hiragana)) return true;
-    if ( _sym.text.at(Hiragana) == Column8_Y.at(2).text.at(Hiragana)) return true;
+    if ( _sym.flags.row == 5 ) return true;
 
     return false;
 }

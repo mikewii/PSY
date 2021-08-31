@@ -5,7 +5,6 @@
 #include "Japanese/Phonetics.hpp"
 #include "Japanese/Check.hpp"
 
-
 class Japanese : virtual public Word, public Grammar, public PhoneticsGenerator, public Check
 {
 public:

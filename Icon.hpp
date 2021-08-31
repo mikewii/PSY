@@ -14,10 +14,12 @@ private:
     int     width   = 128;
     int     height  = 128;
     bool    useText = false;
+    bool    rotated = false;
 
     void    generate( void );
     void    generateLines( void );
     void    drawLines( void );
+    void    drawLinesDo( QPainter& _painter );
     void    drawText( QPainter& _painter );
 
     QColor  getColor( bool _grey = false ) const;
