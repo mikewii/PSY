@@ -1,43 +1,52 @@
 #include "Japanese/Word.hpp"
 #include "Utils.h"
 
+
+void Word::pushSymbol( void )
+{
+    const auto& sym = Word::getRandomSym(Word::defaultPhoVec);
+
+    Word::symWord.push_back(sym);
+    Word::wordLengthCurrent += 1;
+}
+
+bool Word::pushSyllable()
+{
+    const auto& symVec = Word::getSymSyllable();
+
+    if ( !symVec.empty() )
+    {
+        for ( auto& sym : symVec )
+        {
+            Word::symWord.push_back(sym);
+
+            if ( sym.phonetics == CVD ) Word::wordLengthCurrent += 2;
+            else Word::wordLengthCurrent += 1;
+        }
+
+        return true;
+    }
+    else return false;
+}
+
 void Word::generateSymWord( void )
 {
-    u32             wordLengthCurrent = 0;
-
-
     if ( Word::settings.wordLengthRandom )
         Word::wordLengthMax = Utils::getRandom(1, Word::settings.wordLengthLimit);
     else Word::wordLengthMax = Word::settings.wordLength;
 
-
-    for(;;)
+    while( Word::wordLengthCurrent < Word::wordLengthMax )
     {
-        if ( wordLengthCurrent == Word::wordLengthMax ) break;
+        if ( Word::wordLengthMax - 1 == Word::wordLengthCurrent )
+            Word::defaultPhoVec.push_back(Phonetics::N);
 
-        auto useSyllable = Utils::getRandom(0, 1);
 
-
-        if ( useSyllable == 1 )
+        if ( Utils::getRandomBool() )
         {
-            const auto& symVec = Word::getSymSyllable();
-
-            if ( !symVec.empty() )
-            {
-                for ( auto& sym : symVec )
-                {
-                    Word::symWord.push_back(sym);
-                    ++wordLengthCurrent;
-                }
-            }
+            if ( !Word::pushSyllable() )
+                Word::pushSymbol();
         }
-        else
-        {
-            const auto& sym = Word::getRandomSym({V,CV,D});
-
-            Word::symWord.push_back(sym);
-            ++wordLengthCurrent;
-        }
+        else Word::pushSymbol();
     }
 }
 
@@ -76,35 +85,82 @@ PhoVec Word::getSyllablePhonetics( void ) const
         {SmallTSU,CV}
     };
 
-    auto selected = Utils::getRandom(0, pho.size() - 1);
+    auto selected = 0;
+
+
+    for(;;)
+    {
+        auto repeat = false;
+        selected = Utils::getRandom(0, pho.size() - 1);
+
+        for ( const auto& ph : pho.at(selected) )
+        {
+            if ( !Word::settings.nn && ph == Phonetics::N ) repeat = true;
+            if ( !Word::settings.col8_y && ph == Phonetics::D ) repeat = true;
+            if ( !Word::settings.col8_y && ph == Phonetics::CVD ) repeat = true;
+            if ( !Word::settings.smallTsu && ph == Phonetics::SmallTSU ) repeat = true;
+            if ( Word::wordLengthCurrent == 0 && ph == Phonetics::SmallTSU ) repeat = true;
+        }
+
+        if ( repeat ) continue;
+        else break;
+    }
+
+
     return pho.at(selected);
+}
+
+void Word::makeKanaStrings()
+{
+    QString hiragana, katakana;
+
+    for ( auto& sym : Word::symWord )
+    {
+        hiragana += sym.text.at(Hiragana);
+        katakana += sym.text.at(Katakana);
+    }
+
+    Word::strings.push_back(hiragana);
+    Word::strings.push_back(katakana);
 }
 
 bool Word::isBanned( const Symbol& _sym ) const
 {
-    // di du flag
-    const Symbol& di    = Column4_D.at(1);
-    const Symbol& du    = Column4_D.at(2);
-    const SymVec& di_d  = Column4_D_D;
+    for ( const auto& ban : Word::banned )
+    {
+        if ( _sym.text.at(Hiragana) == ban.text.at(Hiragana) ) return true;
+    }
 
-    const Symbol aa[] = {di,du};
+    return false;
+}
 
-
-
-
-    //constexpr SymVec bannedDiDu = {};
+void Word::initBanned( void )
+{
+    Word::banned.clear();
 
     if ( Word::settings.preventDiDu )
     {
-        if ( _sym.text.at(Hiragana) == di.text.at(Hiragana) ) return true;
-        if ( _sym.text.at(Hiragana) == du.text.at(Hiragana) ) return true;
+        const Symbol& di    = KanaSpecialD.at(1);
+        const Symbol& du    = KanaSpecialD.at(2);
+        const SymVec& di_d  = KanaExtraD;
 
-        for ( auto& sym : di_d )
-            if ( _sym.text.at(Hiragana) == sym.text.at(Hiragana) ) return true;
+
+        banned.push_back(di);
+        banned.push_back(du);
+
+        for ( const auto& sym : di_d )
+            banned.push_back(sym);
     }
 
+    if ( Word::settings.preventObsoleteW )
+    {
+        const Symbol& wi    = KanaW.at(1);
+        const Symbol& we    = KanaW.at(2);
 
-    return false;
+
+        banned.push_back(wi);
+        banned.push_back(we);
+    }
 }
 
 
@@ -112,31 +168,14 @@ SymVec Word::getSymSyllable( void ) const
 {
     SymVec      out;
     PhoVec      combo;
-    u32         spaceLeft = Word::wordLengthMax - Word::symWord.size();
+    u32         spaceLeft = Word::wordLengthMax - Word::wordLengthCurrent;
 
 
-    if ( spaceLeft < 2 )
+    if ( spaceLeft < 3 || !Word::haveCV )
         return out;
 
 
-    for(;;)
-    {
-        bool repeat = false;
-        combo = Word::getSyllablePhonetics();
-
-
-        for ( auto& pho : combo )
-        {
-            if ( !Word::settings.nn && pho == Phonetics::N ) repeat = true;
-            if ( !Word::settings.smallTsu && pho == Phonetics::SmallTSU ) repeat = true;
-            if ( !Word::settings.col8_y && pho == Phonetics::D ) repeat = true;
-            if ( !Word::settings.col8_y && pho == Phonetics::CVD ) repeat = true;
-        }
-
-        if ( repeat ) continue;
-        else break;
-    }
-
+    combo = Word::getSyllablePhonetics();
 
     for ( auto& pho : combo )
     {
@@ -152,114 +191,162 @@ SymVec Word::getSymSyllable( void ) const
 
 void Word::makeSymList( void )
 {
-    auto useDiphtongs = Word::settings.col8_y;
+    auto useExtra = Word::settings.col8_y;
+
 
     Word::symList.clear();
     Word::symWord.clear();
 
-    Word::addColumn(Word::symList, Column1);
 
-    if ( Word::settings.smallTsu )  Word::addSymbol(Word::symList, SmallTsu );
-    if ( Word::settings.nn )        Word::addSymbol(Word::symList, NN );
+    Word::addColumn(KanaVowels);
+
+    if ( Word::settings.smallTsu )  Word::addSymbol(SmallTsu);
+    if ( Word::settings.nn )        Word::addSymbol(NN);
 
     if ( Word::settings.col2_k )
     {
-        Word::addColumn(Word::symList, Column2_K);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_K_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaK);
+        if ( useExtra ) Word::addColumn(KanaExtraK);
     }
     if ( Word::settings.col2_g )
     {
-        Word::addColumn(Word::symList, Column2_G);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column2_G_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaSpecialG);
+        if ( useExtra ) Word::addColumn(KanaExtraG);
     }
     if ( Word::settings.col3_s )
     {
-        Word::addColumn(Word::symList, Column3_S);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_S_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaS);
+        if ( useExtra ) Word::addColumn(KanaExtraS);
     }
     if ( Word::settings.col3_z )
     {
-        Word::addColumn(Word::symList, Column3_Z);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column3_Z_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaSpecialZ);
+        if ( useExtra ) Word::addColumn(KanaExtraZ);
     }
     if ( Word::settings.col4_t )
     {
-        Word::addColumn(Word::symList, Column4_T);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_T_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaT);
+        if ( useExtra ) Word::addColumn(KanaExtraT);
     }
     if ( Word::settings.col4_d )
     {
-        Word::addColumn(Word::symList, Column4_D);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column4_D_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaSpecialD);
+        if ( useExtra ) Word::addColumn(KanaExtraD);
     }
     if ( Word::settings.col5_n )
     {
-        Word::addColumn(Word::symList, Column5_N);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column5_N_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaN);
+        if ( useExtra ) Word::addColumn(KanaExtraN);
     }
     if ( Word::settings.col6_h )
     {
-        Word::addColumn(Word::symList, Column6_H);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_H_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaH);
+        if ( useExtra ) Word::addColumn(KanaExtraH);
     }
     if ( Word::settings.col6_b )
     {
-        Word::addColumn(Word::symList, Column6_B);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_B_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaSpecialB);
+        if ( useExtra ) Word::addColumn(KanaExtraB);
     }
     if ( Word::settings.col6_p )
     {
-        Word::addColumn(Word::symList, Column6_P);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column6_P_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaSpecialP);
+        if ( useExtra ) Word::addColumn(KanaExtraP);
     }
     if ( Word::settings.col7_m )
     {
-        Word::addColumn(Word::symList, Column7_M);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column7_M_D );
+        Word::haveCV = true;
+        Word::addColumn(KanaM);
+        if ( useExtra ) Word::addColumn(KanaExtraM );
     }
-    if ( Word::settings.col8_y ) Word::addColumn(Word::symList, Column8_Y);
+    if ( Word::settings.col8_y ) Word::addColumn(KanaY);
     if ( Word::settings.col9_r )
     {
-        Word::addColumn(Word::symList, Column9_R);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column9_R_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaR);
+        if ( useExtra ) Word::addColumn(KanaExtraR);
     }
     if ( Word::settings.col10_w )
     {
-        Word::addColumn(Word::symList, Column10_W);
-        if ( useDiphtongs ) Word::addColumn(Word::symList, Column10_W_D);
+        Word::haveCV = true;
+        Word::addColumn(KanaW);
+        if ( useExtra ) Word::addColumn(KanaExtraW);
     }
 }
 
 
-void Word::addColumn( SymVec& _symVec, const SymVec& _col )
+void Word::addColumn( const SymVec& _col )
 {
-//    SymVec banned;
-
-//    if ( Word::settings.preventDiDu )
-//        banned += Column4_D_D;
-
     for ( auto& sym : _col )
     {
-        if ( isBanned(sym) ) continue;
+        if ( Word::isBanned(sym) ) continue;
 
-        _symVec.push_back(sym);
+        Word::symList.push_back(sym);
     }
 }
 
-void Word::addSymbol( SymVec& _symVec, const Symbol& _sym )
+void Word::addSymbol( const Symbol& _sym )
 {
-    _symVec.push_back(_sym);
+    Word::symList.push_back(_sym);
 }
 
-void Word::prepare( const Settings_s& _settings )
+uint32_t Word::getRowIndex( const Symbol& _sym ) const
 {
-    Word::settings = _settings;
+    if ( _sym.flag & Flags::Row1 ) return 1;
+    if ( _sym.flag & Flags::Row2 ) return 2;
+    if ( _sym.flag & Flags::Row3 ) return 3;
+    if ( _sym.flag & Flags::Row4 ) return 4;
+    if ( _sym.flag & Flags::Row5 ) return 5;
+
+    return 0;
+}
+
+uint32_t Word::getColIndex(const Symbol &_sym) const
+{
+    if ( _sym.flag & Flags::Col1 ) return 1;
+    if ( _sym.flag & Flags::Col2 ) return 2;
+    if ( _sym.flag & Flags::Col3 ) return 3;
+    if ( _sym.flag & Flags::Col4 ) return 4;
+    if ( _sym.flag & Flags::Col5 ) return 5;
+    if ( _sym.flag & Flags::Col6 ) return 6;
+    if ( _sym.flag & Flags::Col7 ) return 7;
+    if ( _sym.flag & Flags::Col8 ) return 8;
+    if ( _sym.flag & Flags::Col9 ) return 9;
+    if ( _sym.flag & Flags::Col10 ) return 10;
+
+    return 0;
+}
+
+void Word::run( const Settings_s& _settings )
+{
+    Word::wordLengthCurrent = 0;
+    Word::defaultPhoVec     = {V,CV,D};
+    Word::settings          = _settings;
+
+    Word::strings.clear();
+    Word::strings.reserve(4);
+
+    Word::initBanned();
     Word::makeSymList();
+
+    Word::generateSymWord();
+
+    Word::makeKanaStrings();
 }
 
 bool Word::isGoodForOU( const Symbol& _sym ) const
 {
-    if ( _sym.flags.row == 5 ) return true;
+    if ( _sym.flag & Flags::Row5 ) return true;
 
     return false;
 }

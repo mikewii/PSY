@@ -1,65 +1,152 @@
 #include "Japanese/Grammar.hpp"
 
 
-void Grammar::grammarSmallTsu( void )
+void Grammar::run()
 {
-    if ( !Word::settings.smallTsu || !Word::settings.multipleColumn )
-        return;
+    Word::substitute.clear();
+
+    Grammar::scan();
+    Grammar::removeTriplets();
+}
 
 
-    for ( u32 i = 0; i < Word::symWord.size(); i++ )
+bool Grammar::check( const Symbol& _sym, const Phonetics& _pho )
+{
+    auto res = _sym.phonetics == _pho;
+
+    if ( res ) Grammar::hit += 1;
+    else if ( !res && Grammar::hit == 1 )
     {
-        auto& sym = Word::symWord.at(i);
+        Grammar::hit = 0;
+        Grammar::pos -= 1;
+    }
+    else Grammar::hit = 0;
 
-        // cant be first
-        if ( sym.phonetics == SmallTsu.phonetics && i == 0 )
-            Word::symWord.at(i) = Word::getRandomSym({V,CV});
+    return res;
+}
 
-        // cant be last // not
-        if ( sym.phonetics == SmallTsu.phonetics && i == Word::symWord.size() - 1 )
+void Grammar::doubleVowel( const Symbol& _first, const Symbol& _second )
+{
+    if ( Word::settings.useDoubleVowelSign )
+    {
+        switch( _first.phonetics )
         {
-            std::vector<Phonetics> phonetics = settings.nn ? std::vector<Phonetics>{V,CV,N} : std::vector<Phonetics>{V,CV};
+        case Phonetics::V:
+        {
+            // aa ii > a: i:
+            if ( _first.text.at(Hiragana) == _second.text.at(Hiragana) )
+                Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
 
-            Word::symWord.at(i) = Word::getRandomSym(phonetics);
+            break;
         }
-
-        // next sym can be only CV
-        if (  sym.phonetics == SmallTsu.phonetics && i != 0 && i + 1 < Word::symWord.size() )
+        case Phonetics::CV:
         {
-            if ( Word::symWord.at(i + 1).phonetics != Phonetics::CV )
+            // kou gou > ko: go:
+            if ( Word::getRowIndex(_first) == 5 && Word::getRowIndex(_second) == 3 )
+                Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+
+            // kaa gaa > ka: ga:
+            else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) )
+                Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+
+            break;
+        }
+        case Phonetics::D:
+        case Phonetics::CVD:
+        {
+            // jou juu > jo: ju:
+            if ( Word::getRowIndex(_first) == 3 || Word::getRowIndex(_first) == 5 )
             {
-                Word::symWord.at(i + 1) = Word::getRandomSym({CV});
+                if ( Word::getRowIndex(_second) == 3 )
+                    Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
             }
+
+            // joo jaa > jo: ja: // lets avoid confusion for now
+            //else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) )
+            //    Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+
+            // jaa > ja:
+            else
+            {
+                if ( Word::getRowIndex(_second) == 1 )
+                    Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+            }
+
+            break;
+        }
+        default:break;
         }
     }
 }
 
-void Grammar::grammarNN( void )
+void Grammar::NNMM( const Symbol& _second )
 {
-    if ( !Word::settings.nn )
-        return;
-
-
-    std::vector<Phonetics>  phonetics = {V};
-    u32                     last = Word::symWord.size() - 1;
-
-
-    if ( settings.smallTsu )
-        phonetics.push_back(Phonetics::SmallTSU);
-    if ( settings.multipleColumn )
-        phonetics.push_back(Phonetics::CV);
-
-
-    for ( u32 i = 0; i < Word::symWord.size(); i ++ )
+    if ( true ) // add option later?
     {
-        auto& sym = Word::symWord.at(i);
-
-        if ( sym.phonetics == NN.phonetics && i != last )
-            sym = Word::getRandomSym(phonetics);
+        // column M
+        if ( Word::getColIndex(_second) == 7 )
+            Word::substitute.push_back({Grammar::pos - 1, MM});
+        // columns P B
+        else if ( _second.flag & Flags::Special && Word::getColIndex(_second) == 6 )
+            Word::substitute.push_back({Grammar::pos - 1, MM});
     }
 }
 
-void Grammar::grammarRemoveTriplets( void )
+
+void Grammar::scan()
+{
+    static const std::vector<PhoVec> lookFor =
+    {
+        {V,V},
+        {CV,V},
+        {CVD,V},
+        {D,V},
+        {N,CV}
+    };
+
+    for ( const auto& phoVec : lookFor )
+        Grammar::scanForSelectedPhoVec(phoVec);
+
+}
+
+void Grammar::scanForSelectedPhoVec( const PhoVec& _phoVec )
+{
+    for ( Grammar::pos = 0, Grammar::hit = 0; Grammar::pos < Word::symWord.size(); Grammar::pos++ )
+    {
+        const auto& sym = Word::symWord.at(Grammar::pos);
+
+
+        switch( Grammar::hit )
+        {
+
+        case 0:
+        case 1:
+        {
+            if ( Grammar::check(sym, _phoVec.at(Grammar::hit)) ) continue;
+            break;
+        }
+        case 2: // now we talking
+        {
+            Grammar::hit = 0;
+
+            const auto& firstSym    = Word::symWord.at(Grammar::pos - 1);
+            const auto& secondSym   = Word::symWord.at(Grammar::pos);
+
+
+            if ( secondSym.phonetics == V )
+                Grammar::doubleVowel(firstSym, secondSym);
+
+            if ( firstSym.phonetics == N )
+                Grammar::NNMM(secondSym);
+
+            break;
+        }
+        default:break;
+        } // switch
+    }
+}
+
+void Grammar::removeTriplets( void )
 {
     Symbol  s;
 
@@ -96,3 +183,5 @@ void Grammar::grammarRemoveTriplets( void )
         }
     }
 }
+
+

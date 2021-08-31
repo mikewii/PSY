@@ -3,36 +3,18 @@
 
 void Japanese::generate( const Settings_s _settings )
 {
-    QString hiragana, katakana, phonetics_eng, phonetics_rus;
-
-
-    Word::prepare(_settings);
-
-    /* generator */ Word::generateSymWord();
-    /* generator */
-    /* generator */ Grammar::grammarNN();
-    /* generator */ Grammar::grammarSmallTsu();
-    /* generator */ Grammar::grammarRemoveTriplets();
-
-    for ( auto& sym : Word::symWord )
-    {
-        hiragana += sym.text.at(Hiragana);
-        katakana += sym.text.at(Katakana);
-    }
-
-    phonetics_eng = PhoneticsGenerator::makePhonetics(PhoneticsENG);
-    phonetics_rus = PhoneticsGenerator::makePhonetics(PhoneticsRUS);
-
-    Japanese::getStringList() = QStringList{hiragana, katakana, phonetics_eng, phonetics_rus};
+    Word::run(_settings);
+    Grammar::run();
+    PhoneticsGenerator::run();
 }
 
-QString Japanese::check( const QString &_in, const SymbolEnum _selected )
+QString Japanese::check( const QString &_in, const SymbolEnum _selected ) const
 {
     return Check::check(_in, _selected);
 }
 
 QString Japanese::getString( const SymbolEnum _selected ) const
 {
-    if ( this->__strings.size() <= _selected ) return "";
-    else return this->__strings.at(_selected);
+    if ( Word::strings.size() <= _selected ) return "";
+    else return Word::strings.at(_selected);
 }

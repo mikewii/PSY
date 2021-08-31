@@ -8,13 +8,16 @@ static const QString    close  = "</span>";
 
 QString makeRedHTML( const QString& _str ) { return red + _str + close; }
 QString makeGreenHTML( const QString& _str ) { return green + _str + close; }
-QString pushSym( const QString& _symbol, const QString& _wordSym )
+
+
+QString Check::pushSymbol( const QString& _symbol, const QString& _wordSym ) const
 {
     if ( _symbol == _wordSym ) return makeGreenHTML(_symbol);
     else return makeRedHTML(_symbol);
 }
 
-QString Check::check( const QString& _in, const SymbolEnum _selected )
+
+QString Check::check( const QString& _in, const SymbolEnum _selected ) const
 {
     QStringList charList;
     u32         pos = 0;
@@ -27,10 +30,10 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
         strSize += sym.text.at(_selected).size();
 
 
-    if ( _in.size() != strSize )
-        return "Wrong word size!";
     if ( !Check::alphabetCheck(_in, _selected) )
-        return "Text must be in language selected for check!";
+        return "Input must be in language selected for check!";
+    if ( _in.size() != strSize )
+        return "Input and word lenght doesnt match!";
 
 
     if ( isPhonetics )
@@ -65,7 +68,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
                     const Symbol& prevWordSym = Word::symWord.at(i - 1);
 
 
-                    if ( Word::settings.useDoubleVowelSign && curCh == DoubleVowelSign )
+                    if ( Word::settings.useDoubleVowelSign && curCh == DoubleVowelSign.text.at(_selected) )
                     {
                         if ( prevWordSym.phonetics == Phonetics::V )
                         {
@@ -81,7 +84,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
                             continue;
                         }
                     }
-                    if ( Word::settings.useou && curCh == DoubleVowelSign )
+                    if ( Word::settings.useou && curCh == DoubleVowelSign.text.at(_selected) )
                     {
                         if ( prevWordSym.phonetics == Phonetics::CV )
                         {
@@ -93,25 +96,25 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
                         }
                     }
 
-                    out += pushSym(curCh, curWordCh);
+                    out += Check::pushSymbol(curCh, curWordCh);
                 }
-                else out += pushSym(curCh, curWordCh);
+                else out += Check::pushSymbol(curCh, curWordCh);
             }
             else if ( curWordSym.phonetics == Phonetics::CV )
             {
-                out += pushSym(curCh, curWordCh);
+                out += Check::pushSymbol(curCh, curWordCh);
             }
             else if ( curWordSym.phonetics == Phonetics::D )
             {
-                out += pushSym(curCh, curWordCh);
+                out += Check::pushSymbol(curCh, curWordCh);
             }
             else if ( curWordSym.phonetics == Phonetics::CVD )
             {
-                out += pushSym(curCh, curWordCh);
+                out += Check::pushSymbol(curCh, curWordCh);
             }
             else if ( curWordSym.phonetics == Phonetics::N )
             {
-                out += pushSym(curCh, curWordCh);
+                out += Check::pushSymbol(curCh, curWordCh);
             }
             else if ( curWordSym.phonetics == Phonetics::SmallTSU )
             {
@@ -122,7 +125,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
                     smallTsu = charList.at(i + 1);
                     smallTsu.truncate(smallTsu.size() - 1);
 
-                    out += pushSym(curCh, smallTsu);
+                    out += Check::pushSymbol(curCh, smallTsu);
                 }
             }
         }
@@ -133,7 +136,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
         {
             auto& sym = _in.at(i);
 
-            if ( sym != Word::symWord.at(i).text.at(_selected) )
+            if ( sym != Word::strings.at(_selected).at(i) )
             {
                 out += makeRedHTML(sym);
             }
@@ -147,7 +150,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected )
 
 bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) const
 {
-    static const std::vector<const char*> russian =
+    static const char* russian[] =
     {
         "а", "б", "в", "г", "д", "е",
         "ё", "ж", "з", "и", "й", "к",
@@ -157,7 +160,7 @@ bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) con
         "э", "ю", "я"
     };
 
-    static const std::vector<const char*> english =
+    static const char* english[] =
     {
         "a", "b", "c", "d", "e",
         "f", "g", "h", "i", "j",
@@ -170,17 +173,22 @@ bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) con
 
     const std::vector<const SymVec*> japanese =
     {
-        &Column1,
-        &Column2_K,
-        &Column2_G,
-        &Column3_S,
-        &Column3_Z,
-        &Column4_T,
-        &Column4_D,
-        &Column5_N,
-        &Column6_H,
-        &Column6_B,
-        &Column6_P
+        &KanaVowels,
+        &KanaK,
+        &KanaSpecialG,
+        &KanaS,
+        &KanaSpecialZ,
+        &KanaT,
+        &KanaSpecialD,
+        &KanaN,
+        &KanaH,
+        &KanaSpecialB,
+        &KanaSpecialP,
+        &KanaM,
+        &KanaY,
+        &KanaR,
+        &KanaW,
+        &KanaSmallY
     };
 
     const std::vector<const Symbol*> japaneseSpecial =
@@ -267,7 +275,7 @@ bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) con
 
     for ( const auto& textChar : _text )
     {
-        if ( textChar == DoubleVowelSign )
+        if ( textChar == DoubleVowelSign.text.at(_selected) )
             ++count;
     }
 

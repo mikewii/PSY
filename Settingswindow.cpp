@@ -28,8 +28,10 @@ Settings_s SettingsWindow::getSettingsJPN() const
     settings.wordLength             = ui->wordLengthJPN->value();
     settings.wordLengthLimit        = ui->wordLengthJPN->maximum();
     settings.wordLengthRandom       = ui->randomWordLengthJPN->isChecked();
+
     settings.preventTriplets        = ui->check_preventTripletsJPN->isChecked();
     settings.preventDiDu            = ui->check_preventDiDuJPN->isChecked();
+    settings.preventObsoleteW       = ui->check_preventWiWe->isChecked();
 
     settings.col2_k                 = ui->check_col2_k->isChecked();
     settings.col2_g                 = ui->check_col2_g->isChecked();
@@ -49,23 +51,8 @@ Settings_s SettingsWindow::getSettingsJPN() const
     settings.smallTsu          = ui->check_longConsonant->isChecked();
     settings.nn                     = ui->check_nn->isChecked();
 
-    settings.useDoubleVowelSign     = ui->check_doubleVowelsPho->isChecked();
-    settings.useou                  = ui->check_oiPho->isChecked();
+    settings.useDoubleVowelSign     = ui->check_useDoubleVowelSign->isChecked();
 
-    if ( settings.col2_k ||
-         settings.col2_g ||
-         settings.col3_s ||
-         settings.col3_z ||
-         settings.col4_t ||
-         settings.col4_d ||
-         settings.col5_n ||
-         settings.col6_h ||
-         settings.col6_b ||
-         settings.col6_p ||
-         settings.col7_m ||
-         settings.col9_r ||
-         settings.col10_w)
-        settings.multipleColumn = true;
 
     return settings;
 }
@@ -163,8 +150,10 @@ void SettingsWindow::applySettings()
     ui->wordLengthJPN->setValue(s.wordLength);
     ui->wordLengthJPN->setMaximum(s.wordLengthLimit);
     ui->randomWordLengthJPN->setChecked(s.wordLengthRandom);
+
     ui->check_preventTripletsJPN->setChecked(s.preventTriplets);
     ui->check_preventDiDuJPN->setChecked(s.preventDiDu);
+    ui->check_preventWiWe->setChecked(s.preventObsoleteW);
 
     ui->check_col2_k->setChecked(s.col2_k);
     ui->check_col2_g->setChecked(s.col2_g);
@@ -184,7 +173,6 @@ void SettingsWindow::applySettings()
     ui->check_longConsonant->setChecked(s.smallTsu);
     ui->check_nn->setChecked(s.nn);
 
-    ui->check_doubleVowelsPho->setChecked(s.useDoubleVowelSign);
-    ui->check_oiPho->setChecked(s.useou);
+    ui->check_useDoubleVowelSign->setChecked(s.useDoubleVowelSign);
 }
 

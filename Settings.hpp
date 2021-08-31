@@ -18,9 +18,10 @@ union Settings_s {
         size wordLength : 8;
         size wordLengthLimit : 8;
         size wordLengthRandom : 1;
+
         size preventTriplets : 1;
         size preventDiDu : 1;
-        size multipleColumn : 1;
+        size preventObsoleteW : 1;
 
         size col2_k     : 1;
         size col2_g     : 1;
