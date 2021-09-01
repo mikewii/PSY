@@ -3,7 +3,9 @@
 #include <random>
 
 static std::mt19937 rng;
-static QByteArray   svgBuf;
+
+static QByteArray   curSvg;
+static QByteArray   appSvg;
 
 void Utils::initRandom()
 {
@@ -28,10 +30,16 @@ bool    Utils::getRandomBool( void )
     return Utils::getRandom(0, 1);
 }
 
-QByteArray& Utils::getBytesArray(bool _erase)
+QByteArray* Utils::getAppIconBytesArray( void )
+{
+    return &appSvg;
+}
+
+
+QByteArray* Utils::getBytesArray( bool _erase )
 {
     if ( _erase )
-        svgBuf.clear();
+        curSvg.clear();
 
-    return svgBuf;
+    return &curSvg;
 }

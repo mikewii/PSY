@@ -24,6 +24,7 @@ Iconwindow::~Iconwindow()
 
 void Iconwindow::on_btn_generate_clicked()
 {
+    this->curIsAppIcon = false;
     auto width  = this->ui->spin_width->value();
     auto height = this->ui->spin_height->value();
 
@@ -57,7 +58,9 @@ void Iconwindow::on_btn_save_clicked()
 
         filesvg.open(QIODevice::WriteOnly);
 
-        filesvg.write(Utils::getBytesArray());
+        QByteArray* data = this->curIsAppIcon ? Utils::getAppIconBytesArray() : Utils::getBytesArray();
+
+        filesvg.write(*data);
 
         filesvg.close();
     }
@@ -65,6 +68,7 @@ void Iconwindow::on_btn_save_clicked()
 
 void Iconwindow::showAppIcon()
 {
+    this->curIsAppIcon = true;
     const auto&    sizes   = this->windowIcon().availableSizes();
     const auto&    appIcon = this->windowIcon().pixmap(sizes.at(0));
 

@@ -49,15 +49,22 @@ void Icon::generateLines()
     }
 }
 
-
+static bool firstTime = true;
 void Icon::drawLines( void )
 {
-    // to fix: very first icon is lost on new generation
-
-    QBuffer         buffer(&Utils::getBytesArray(true));
+    QBuffer         buffer;
     QPixmap         pix;
     QSvgGenerator   svg;
     QPainter        painter;
+
+
+    if ( firstTime )
+    {
+        firstTime = false;
+
+        buffer.setBuffer(Utils::getAppIconBytesArray());
+    }
+    else buffer.setBuffer(Utils::getBytesArray(true));
 
 
     svg.setSize(QSize(Icon::width, Icon::height));

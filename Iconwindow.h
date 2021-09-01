@@ -23,5 +23,7 @@ private slots:
 private:
     Ui::Iconwindow *ui;
 
+    bool curIsAppIcon = false;
+
     void showAppIcon( void );
 };
