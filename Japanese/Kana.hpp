@@ -64,7 +64,7 @@ using PhoVec = std::vector<Phonetics>;
 
 static Symbol   DoubleVowelSign = {{"", "", ":", ":"},{},{}};
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}
-static Symbol   SmallTsu    = {{"っ", "ッ", "", ""},        Phonetics::SmallTSU, Flags::NONE};
+static Symbol   SmallTsu    = {{"っ", "ッ", "|", "|"},        Phonetics::SmallTSU, Flags::NONE};
 static Symbol   NN          = {{"ん", "ン", "nn", "нн"},    Phonetics::N, Flags::NONE};
 static Symbol   MM          = {{"ん", "ン", "mm", "мм"},    Phonetics::N, Flags::NONE};
 

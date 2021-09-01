@@ -95,10 +95,10 @@ void Grammar::NNMM( const Symbol& _second )
 void Grammar::smallTsu( const Symbol& _second )
 {
     auto    eng = _second.text.at(PhoneticsENG).at(0);
-    auto    rus = _second.text.at(PhoneticsENG).at(1);
+    auto    rus = _second.text.at(PhoneticsRUS).at(0);
     Symbol  smallTSU = {{"","",eng,rus},{},{}};
 
-    Word::substitute.push_back({Grammar::pos, smallTSU});
+    Word::substitute.push_back({Grammar::pos - 1, smallTSU});
 }
 
 
