@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QImage>
 #include <QDir>
+#include "Utils.h"
 
 
 Iconwindow::Iconwindow(QWidget *parent) :
@@ -48,11 +49,18 @@ void Iconwindow::on_btn_save_clicked()
         pixmap->save(&file, "PNG");
 #endif
 
-
-
-
-
     file.close();
+
+    if ( true )
+    {
+        QFile filesvg(QDir::homePath() + QDir::separator() + "psyIcon.svg");
+
+        filesvg.open(QIODevice::WriteOnly);
+
+        filesvg.write(Utils::getBytesArray());
+
+        filesvg.close();
+    }
 }
 
 void Iconwindow::showAppIcon()

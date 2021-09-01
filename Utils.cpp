@@ -3,6 +3,7 @@
 #include <random>
 
 static std::mt19937 rng;
+static QByteArray   svgBuf;
 
 void Utils::initRandom()
 {
@@ -25,4 +26,12 @@ uint32_t Utils::getRandom( uint32_t _min, uint32_t _max )
 bool    Utils::getRandomBool( void )
 {
     return Utils::getRandom(0, 1);
+}
+
+QByteArray& Utils::getBytesArray(bool _erase)
+{
+    if ( _erase )
+        svgBuf.clear();
+
+    return svgBuf;
 }

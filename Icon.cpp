@@ -1,6 +1,8 @@
 #include "Icon.hpp"
 #include "Utils.h"
 #include <QPainter>
+#include <QtSvg/QSvgGenerator>
+#include <QBuffer>
 
 
 Icon::Icon( bool _text ) : useText(_text)
@@ -47,15 +49,27 @@ void Icon::generateLines()
     }
 }
 
+
 void Icon::drawLines( void )
 {
-    QPixmap     pix(this->width, this->height);
-    QPainter    painter;
+    // to fix: very first icon is lost on new generation
+
+    QBuffer         buffer(&Utils::getBytesArray(true));
+    QPixmap         pix;
+    QSvgGenerator   svg;
+    QPainter        painter;
 
 
-    painter.begin(&pix);
+    svg.setSize(QSize(Icon::width, Icon::height));
+    svg.setViewBox(QRect(0, 0, Icon::width, Icon::height));
+    svg.setTitle("PSY Icon");
+    svg.setDescription("An SVG drawing created by the SVG Generator");
+    svg.setOutputDevice(&buffer);
 
-    pix.fill(Icon::getColor());
+
+    painter.begin(&svg);
+
+    painter.fillRect(QRect(0, 0, Icon::width, Icon::height), Icon::getColor());
 
     if ( Icon::rotated )
     {
@@ -75,6 +89,8 @@ void Icon::drawLines( void )
 
     painter.end();
 
+
+    pix.loadFromData(buffer.data(), "SVG");
 
     Icon::addPixmap(pix);
 }
