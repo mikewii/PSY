@@ -36,10 +36,21 @@ void Iconwindow::on_btn_save_clicked()
 
     file.open(QIODevice::WriteOnly);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
     const auto&  pixmap = this->ui->pic->pixmap(Qt::ReturnByValue);
 
     if ( !pixmap.isNull() )
         pixmap.save(&file, "PNG");
+#else
+    const auto&  pixmap = this->ui->pic->pixmap();
+
+    if ( pixmap )
+        pixmap->save(&file, "PNG");
+#endif
+
+
+
+
 
     file.close();
 }
