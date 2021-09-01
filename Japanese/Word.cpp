@@ -37,8 +37,8 @@ void Word::generateSymWord( void )
 
     while( Word::wordLengthCurrent < Word::wordLengthMax )
     {
-        if ( Word::wordLengthMax - 1 == Word::wordLengthCurrent )
-            Word::defaultPhoVec.push_back(Phonetics::N);
+//        if ( Word::wordLengthMax - 1 == Word::wordLengthCurrent )
+//            Word::defaultPhoVec.push_back(Phonetics::N);
 
 
         if ( Utils::getRandomBool() )
@@ -205,80 +205,67 @@ void Word::makeSymList( void )
 
     if ( Word::settings.col2_k )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaK);
         if ( useExtra ) Word::addColumn(KanaExtraK);
     }
     if ( Word::settings.col2_g )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaSpecialG);
         if ( useExtra ) Word::addColumn(KanaExtraG);
     }
     if ( Word::settings.col3_s )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaS);
         if ( useExtra ) Word::addColumn(KanaExtraS);
     }
     if ( Word::settings.col3_z )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaSpecialZ);
         if ( useExtra ) Word::addColumn(KanaExtraZ);
     }
     if ( Word::settings.col4_t )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaT);
         if ( useExtra ) Word::addColumn(KanaExtraT);
     }
     if ( Word::settings.col4_d )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaSpecialD);
         if ( useExtra ) Word::addColumn(KanaExtraD);
     }
     if ( Word::settings.col5_n )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaN);
         if ( useExtra ) Word::addColumn(KanaExtraN);
     }
     if ( Word::settings.col6_h )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaH);
         if ( useExtra ) Word::addColumn(KanaExtraH);
     }
     if ( Word::settings.col6_b )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaSpecialB);
         if ( useExtra ) Word::addColumn(KanaExtraB);
     }
     if ( Word::settings.col6_p )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaSpecialP);
         if ( useExtra ) Word::addColumn(KanaExtraP);
     }
     if ( Word::settings.col7_m )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaM);
         if ( useExtra ) Word::addColumn(KanaExtraM );
     }
     if ( Word::settings.col8_y ) Word::addColumn(KanaY);
     if ( Word::settings.col9_r )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaR);
         if ( useExtra ) Word::addColumn(KanaExtraR);
     }
     if ( Word::settings.col10_w )
     {
-        Word::haveCV = true;
         Word::addColumn(KanaW);
         if ( useExtra ) Word::addColumn(KanaExtraW);
     }
@@ -339,9 +326,16 @@ void Word::run( const Settings_s& _settings )
     Word::initBanned();
     Word::makeSymList();
 
+    for ( const auto& sym : Word::symList )
+    {
+        Word::haveCV |= sym.phonetics == Phonetics::CV;
+    }
+
     Word::generateSymWord();
 
     Word::makeKanaStrings();
+
+    //Word::symWord = {KanaVowels.at(1), KanaVowels.at(1), KanaVowels.at(0), KanaVowels.at(0)};
 }
 
 bool Word::isGoodForOU( const Symbol& _sym ) const

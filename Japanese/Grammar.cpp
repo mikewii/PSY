@@ -45,9 +45,9 @@ void Grammar::doubleVowel( const Symbol& _first, const Symbol& _second )
             if ( Word::getRowIndex(_first) == 5 && Word::getRowIndex(_second) == 3 )
                 Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
 
-            // kaa gaa > ka: ga:
-            else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) )
-                Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+            // kaa gaa > ka: ga: // this brings confusion
+            //else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) )
+            //    Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
 
             break;
         }
@@ -92,6 +92,15 @@ void Grammar::NNMM( const Symbol& _second )
     }
 }
 
+void Grammar::smallTsu( const Symbol& _second )
+{
+    auto    eng = _second.text.at(PhoneticsENG).at(0);
+    auto    rus = _second.text.at(PhoneticsENG).at(1);
+    Symbol  smallTSU = {{"","",eng,rus},{},{}};
+
+    Word::substitute.push_back({Grammar::pos, smallTSU});
+}
+
 
 void Grammar::scan()
 {
@@ -101,7 +110,9 @@ void Grammar::scan()
         {CV,V},
         {CVD,V},
         {D,V},
-        {N,CV}
+        {N,CV},
+        {SmallTSU,CV},
+        {SmallTSU,CVD}
     };
 
     for ( const auto& phoVec : lookFor )
@@ -120,13 +131,14 @@ void Grammar::scanForSelectedPhoVec( const PhoVec& _phoVec )
         {
 
         case 0:
-        case 1:
         {
             if ( Grammar::check(sym, _phoVec.at(Grammar::hit)) ) continue;
             break;
         }
-        case 2: // now we talking
+        case 1:
         {
+            if ( !Grammar::check(sym, _phoVec.at(Grammar::hit)) ) continue;
+
             Grammar::hit = 0;
 
             const auto& firstSym    = Word::symWord.at(Grammar::pos - 1);
@@ -138,6 +150,9 @@ void Grammar::scanForSelectedPhoVec( const PhoVec& _phoVec )
 
             if ( firstSym.phonetics == N )
                 Grammar::NNMM(secondSym);
+
+            if ( firstSym.phonetics == SmallTSU )
+                Grammar::smallTsu(secondSym);
 
             break;
         }

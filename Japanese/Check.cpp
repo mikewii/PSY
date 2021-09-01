@@ -19,11 +19,12 @@ QString Check::pushSymbol( const QString& _symbol, const QString& _wordSym ) con
 
 QString Check::check( const QString& _in, const SymbolEnum _selected ) const
 {
-    QStringList charList;
-    u32         pos = 0;
-    QString     out;
-    auto        isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
-    int         strSize = 0;
+    QStringList     charList;
+    u32             pos = 0;
+    QString         out;
+    auto            isPhonetics = _selected == PhoneticsENG || _selected == PhoneticsRUS;
+    int             strSize = 0;
+    bool            haveSubtitute = !Word::substitute.empty();
 
 
     for ( auto& sym : Word::symWord )
@@ -40,10 +41,11 @@ QString Check::check( const QString& _in, const SymbolEnum _selected ) const
     {
         // make list of chars from naked string
         charList.reserve(Word::symWord.size());
-        for ( const auto& ch : Word::symWord )
+        for ( const auto& sym : Word::symWord )
         {
-            QString     currentCh;
-            const auto& size = ch.text.at(_selected).size();
+            QString         currentCh;
+            const auto&     size = sym.text.at(_selected).size();
+
 
             for ( int i = 0; i < size; i++ )
                 currentCh += _in.at(pos + i);
@@ -58,76 +60,35 @@ QString Check::check( const QString& _in, const SymbolEnum _selected ) const
             const auto& curWordSym  = Word::symWord.at(i);
             const auto& curWordCh   = Word::symWord.at(i).text.at(_selected);
             const auto& curCh       = charList.at(i);
+            QString     subStr      = "";
+            bool        checkSub    = false;
 
 
-            if ( curWordSym.phonetics == Phonetics::V )
+            if ( haveSubtitute )
             {
-                // if there is char behind
-                if ( i != 0 )
+                for ( const auto& sub : Word::substitute )
                 {
-                    const Symbol& prevWordSym = Word::symWord.at(i - 1);
-
-
-                    if ( Word::settings.useDoubleVowelSign && curCh == DoubleVowelSign.text.at(_selected) )
+                    if ( sub.first == i )
                     {
-                        if ( prevWordSym.phonetics == Phonetics::V )
-                        {
-                            if ( curWordSym.text.at(_selected) == prevWordSym.text.at(_selected) )
-                                out += makeGreenHTML(curCh);
-                            else out += makeRedHTML(curCh);
-
-                            continue;
-                        }
-                        else if ( prevWordSym.phonetics == Phonetics::CV )
-                        {
-                            out += makeGreenHTML(curCh);
-                            continue;
-                        }
+                        checkSub = true;
+                        subStr = sub.second.text.at(_selected);
                     }
-                    if ( Word::settings.useou && curCh == DoubleVowelSign.text.at(_selected) )
-                    {
-                        if ( prevWordSym.phonetics == Phonetics::CV )
-                        {
-                            if ( Word::isGoodForOU(prevWordSym) )
-                                out += makeGreenHTML(curCh);
-                            else out += makeRedHTML(curCh);
-
-                            continue;
-                        }
-                    }
-
-                    out += Check::pushSymbol(curCh, curWordCh);
-                }
-                else out += Check::pushSymbol(curCh, curWordCh);
-            }
-            else if ( curWordSym.phonetics == Phonetics::CV )
-            {
-                out += Check::pushSymbol(curCh, curWordCh);
-            }
-            else if ( curWordSym.phonetics == Phonetics::D )
-            {
-                out += Check::pushSymbol(curCh, curWordCh);
-            }
-            else if ( curWordSym.phonetics == Phonetics::CVD )
-            {
-                out += Check::pushSymbol(curCh, curWordCh);
-            }
-            else if ( curWordSym.phonetics == Phonetics::N )
-            {
-                out += Check::pushSymbol(curCh, curWordCh);
-            }
-            else if ( curWordSym.phonetics == Phonetics::SmallTSU )
-            {
-                if ( i + 1 < Word::symWord.size() )
-                {
-                    QString smallTsu;
-
-                    smallTsu = charList.at(i + 1);
-                    smallTsu.truncate(smallTsu.size() - 1);
-
-                    out += Check::pushSymbol(curCh, smallTsu);
                 }
             }
+
+            if ( checkSub )
+            {
+                QString ch;
+
+                if ( curCh == subStr )
+                    ch = subStr;
+
+                if ( curCh == curWordCh )
+                    ch = curWordCh;
+
+                out += Check::pushSymbol(curCh, ch);
+            }
+            else out += Check::pushSymbol(curCh, curWordCh);
         }
     }
     else
