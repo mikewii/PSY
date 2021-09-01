@@ -102,6 +102,12 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QWidget" name="Column10_W" native="true">
            <property name="sizePolicy">
@@ -180,6 +186,12 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QWidget" name="Column9_R" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -358,10 +370,10 @@
           <number>6</number>
          </property>
          <property name="leftMargin">
-          <number>9</number>
+          <number>2</number>
          </property>
          <property name="rightMargin">
-          <number>9</number>
+          <number>2</number>
          </property>
          <item>
           <widget class="QWidget" name="widget_4" native="true">
@@ -609,6 +621,12 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
          <item>
           <widget class="QWidget" name="Column5_N" native="true">
            <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1133,6 +1151,19 @@
          </item>
         </layout>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
