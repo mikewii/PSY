@@ -52,18 +52,17 @@ void Iconwindow::on_btn_save_clicked()
 
     file.close();
 
-    if ( true )
-    {
-        QFile filesvg(QDir::homePath() + QDir::separator() + "psyIcon.svg");
+#ifdef USE_SVG
+    QFile filesvg(QDir::homePath() + QDir::separator() + "psyIcon.svg");
 
-        filesvg.open(QIODevice::WriteOnly);
+    filesvg.open(QIODevice::WriteOnly);
 
-        QByteArray* data = this->curIsAppIcon ? Utils::getAppIconBytesArray() : Utils::getBytesArray();
+    QByteArray* data = this->curIsAppIcon ? Utils::getAppIconBytesArray() : Utils::getBytesArray();
 
-        filesvg.write(*data);
+    filesvg.write(*data);
 
-        filesvg.close();
-    }
+    filesvg.close();
+#endif
 }
 
 void Iconwindow::showAppIcon()

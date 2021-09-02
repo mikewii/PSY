@@ -57,7 +57,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected ) const
 
         for ( u32 i = 0; i < Word::symWord.size(); i++ )
         {
-            const auto& curWordSym  = Word::symWord.at(i);
+            //const auto& curWordSym  = Word::symWord.at(i);
             const auto& curWordCh   = Word::symWord.at(i).text.at(_selected);
             const auto& curCh       = charList.at(i);
             QString     subStr      = "";

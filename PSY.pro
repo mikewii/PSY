@@ -1,4 +1,11 @@
-QT       += core gui svg
+QT       += core gui
+
+USE_SVG = 1
+
+greaterThan(USE_SVG, 0) {
+    DEFINES += USE_SVG
+    QT += svg
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -33,7 +40,6 @@ HEADERS += \
     Japanese/Word.hpp \
     Journal/Emotion.hpp \
     Journal/Journal.hpp \
-    Kana.hpp \
     Mainwindow.h \
     Settings.hpp \
     Settingswindow.h \

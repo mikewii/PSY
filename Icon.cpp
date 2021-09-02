@@ -4,6 +4,10 @@
 #include <QtSvg/QSvgGenerator>
 #include <QBuffer>
 
+#ifdef USE_SVG
+static bool firstTime = true;
+#endif
+
 
 Icon::Icon( bool _text ) : useText(_text)
 {
@@ -49,15 +53,18 @@ void Icon::generateLines()
     }
 }
 
-static bool firstTime = true;
+
 void Icon::drawLines( void )
 {
+#ifdef USE_SVG
     QBuffer         buffer;
-    QPixmap         pix;
     QSvgGenerator   svg;
+#endif
+
+    QPixmap         pix(Icon::width, Icon::height);
     QPainter        painter;
 
-
+#ifdef USE_SVG
     if ( firstTime )
     {
         firstTime = false;
@@ -66,15 +73,16 @@ void Icon::drawLines( void )
     }
     else buffer.setBuffer(Utils::getBytesArray(true));
 
-
     svg.setSize(QSize(Icon::width, Icon::height));
     svg.setViewBox(QRect(0, 0, Icon::width, Icon::height));
     svg.setTitle("PSY Icon");
     svg.setDescription("An SVG drawing created by the SVG Generator");
     svg.setOutputDevice(&buffer);
 
-
     painter.begin(&svg);
+#else
+    painter.begin(&pix);
+#endif
 
     painter.fillRect(QRect(0, 0, Icon::width, Icon::height), Icon::getColor());
 
@@ -96,8 +104,9 @@ void Icon::drawLines( void )
 
     painter.end();
 
-
+#ifdef USE_SVG
     pix.loadFromData(buffer.data(), "SVG");
+#endif
 
     Icon::addPixmap(pix);
 }
