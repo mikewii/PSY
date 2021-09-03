@@ -20,4 +20,6 @@ private:
     void    doubleVowel( const Symbol& _first, const Symbol& _second );
     void    NNMM( const Symbol& _second );
     void    smallTsu( const Symbol& _second );
+
+    void    fixDoubleSubtitutes( void );
 };

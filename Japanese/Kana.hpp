@@ -62,7 +62,7 @@ struct Symbol {
 using SymVec = std::vector<Symbol>;
 using PhoVec = std::vector<Phonetics>;
 
-static Symbol   DoubleVowelSign = {{"", "", ":", ":"},{},{}};
+static Symbol   DoubleVowelSign = {{":", ":", ":", ":"},{},{}};
 //static const Symbol LongVowel       = {Phonetics::V, {"ー"}}
 static Symbol   SmallTsu    = {{"っ", "ッ", "|", "|"},        Phonetics::SmallTSU, Flags::NONE};
 static Symbol   NN          = {{"ん", "ン", "nn", "нн"},    Phonetics::N, Flags::NONE};
@@ -331,7 +331,7 @@ static SymVec KanaExtraW =
 
 static SymVec KanaSmallY =
 {
-    {{"ゃ", "ャ", "", ""},{},{}},
-    {{"ゅ", "ュ", "", ""},{},{}},
-    {{"ょ", "ョ", "", ""},{},{}}
+    {{"ゃ", "ャ", "ya", "я"},{},{}},
+    {{"ゅ", "ュ", "yu", "ю"},{},{}},
+    {{"ょ", "ョ", "yo", "ё"},{},{}}
 };

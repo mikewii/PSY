@@ -6,6 +6,7 @@ void Grammar::run()
     Word::substitute.clear();
 
     Grammar::scan();
+    Grammar::fixDoubleSubtitutes();
     Grammar::removeTriplets();
 }
 
@@ -99,6 +100,43 @@ void Grammar::smallTsu( const Symbol& _second )
     Symbol  smallTSU = {{"","",eng,rus},{},{}};
 
     Word::substitute.push_back({Grammar::pos - 1, smallTSU});
+}
+
+void Grammar::fixDoubleSubtitutes()
+{
+    std::vector<uint32_t>   skipVec;
+
+
+    if ( Word::substitute.size() > 1)
+    {
+        std::sort(Word::substitute.begin(), Word::substitute.end(),
+            [&](const std::pair<uint32_t, Symbol>& a, const std::pair<uint32_t, Symbol>& b) -> bool
+        {
+            return a.first < b.first;
+        }
+        );
+
+
+        bool done = false;
+        while ( !done )
+        {
+            if ( Word::substitute.size() < 2 ) break;
+
+            for ( uint32_t i = 1; i < Word::substitute.size(); i++ )
+            {
+                const auto& prevSub = Word::substitute.at(i - 1);
+                const auto& curSub  = Word::substitute.at(i);
+
+
+                if ( curSub.second.text.at(Hiragana) == prevSub.second.text.at(Hiragana) )
+                {
+                    Word::substitute.erase(Word::substitute.begin() + i);
+                    break;
+                }
+                else done = true;
+            }
+        }
+    }
 }
 
 
