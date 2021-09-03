@@ -335,7 +335,13 @@ void Word::run( const Settings_s& _settings )
 
     Word::makeKanaStrings();
 
-    //Word::symWord = {KanaVowels.at(1), KanaVowels.at(1), KanaVowels.at(0), KanaVowels.at(0)};
+//    Word::symWord = {
+//        KanaVowels.at(3),
+//        KanaK.at(0),
+//        KanaVowels.at(0),
+//        KanaVowels.at(0),
+//        KanaVowels.at(3),
+//        KanaVowels.at(0)};
 }
 
 bool Word::isGoodForOU( const Symbol& _sym ) const

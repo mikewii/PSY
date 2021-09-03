@@ -45,9 +45,9 @@ void Grammar::doubleVowel( const Symbol& _first, const Symbol& _second )
             if ( Word::getRowIndex(_first) == 5 && Word::getRowIndex(_second) == 3 )
                 Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
 
-            // kaa gaa > ka: ga: // this brings confusion
-            //else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) )
-            //    Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
+            // kaa gaa > ka: ga:  but koo > koo
+            else if ( Word::getRowIndex(_first) == Word::getRowIndex(_second) && Word::getRowIndex(_second) != 5 )
+                Word::substitute.push_back({Grammar::pos, DoubleVowelSign});
 
             break;
         }
