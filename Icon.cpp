@@ -1,14 +1,15 @@
 #include "Icon.hpp"
 #include "Utils.h"
 #include <QPainter>
-#include <QtSvg/QSvgGenerator>
 #include <QBuffer>
 
 #ifdef USE_SVG
+#include <QtSvg/QSvgGenerator>
+
 static bool firstTime = true;
 #endif
 
-
+#include <QPalette>
 Icon::Icon( bool _text ) : useText(_text)
 {
     Icon::generate();
@@ -20,7 +21,7 @@ Icon::Icon( int _w, int _h, bool _text ) : width(_w), height(_h), useText(_text)
 }
 
 void Icon::generate()
-{
+{   
     Icon::rotated = Utils::getRandomBool();
 
     Icon::generateLines();
@@ -35,7 +36,7 @@ void Icon::generateLines()
     auto    widthLimit  = Icon::rotated ? Icon::width / 4 : limit;
 
 
-    for(;filled < limit;)
+    while( filled < limit )
     {
         int     height = Utils::getRandom(1, limit - filled);
         int     hSplit = Utils::getRandom(1, widthLimit);
@@ -47,9 +48,9 @@ void Icon::generateLines()
         QRect line1(0, filled, hSplit, height + 1);
         QRect line2(hSplit, filled, Icon::width - hSplit, height + 1);
 
-        filled += height;
-
         Icon::lines.push_back({line1, line2, col1, col2});
+
+        filled += height;
     }
 }
 
@@ -111,7 +112,7 @@ void Icon::drawLines( void )
     Icon::addPixmap(pix);
 }
 
-void Icon::drawLinesDo(QPainter &_painter)
+void Icon::drawLinesDo( QPainter& _painter )
 {
     for ( auto& line : Icon::lines )
     {
