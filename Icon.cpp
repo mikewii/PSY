@@ -9,7 +9,7 @@
 static bool firstTime = true;
 #endif
 
-#include <QPalette>
+
 Icon::Icon( bool _text ) : useText(_text)
 {
     Icon::generate();
