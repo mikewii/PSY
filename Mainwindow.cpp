@@ -4,7 +4,6 @@
 #include <QTime>
 #include "Icon.hpp"
 #include "Iconwindow.h"
-#include "Probability.hpp"
 
 
 MainWindow::MainWindow(QWidget *parent)
