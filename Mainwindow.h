@@ -3,6 +3,10 @@
 #include "Journal/Journal.hpp"
 #include "Japanese/Japanese.hpp"
 #include "Settingswindow.h"
+#include <QLabel>
+#include <QSpinBox>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +50,14 @@ private slots:
 private:
     Ui::MainWindow  *ui;
     SettingsWindow  *uiSettings;
+
+    struct ProbItem {
+        QWidget*    widget;
+        QLabel*     label;
+        QSpinBox*   spinox;
+    };
+
+    std::vector<ProbItem>  probVec;
 
     void fillAllCBox( void );
 };

@@ -45,7 +45,6 @@ HEADERS += \
     Journal/Emotion.hpp \
     Journal/Journal.hpp \
     Mainwindow.h \
-    Probability.hpp \
     Settings.hpp \
     Settingswindow.h \
     Utils.h
