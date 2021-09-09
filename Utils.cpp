@@ -25,6 +25,14 @@ uint32_t Utils::getRandom( uint32_t _min, uint32_t _max )
     return (uniform(rng));
 }
 
+uint32_t    Utils::getRandomChance( const std::vector<uint32_t>& _vec )
+{
+    std::discrete_distribution<uint32_t>    uniform(_vec.begin(), _vec.end());
+
+    return (uniform(rng));
+}
+
+
 bool    Utils::getRandomBool( void )
 {
     return Utils::getRandom(0, 1);

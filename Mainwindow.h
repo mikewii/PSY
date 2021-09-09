@@ -16,7 +16,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void updateHTMLFontSize( void );
+    void    updateHTMLFontSize( void );
+    void    constructProbVec( void );
 
 private slots:
     void notify( QString _text, int _timeoutSec = 10 );
@@ -33,6 +34,14 @@ private slots:
     void on_fontSizeJPN_valueChanged(int arg1);
 
     void on_actionShow_triggered();
+
+    void on_probabilityRun_clicked();
+
+    void on_vectorSize_valueChanged(int arg1);
+
+    void on_normalizeButton_clicked();
+
+    void on_checkUntilA_toggled(bool checked);
 
 private:
     Ui::MainWindow  *ui;

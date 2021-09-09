@@ -3,8 +3,8 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 
-USE_SVG = 0
-qtHaveModule(svg): USE_SVG = 1
+USE_SVG = 1
+!qtHaveModule(svg): USE_SVG = 0
 
 greaterThan(USE_SVG, 0) {
     DEFINES += USE_SVG
@@ -28,6 +28,7 @@ SOURCES += \
     Japanese/Word.cpp \
     Journal/Journal.cpp \
     Mainwindow.cpp \
+    Probability.cpp \
     Settingswindow.cpp \
     Utils.cpp \
     main.cpp
@@ -44,6 +45,7 @@ HEADERS += \
     Journal/Emotion.hpp \
     Journal/Journal.hpp \
     Mainwindow.h \
+    Probability.hpp \
     Settings.hpp \
     Settingswindow.h \
     Utils.h
