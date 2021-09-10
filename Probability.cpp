@@ -149,27 +149,27 @@ void MainWindow::on_vectorSize_valueChanged( int arg1 )
 void MainWindow::on_normalizeButton_clicked()
 {
     std::vector<uint32_t>       vec;
-    auto                        total = 0;
+    auto                        total   = 0;
     const auto&                 value   = this->ui->normalizeValue->value();
     const auto&                 valueA  = this->ui->valueA->value();
     auto                        div     = this->ui->vectorSize->value();
 
     div -= 1; // dont count first one
+    vec.reserve(div);
 
+    // guards
     if ( div == 1 )
     {
         probVec.at(1).spinox->setValue(value - valueA);
         return;
     }
-
     if ( (value - valueA - div) <= div )
         return;
+    // /guards
 
 
     auto    rLimit = value - 1 - div - valueA;
 
-
-    vec.reserve(div);
 
     for ( auto i = 0; i < div - 1; i++ )
     {
