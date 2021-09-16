@@ -45,7 +45,7 @@ private slots:
 
     void on_normalizeButton_clicked();
 
-    void on_checkUntilA_toggled(bool checked);
+    void on_checkUntilTarget_toggled(bool checked);
 
 private:
     Ui::MainWindow  *ui;

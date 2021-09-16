@@ -2,6 +2,12 @@
 #include <QDir>
 #include <QTime>
 
+#ifdef __linux__
+    const char* eol = "\n";
+#elif _WIN32
+    const char* eol = "\r\n";
+#endif
+
 
 Journal::Journal()
 {
@@ -17,13 +23,12 @@ bool Journal::append( const QString& _text, const Emotion _emotion )
     QString fulltext;
     auto    time    = QTime::currentTime();
     auto    date    = QDate::currentDate();
-    auto    fmt     = Qt::DateFormat::SystemLocaleDate;
 
 
     // date time
-    fulltext += date.toString(fmt);
+    fulltext += date.toString(Journal::fmt);
     fulltext += space;
-    fulltext += time.toString(fmt);
+    fulltext += time.toString(Journal::fmt);
     fulltext += space;
     fulltext += divider;
 
@@ -55,14 +60,14 @@ bool Journal::append( const QString& _text, const Emotion _emotion )
         fulltext += EmoLove.at(_emotion.Love);
     }
 
-    fulltext += nl;
+    fulltext += eol;
 
 
     // text
     fulltext += ":> ";
     fulltext += _text;
-    fulltext += nl;
-    fulltext += nl;
+    fulltext += eol;
+    fulltext += eol;
 
 
     // write

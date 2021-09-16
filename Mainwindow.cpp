@@ -34,7 +34,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateHTMLFontSize()
 {
-    QRegExp regex("[0-9]+pt");
+    QRegularExpression regex("[0-9]+pt");
     QString fontSize = QString::number(this->ui->fontSizeJPN->value()) + "pt";
 
     auto html = this->ui->comparedText->toHtml();
@@ -201,3 +201,9 @@ void MainWindow::on_actionShow_triggered()
 
     delete i;
 }
+
+void MainWindow::on_checkUntilTarget_toggled(bool checked)
+{
+    this->ui->cycleAmmount->setEnabled(!checked);
+}
+

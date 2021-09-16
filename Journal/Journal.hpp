@@ -11,10 +11,9 @@
 class Journal
 {
 public:
-    static const auto   fmt     = Qt::DateFormat::SystemLocaleDate;
     static const char   space   = ' ';
     static const char   divider = '|';
-    static const char   nl      = '\n';
+    static const auto   fmt     = Qt::DateFormat::ISODate;
 
     struct Emotion {
         int Anger;

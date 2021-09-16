@@ -190,9 +190,3 @@ void MainWindow::on_normalizeButton_clicked()
     for ( auto i = 1; i <= div; i++ )
         probVec.at(i).spinox->setValue(vec.at(i - 1));
 }
-
-
-void MainWindow::on_checkUntilA_toggled(bool checked)
-{
-    this->ui->cycleAmmount->setEnabled(!checked);
-}

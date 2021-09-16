@@ -1,4 +1,6 @@
-QT       += core gui
+QT          += core gui
+CONFIG      += c++11
+RC_ICONS    = icon.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -8,11 +10,8 @@ USE_SVG = 1
 
 greaterThan(USE_SVG, 0) {
     DEFINES += USE_SVG
-    QT += svg
+    QT      += svg
 }
-
-
-CONFIG += c++11
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

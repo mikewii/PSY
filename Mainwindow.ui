@@ -757,7 +757,7 @@ p, li { white-space: pre-wrap; }
             <number>0</number>
            </property>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="topFrameWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -810,11 +810,8 @@ p, li { white-space: pre-wrap; }
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="tabStopWidth">
-                 <number>80</number>
-                </property>
-                <property name="textInteractionFlags">
-                 <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+                <property name="readOnly">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -822,7 +819,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="topFrameRightWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -843,7 +840,7 @@ p, li { white-space: pre-wrap; }
                <number>0</number>
               </property>
               <item>
-               <widget class="QWidget" name="widget" native="true">
+               <widget class="QWidget" name="probNameWidget" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -953,6 +950,9 @@ p, li { white-space: pre-wrap; }
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -993,6 +993,9 @@ p, li { white-space: pre-wrap; }
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
                       </property>
                      </widget>
                     </item>
@@ -1035,6 +1038,9 @@ p, li { white-space: pre-wrap; }
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -1075,6 +1081,9 @@ p, li { white-space: pre-wrap; }
                       </property>
                       <property name="minimum">
                        <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
                       </property>
                      </widget>
                     </item>
@@ -1135,6 +1144,9 @@ p, li { white-space: pre-wrap; }
                       <property name="minimum">
                        <number>1</number>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -1175,6 +1187,9 @@ p, li { white-space: pre-wrap; }
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
                       </property>
                      </widget>
                     </item>
@@ -1217,6 +1232,9 @@ p, li { white-space: pre-wrap; }
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -1257,6 +1275,9 @@ p, li { white-space: pre-wrap; }
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
                       </property>
                      </widget>
                     </item>
@@ -1305,6 +1326,9 @@ p, li { white-space: pre-wrap; }
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -1346,6 +1370,9 @@ p, li { white-space: pre-wrap; }
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
                       </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
                      </widget>
                     </item>
                    </layout>
@@ -1355,7 +1382,7 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget" native="true">
+               <widget class="QWidget" name="probSettingsWidget" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1364,7 +1391,7 @@ p, li { white-space: pre-wrap; }
                 </property>
                 <layout class="QHBoxLayout" name="horizontalLayout_11">
                  <item>
-                  <widget class="QWidget" name="widget" native="true">
+                  <widget class="QWidget" name="probSettingsSizeWidget" native="true">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -1427,7 +1454,7 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item>
-                  <widget class="QWidget" name="widget" native="true">
+                  <widget class="QWidget" name="probSettingsNormalizeWidget" native="true">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                      <horstretch>0</horstretch>
@@ -1486,7 +1513,7 @@ p, li { white-space: pre-wrap; }
                </widget>
               </item>
               <item>
-               <widget class="QWidget" name="widget" native="true">
+               <widget class="QWidget" name="probSettingsWidget_2" native="true">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -1555,7 +1582,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true">
+         <widget class="QWidget" name="probSettingsBottonWidget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -1577,7 +1604,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="probSettingsCyclseWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1633,7 +1660,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="probSettingsCostWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1684,7 +1711,7 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget" native="true">
+            <widget class="QWidget" name="probSettingsTargetWidget" native="true">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>

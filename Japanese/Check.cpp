@@ -76,7 +76,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected ) const
                 }
             }
 
-            if ( checkSub )
+            if ( checkSub && curCh != ':' )
             {
                 QString ch;
 
@@ -111,7 +111,7 @@ QString Check::check( const QString& _in, const SymbolEnum _selected ) const
 
 bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) const
 {
-    static const char* russian[] =
+    static const QString russian[] =
     {
         "а", "б", "в", "г", "д", "е",
         "ё", "ж", "з", "и", "й", "к",
@@ -121,7 +121,7 @@ bool Check::alphabetCheck( const QString& _text, const SymbolEnum _selected) con
         "э", "ю", "я"
     };
 
-    static const char* english[] =
+    static const QString english[] =
     {
         "a", "b", "c", "d", "e",
         "f", "g", "h", "i", "j",
