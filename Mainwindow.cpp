@@ -4,6 +4,7 @@
 #include <QTime>
 #include "Icon.hpp"
 #include "Iconwindow.h"
+#include <QColorDialog>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -195,15 +196,21 @@ void MainWindow::on_fontSizeJPN_valueChanged(int arg1)
 
 void MainWindow::on_actionShow_triggered()
 {
-    Iconwindow* i = new Iconwindow(this);
+    Iconwindow icon;
 
-    i->exec();
-
-    delete i;
+    icon.exec();
 }
 
 void MainWindow::on_checkUntilTarget_toggled(bool checked)
 {
     this->ui->cycleAmmount->setEnabled(!checked);
+}
+
+
+void MainWindow::on_actionColor_picker_triggered()
+{
+    QColorDialog diag;
+
+    diag.exec();
 }
 

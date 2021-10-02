@@ -13,7 +13,7 @@ class Journal
 public:
     static const char   space   = ' ';
     static const char   divider = '|';
-    static const auto   fmt     = Qt::DateFormat::ISODate;
+    static const auto   fmt     = Qt::DateFormat::RFC2822Date;
 
     struct Emotion {
         int Anger;

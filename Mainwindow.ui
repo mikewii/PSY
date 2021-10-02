@@ -1800,16 +1800,22 @@ p, li { white-space: pre-wrap; }
    </property>
    <widget class="QMenu" name="menuIcon">
     <property name="title">
-     <string>Icon</string>
+     <string>Misc</string>
     </property>
     <addaction name="actionShow"/>
+    <addaction name="actionColor_picker"/>
    </widget>
    <addaction name="menuIcon"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionShow">
    <property name="text">
-    <string>Show</string>
+    <string>Icon Generator</string>
+   </property>
+  </action>
+  <action name="actionColor_picker">
+   <property name="text">
+    <string>Color picker</string>
    </property>
   </action>
  </widget>

@@ -47,6 +47,8 @@ private slots:
 
     void on_checkUntilTarget_toggled(bool checked);
 
+    void on_actionColor_picker_triggered();
+
 private:
     Ui::MainWindow  *ui;
     SettingsWindow  *uiSettings;
