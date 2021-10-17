@@ -32,42 +32,65 @@ static uint32_t    getTotal( const std::vector<uint32_t>& _vec, const uint32_t _
     return total;
 }
 
+uint32_t FindMedian(const std::vector<uint32_t>& vec)
+{
+    uint32_t total = 0;
+
+    for (const auto& num : vec)
+        total += num;
+
+    return total / vec.size();
+}
 
 void MainWindow::on_probabilityRun_clicked()
 {
     QString                 outText;
     std::vector<uint32_t>   valuesVec;
     std::vector<uint32_t>   resultVec;
+    std::vector<uint32_t>   medianVec;
     const auto&             vecSize = this->ui->vectorSize->value();
     const auto&             cycleAmmount = this->ui->cycleAmmount->value();
     const auto&             costPerCycle = this->ui->cycleCost->value();
     const auto&             textOutput = this->ui->textOutputProb;
     const auto&             untilTarget = this->ui->checkUntilTarget->isChecked();
-    uint32_t                target = this->ui->target->currentIndex();
+    const uint32_t          target = this->ui->target->currentIndex();
+    const uint32_t          runToTargetCount = this->ui->runToTargetCount->value();
     uint32_t                totalCost = 0;
+    uint32_t                res = 0;
+
 
     // fill values vector
-    for ( auto i = 0; i < vecSize; i++ )
+    for (auto i = 0; i < vecSize; i++)
         valuesVec.push_back(probVec.at(i).spinox->value());
 
 
-    if ( untilTarget )
+    if (untilTarget)
     {
-        if ( probVec.at(target).spinox->value() == 0 )
+        if (probVec.at(target).spinox->value() == 0)
         {
             textOutput->setText("Target must not be 0!");
             return;
         }
 
+        medianVec.reserve(runToTargetCount);
 
-        for (;;)
+        for (uint32_t i = 0; i < runToTargetCount; i++)
         {
-            auto res = Utils::getRandomChance(valuesVec);
+            uint32_t localCost = 0;
 
-            totalCost += costPerCycle;
-            resultVec.push_back(res);
+            for (;;)
+            {
+                res = Utils::getRandomChance(valuesVec);
 
-            if ( res == target ) break;
+                localCost += costPerCycle;
+                resultVec.push_back(res);
+
+                if (res == target) break;
+            }
+
+            totalCost += localCost;
+
+            medianVec.push_back(localCost);
         }
     }
     else
@@ -81,7 +104,7 @@ void MainWindow::on_probabilityRun_clicked()
     }
 
 
-    for ( uint32_t i = 0; i < valuesVec.size(); i++ )
+    for (uint32_t i = 0; i < valuesVec.size(); i++)
     {
         QString text = QString::asprintf("Total %s = %d\n",
                         getSymbol(i).toStdString().c_str(), getTotal(resultVec, i));
@@ -89,9 +112,16 @@ void MainWindow::on_probabilityRun_clicked()
         outText += text;
     }
 
-    if ( untilTarget )
-        outText += QString::asprintf("Cost to reach %s = %d\n",
+    if (untilTarget)
+    {
+        outText += QString::asprintf("Total Cost to reach %s = %d\n",
                         getSymbol(target).toStdString().c_str(), totalCost);
+
+
+        outText += QString::asprintf("Median Min:   %u\n", *std::min_element(medianVec.begin(), medianVec.end()));
+        outText += QString::asprintf("Median Max:   %u\n", *std::max_element(medianVec.begin(), medianVec.end()));
+        outText += QString::asprintf("Median:       %lu\n", std::accumulate(medianVec.begin(), medianVec.end(), 0) / medianVec.size());
+    }
 
     textOutput->setText(outText);
 }
@@ -99,7 +129,7 @@ void MainWindow::on_probabilityRun_clicked()
 
 void MainWindow::on_vectorSize_valueChanged( int arg1 )
 {
-    static const QString    enabled = "background-color: rgb(0, 70, 0);";
+    //static const QString    enabled = "background-color: rgb(0, 70, 0);";
     const auto&             applyDefault = this->ui->checkApplyDefault->isChecked();
     const auto&             defaultValue = this->ui->defaultValue->value();
 
@@ -116,7 +146,7 @@ void MainWindow::on_vectorSize_valueChanged( int arg1 )
 
         if ( i > 1 )
         {
-            widget->setStyleSheet(enabled);
+            //widget->setStyleSheet(enabled);
 
             spinbox->setEnabled(true);
             label->setEnabled(true);
@@ -133,7 +163,7 @@ void MainWindow::on_vectorSize_valueChanged( int arg1 )
         label->setEnabled(false);
         spinbox->setEnabled(false);
 
-        widget->setStyleSheet("");
+        //widget->setStyleSheet("");
     }
 
 
